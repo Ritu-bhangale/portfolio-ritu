@@ -67,3 +67,5 @@ public/og
 
 # Local Netlify folder
 .netlify
+
+.vercel
