@@ -62,8 +62,6 @@ I do not give permission to present any of my projects as your own (this is bein
 
 <details>
   <summary>How do I change the color on the <code>DisplacementSphere</code> (blobby rotating thing in the background).</summary>
-
-  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
 </details>
 
 <details>
