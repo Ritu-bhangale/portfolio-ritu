@@ -1,0 +1,32 @@
+
+The humans.txt file explains the team, technology,
+and graphic assets behind this site humanstxt.org.
+
+_______________________________________________________________________________
+
+DESIGNER 
+
+Ritu Bhangale
+UI design & Web development
+
+Design tools:
+Figma
+Adobe Illustrator
+
+
+github.com/Ritu-bhangale/
+
+_______________________________________________________________________________
+
+TECHNOLOGY 
+
+React
+Next.js
+Three.js
+Framer Motion
+
+_______________________________________________________________________________
+
+FONTS |
+
+Gotham
