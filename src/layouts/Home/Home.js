@@ -14,6 +14,8 @@ import coffeeTextureLarge from '../../assets/coffee-home-large.jpg';
 import coffeeTexturePlaceholder from '../../assets/coffee-home-placeholder.jpg';
 import coffeeTexture from '../../assets/coffee-home.jpg';
 import visualiseDsa from '../../assets/visualize-dsa.png';
+import pinterestLogin from '../../assets/pinterest - Login.png';
+import pinterestPost from '../../assets/pinterest - Post.png';
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
@@ -35,7 +37,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
+    const sections = [intro, projectOne, projectTwo, projectThree, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -84,9 +86,34 @@ export const Home = () => {
       />
       <ProjectSummary
         id="project-1"
+        alternate
+        sectionRef={projectTwo}
+        visible={visibleSections.includes(projectTwo.current)}
+        index={1}
+        title="Revamping the User Experience"
+        description="An UI UX case study of Pinterest."
+        buttonText="View project"
+        buttonLink="https://www.behance.net/gallery/169532413/Revamping-the-User-Experience-of-Pinterest"
+        model={{
+          type: 'phone',
+          alt: 'App login screen',
+          textures: [
+            {
+              srcSet: [pinterestLogin, pinterestLogin],
+              placeholder: pinterestLogin,
+            },
+            {
+              srcSet: [pinterestPost, pinterestPost],
+              placeholder: pinterestPost,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
+        id="project-2"
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
-        index={1}
+        index={2}
         title="Flent - Furniture & Appliances rental app."
         description="User Eperience and User Interface of Dummy Project."
         buttonText="View project"
@@ -107,10 +134,10 @@ export const Home = () => {
         }}
       />
       <ProjectSummary
-        id="project-4"
-        sectionRef={projectFour}
-        visible={visibleSections.includes(projectFour.current)}
-        index={2}
+        id="project-3"
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
         title="Visualize - DSA"
         description=" An interactive tool to visualize data structures and algorithms."
         buttonText="View project"
@@ -126,33 +153,8 @@ export const Home = () => {
           ],
         }}
       />
-      <ProjectSummary
-        id="project-2"
-        alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
-        index={3}
-        title="Noyyal - Mental Wellness App"
-        description="An UI UX case study of Project built during Hackathon."
-        buttonText="View project"
-        buttonLink="https://www.behance.net/gallery/132527183/Noyyal"
-        model={{
-          type: 'phone',
-          alt: 'App login screen',
-          textures: [
-            {
-              srcSet: [noyyalTexture, noyalTextureLarge],
-              placeholder: noyyalTexturePlaceholder,
-            },
-            {
-              srcSet: [noyyalTexture2, noyalTexture2Large],
-              placeholder: noyyalTexture2Placeholder,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-3"
+      {/* <ProjectSummary
+        id="project-4"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={4}
@@ -170,7 +172,7 @@ export const Home = () => {
             },
           ],
         }}
-      />
+      /> */}
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
