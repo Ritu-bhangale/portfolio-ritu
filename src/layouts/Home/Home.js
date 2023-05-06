@@ -14,6 +14,8 @@ import coffeeTextureLarge from '../../assets/coffee-home-large.jpg';
 import coffeeTexturePlaceholder from '../../assets/coffee-home-placeholder.jpg';
 import coffeeTexture from '../../assets/coffee-home.jpg';
 import visualiseDsa from '../../assets/visualize-dsa.png';
+import canteenLanding from '../../assets/canteen-landing.png';
+import canteenHome from '../../assets/canteen-home.png';
 import pinterestLogin from '../../assets/pinterest - Login.png';
 import pinterestPost from '../../assets/pinterest - Post.png';
 import { Footer } from 'components/Footer';
@@ -37,7 +39,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, details];
+    const sections = [intro, projectOne, projectTwo, projectFour, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -114,26 +116,26 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={2}
-        title="Flent - Furniture & Appliances rental app."
-        description="User Eperience and User Interface of Dummy Project."
+        title="A User-Friendly Canteen App"
+        description=" A UX Design Case Study"
         buttonText="View project"
-        buttonLink="/projects/flent"
+        buttonLink="https://medium.com/@rits_8/a-user-friendly-canteen-app-a-ux-design-case-study-8d9ee5f63d19"
         model={{
           type: 'phone',
-          alt: 'flent app ui',
+          alt: 'rushorder app ui',
           textures: [
             {
-              srcSet: [flentTexture, flentTextureLarge],
-              placeholder: flentTexturePlaceholder,
+              srcSet: [canteenHome, canteenHome],
+              placeholder: canteenHome,
             },
             {
-              srcSet: [flentTexture2, flentTexture2Large],
-              placeholder: flentTexture2Placeholder,
+              srcSet: [canteenLanding, canteenLanding],
+              placeholder: canteenLanding,
             },
           ],
         }}
       />
-      <ProjectSummary
+      {/* <ProjectSummary
         id="project-3"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
@@ -152,10 +154,10 @@ export const Home = () => {
             },
           ],
         }}
-      />
-      {/* <ProjectSummary
+      /> */}
+      <ProjectSummary
         id="project-4"
-        sectionRef={projectThree}
+        sectionRef={projectFour}
         visible={visibleSections.includes(projectThree.current)}
         index={4}
         title="Coffee-Bite ( UI Development and Branding Design)"
@@ -172,7 +174,7 @@ export const Home = () => {
             },
           ],
         }}
-      /> */}
+      />
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
