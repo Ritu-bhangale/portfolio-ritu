@@ -95,7 +95,7 @@ export const Home = () => {
         title="Revamping the User Experience"
         description="An UI UX case study of Pinterest."
         buttonText="View project"
-        buttonLink="https://www.behance.net/gallery/169532413/Revamping-the-User-Experience-of-Pinterest"
+        buttonLink="https://medium.com/@rits_8/revamping-the-user-experience-pinterest-92420843dc4a"
         model={{
           type: 'phone',
           alt: 'App login screen',
@@ -159,7 +159,7 @@ export const Home = () => {
         id="project-4"
         sectionRef={projectFour}
         visible={visibleSections.includes(projectThree.current)}
-        index={4}
+        index={3}
         title="Coffee-Bite ( UI Development and Branding Design)"
         description="Developed and Designed website for dummy brand Coffee-bite."
         buttonText="View project"
