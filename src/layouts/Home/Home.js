@@ -39,7 +39,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectFour, details];
+    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -156,10 +156,34 @@ export const Home = () => {
         }}
       /> */}
       <ProjectSummary
+        id="project-3"
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
+        title="Flent - UI Design"
+        description="Focused on UX(UI) rather than UX(product)."
+        buttonText="View project"
+        buttonLink="https://www.behance.net/gallery/170470277/Flent-UI"
+        model={{
+          type: 'phone',
+          alt: 'rushorder app ui',
+          textures: [
+            {
+              srcSet: [flentTexture, flentTexture],
+              placeholder: flentTexture,
+            },
+            {
+              srcSet: [flentTexture2, flentTexture2],
+              placeholder: flentTexture2,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
         id="project-4"
         sectionRef={projectFour}
         visible={visibleSections.includes(projectThree.current)}
-        index={3}
+        index={4}
         title="Coffee-Bite ( UI Development and Branding Design)"
         description="Developed and Designed website for dummy brand Coffee-bite."
         buttonText="View project"
