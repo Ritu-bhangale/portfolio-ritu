@@ -169,12 +169,12 @@ export const Home = () => {
           alt: 'rushorder app ui',
           textures: [
             {
-              srcSet: [flentTexture, flentTexture],
-              placeholder: flentTexture,
+              srcSet: [flentTextureLarge, flentTextureLarge],
+              placeholder: flentTextureLarge,
             },
             {
-              srcSet: [flentTexture2, flentTexture2],
-              placeholder: flentTexture2,
+              srcSet: [flentTexture2Large, flentTexture2Large],
+              placeholder: flentTexture2Large,
             },
           ],
         }}
