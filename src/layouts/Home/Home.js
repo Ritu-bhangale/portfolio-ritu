@@ -11,6 +11,7 @@ import noyalTexture2Large from '../../assets/noyyal-audio-large.jpg';
 import noyyalTexture2Placeholder from '../../assets/noyyal-audio-placeholder.jpg';
 import noyyalTexture2 from '../../assets/noyyal-audio.jpg';
 import coffeeTextureLarge from '../../assets/coffee-home-large.jpg';
+import iiitnagpur from '../../assets/iiit nagpur.png';
 import coffeeTexturePlaceholder from '../../assets/coffee-home-placeholder.jpg';
 import coffeeTexture from '../../assets/coffee-home.jpg';
 import visualiseDsa from '../../assets/visualize-dsa.png';
@@ -113,9 +114,29 @@ export const Home = () => {
       />
       <ProjectSummary
         id="project-2"
-        sectionRef={projectOne}
-        visible={visibleSections.includes(projectOne.current)}
+        sectionRef={projectTwo}
+        visible={visibleSections.includes(projectThree.current)}
         index={2}
+        title="Unveiling the New Horizon"
+        description=" Transforming the Institute's Website for an Optimal User Experience."
+        buttonText="View project"
+        buttonLink="https://languid-turtle-a74.notion.site/Transforming-the-Institute-s-Website-for-an-Optimal-User-Experience-6d2fb0873c1a4bf09ec4878fa433df9f"
+        model={{
+          type: 'laptop',
+          alt: 'Annotating a interface of webstite UI',
+          textures: [
+            {
+              srcSet: [iiitnagpur, iiitnagpur],
+              placeholder: iiitnagpur,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
+        id="project-3"
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectOne.current)}
+        index={3}
         title="A User-Friendly Canteen App"
         description=" A UX Design Case Study"
         buttonText="View project"
@@ -135,31 +156,11 @@ export const Home = () => {
           ],
         }}
       />
-      {/* <ProjectSummary
-        id="project-3"
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="Visualize - DSA"
-        description=" An interactive tool to visualize data structures and algorithms."
-        buttonText="View project"
-        buttonLink="https://visualize-dsa.netlify.app/"
-        model={{
-          type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
-          textures: [
-            {
-              srcSet: [visualiseDsa, visualiseDsa],
-              placeholder: visualiseDsa,
-            },
-          ],
-        }}
-      /> */}
       <ProjectSummary
-        id="project-3"
-        sectionRef={projectThree}
+        id="project-4"
+        sectionRef={projectFour}
         visible={visibleSections.includes(projectThree.current)}
-        index={3}
+        index={4}
         title="Flent - UI Design"
         description="Focused on UX(UI) rather than UX(product)."
         buttonText="View project"
@@ -179,7 +180,7 @@ export const Home = () => {
           ],
         }}
       />
-      <ProjectSummary
+      {/* <ProjectSummary
         id="project-4"
         sectionRef={projectFour}
         visible={visibleSections.includes(projectThree.current)}
@@ -198,7 +199,7 @@ export const Home = () => {
             },
           ],
         }}
-      />
+      /> */}
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
