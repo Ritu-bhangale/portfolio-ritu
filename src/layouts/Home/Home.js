@@ -90,8 +90,8 @@ export const Home = () => {
       <ProjectSummary
         id="project-1"
         alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
+        sectionRef={projectOne}
+        visible={visibleSections.includes(projectOne.current)}
         index={1}
         title="Revamping the User Experience"
         description="An UI UX case study of Pinterest."
@@ -115,7 +115,7 @@ export const Home = () => {
       <ProjectSummary
         id="project-2"
         sectionRef={projectTwo}
-        visible={visibleSections.includes(projectThree.current)}
+        visible={visibleSections.includes(projectTwo.current)}
         index={2}
         title="Unveiling the New Horizon"
         description=" Transforming the Institute's Website for an Optimal User Experience."
@@ -135,7 +135,7 @@ export const Home = () => {
       <ProjectSummary
         id="project-3"
         sectionRef={projectThree}
-        visible={visibleSections.includes(projectOne.current)}
+        visible={visibleSections.includes(projectThree.current)}
         index={3}
         title="A User-Friendly Canteen App"
         description=" A UX Design Case Study"
@@ -159,7 +159,7 @@ export const Home = () => {
       <ProjectSummary
         id="project-4"
         sectionRef={projectFour}
-        visible={visibleSections.includes(projectThree.current)}
+        visible={visibleSections.includes(projectFour.current)}
         index={4}
         title="Flent - UI Design"
         description="Focused on UX(UI) rather than UX(product)."
