@@ -71,16 +71,6 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 <VisuallyHidden className={styles.label}>
                   {`Designer + ${introLabel}`}
                 </VisuallyHidden>
-                <span aria-hidden className={styles.row}>
-                  <span
-                    className={styles.word}
-                    data-status={status}
-                    style={cssProps({ delay: tokens.base.durationXS })}
-                  >
-                    Designer
-                  </span>
-                  <span className={styles.line} data-status={status} />
-                </span>
                 <div className={styles.row} component="span">
                   <AnimatePresence>
                     {disciplines.map(item => (
@@ -94,7 +84,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                           <span
                             aria-hidden
                             className={styles.word}
-                            data-plus={true}
+                            data-plus={false}
                             data-status={status}
                             style={cssProps({ delay: tokens.base.durationL })}
                           >
@@ -105,6 +95,16 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                     ))}
                   </AnimatePresence>
                 </div>
+                <span aria-hidden className={styles.row}>
+                  <span
+                    className={styles.word}
+                    data-plus={false}
+                    data-status={status}
+                    style={cssProps({ delay: tokens.base.durationXS })}
+                  >
+                    Designer
+                  </span>
+                </span>
               </Heading>
             </header>
             <RouterLink href="/#project-1">

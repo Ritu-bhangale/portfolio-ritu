@@ -8,9 +8,9 @@ import Close from './svg/close.svg';
 import Copy from './svg/copy.svg';
 import Error from './svg/error.svg';
 import Figma from './svg/figma.svg';
-import Github from './svg/github.svg';
-import Behance from './svg/behance.svg';
-import LinkedIn from './svg/linkedin.svg';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import BookIcon from '@mui/icons-material/Book';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Link from './svg/link.svg';
 import Menu from './svg/menu.svg';
 import Pause from './svg/pause.svg';
@@ -27,9 +27,9 @@ export const icons = {
   copy: Copy,
   error: Error,
   figma: Figma,
-  github: Github,
-  behance: Behance,
-  linkedin: LinkedIn,
+  github: GitHubIcon,
+  behance: BookIcon,
+  linkedin: LinkedInIcon,
   link: Link,
   menu: Menu,
   pause: Pause,

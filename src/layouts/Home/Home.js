@@ -27,7 +27,7 @@ import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
-const disciplines = ['Developer', 'Prototyper', 'Illustrator'];
+const disciplines = ['Interaction', 'User Experience', 'Product'];
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -40,7 +40,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
+    const sections = [intro, details, projectOne, projectTwo, projectThree, projectFour];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -86,6 +86,11 @@ export const Home = () => {
         sectionRef={intro}
         disciplines={disciplines}
         scrollIndicatorHidden={scrollIndicatorHidden}
+      />
+      <Profile
+        sectionRef={details}
+        visible={visibleSections.includes(details.current)}
+        id="details"
       />
       <ProjectSummary
         id="project-1"
@@ -200,11 +205,6 @@ export const Home = () => {
           ],
         }}
       /> */}
-      <Profile
-        sectionRef={details}
-        visible={visibleSections.includes(details.current)}
-        id="details"
-      />
       <Footer />
     </div>
   );

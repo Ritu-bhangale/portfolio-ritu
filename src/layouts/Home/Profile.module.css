@@ -91,7 +91,7 @@
 }
 
 .tagText {
-  font-size: var(--fontSizeBodyS);
+  font-size: var(--fontSizeBodyL);
   font-weight: var(--fontWeightMedium);
   color: rgb(var(--rgbPrimary));
   opacity: 0;
@@ -99,6 +99,7 @@
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationM);
   transition-delay: 1.3s;
+  margin-bottom: 40px;
 
   @media (--mediaUseMotion) {
     transition-property: opacity, transform;
