@@ -1,3 +1,44 @@
 .home {
   overflow-x: hidden;
 }
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 4rem;
+  column-gap: 2.5rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  @media (--mediaTablet) {
+    padding-top: 50px;
+    padding-right: 80px;
+    padding-left: 10vw;
+    height: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  @media (--mediaMobile) {
+    margin-top: 0;
+    padding-top: var(--space4XL);
+    overflow-x: hidden;
+  }
+  @media (--mediaTablet) {
+    max-width: 600px;
+    grid-template-columns: 100%;
+  }
+}
+.column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  transform: translate3d(0, 0, 0);
+}
+.image {
+  position: relative;
+  width: 100%;
+}

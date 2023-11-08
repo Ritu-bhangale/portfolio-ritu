@@ -27,10 +27,10 @@ export function ProjectHeader({
         style={cssProps({ initDelay: numToMs(initDelay) })}
       >
         <div className={styles.details}>
-          <Heading className={styles.title} level={2} as="h1">
+          <Heading className={styles.title} level={3} as="h2">
             {title}
           </Heading>
-          <Text className={styles.description} size="xl" as="p">
+          <Text className={styles.description} size="l" as="p">
             {description}
           </Text>
           {!!url && (
@@ -142,7 +142,7 @@ export const ProjectSectionContent = ({ className, width = 'l', ...rest }) => (
   />
 );
 
-export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest }) => (
+export const ProjectSectionHeading = ({ className, level = 4, as = 'h2', ...rest }) => (
   <Heading
     className={classes(styles.sectionHeading, className)}
     as={as}
@@ -153,7 +153,7 @@ export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <Text className={classes(styles.sectionText, className)} size="l" as="p" {...rest} />
+  <Text className={classes(styles.sectionText, className)} size="m" as="p" {...rest} />
 );
 
 export const ProjectTextRow = ({

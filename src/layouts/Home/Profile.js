@@ -19,9 +19,10 @@ const ProfileText = ({ visible, titleId }) => (
     <Text className={styles.description} data-visible={visible} size="m" as="p">
       Embracing the world of product design, I am <br />{' '}
       <Link href="https://www.linkedin.com/in/ritubhangale/">Ritu Bhangale</Link>,
-      committed to shaping intuitive interactions. As I navigate my studies in Computer
-      Science at IIIT Nagpur, I am dedicated to making design and technology seamlessly
-      coexist.
+      committed to shaping intuitive interactions. With 6 months of experience as a
+      Product Design Intern at <Link href="https://www.myjar.app/">Jar</Link>, alongside
+      my ongoing studies in Computer Science at IIIT Nagpur, I am dedicated to making
+      design and technology seamlessly coexist.
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
       My passion lies in working with product-based companies. I thrive on immersing
