@@ -1,5 +1,6 @@
 .card {
   display: flex;
+  width: 36vw;
   height: auto;
   padding: 24px 16px;
   flex-direction: column;
@@ -11,8 +12,8 @@
   &:hover {
     transform: scale(1.05);
   }
-  @media (--mediaLaptop) {
-    width: 36vw;
+  @media (--mediaMobile) {
+    width: 80vw;
   }
 }
 .content {
@@ -28,11 +29,12 @@
   transition-duration: var(--durationXL);
   transition-delay: var(--durationM);
   -webkit-box-orient: vertical;
+  display: -webkit-box;
   -webkit-line-clamp: 1;
   align-self: stretch;
 
-  @media (--mediaLaptop) {
-    display: -webkit-box;
+  @media (--mediaMobile) {
+    display: inline;
   }
 
   @media (--mediaUseMotion) {

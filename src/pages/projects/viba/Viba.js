@@ -15,10 +15,8 @@ import imageVibaPostOrderLarge from 'assets/Viba-postorder-large.jpg';
 import { Footer } from 'components/Footer';
 import { Button } from 'components/Button';
 import { Image } from 'components/Image';
-import { Link } from 'components/Link';
 import { Meta } from 'components/Meta';
-import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
-import { ThemeProvider, useTheme } from 'components/ThemeProvider';
+import { useTheme } from 'components/ThemeProvider';
 import { useAppContext } from 'hooks';
 import {
   ProjectBackground,
