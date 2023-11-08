@@ -17,7 +17,7 @@ import styles from './Profile.module.css';
 const ProfileText = ({ visible, titleId }) => (
   <Fragment>
     <Text className={styles.description} data-visible={visible} size="m" as="p">
-      Embracing the world of product design, I am <br />{' '}
+      Embracing the world of product design, I am{' '}
       <Link href="https://www.linkedin.com/in/ritubhangale/">Ritu Bhangale</Link>,
       committed to shaping intuitive interactions. With 6 months of experience as a
       Product Design Intern at <Link href="https://www.myjar.app/">Jar</Link>, alongside
