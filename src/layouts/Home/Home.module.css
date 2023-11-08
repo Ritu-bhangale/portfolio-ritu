@@ -7,6 +7,7 @@
   row-gap: 4rem;
   column-gap: 2.5rem;
   justify-content: center;
+  align-items: center;
   width: 100%;
   margin-top: 60px;
   margin-bottom: 40px;
@@ -14,8 +15,6 @@
   padding-bottom: 40px;
   @media (--mediaTablet) {
     padding-top: 50px;
-    padding-right: 80px;
-    padding-left: 10vw;
     height: auto;
     margin-top: 40px;
     margin-bottom: 20px;
