@@ -97,7 +97,7 @@ export const Viba = () => {
                 <Button
                   jarbtn
                   className={styles.button}
-                  href="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=95%3A2146&type=design&node-id=108-2375&viewport=-387%2C284%2C0.42&t=IkYipAM5n9pQ6TDE-1&scaling=contain&mode=design"
+                  href="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=95%3A2146&type=design&node-id=95-3645&viewport=-387%2C284%2C0.42&t=IkYipAM5n9pQ6TDE-1&scaling=contain&mode=design"
                 >
                   Case Study
                 </Button>
