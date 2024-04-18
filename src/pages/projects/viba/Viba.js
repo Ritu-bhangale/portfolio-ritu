@@ -1,7 +1,7 @@
-import backgroundVibaLarge from 'assets/viba-background-large.jpg';
-import backgroundVibaPlaceholder from 'assets/viba-background.jpg';
-import backgroundViba from 'assets/viba-background.jpg';
-import imageVibaCoverLarge from 'assets/viba-cover-large.jpg';
+import backgroundVibaLarge from 'assets/viba-cover.jpeg';
+import backgroundVibaPlaceholder from 'assets/viba-cover.jpeg';
+import backgroundViba from 'assets/viba-cover.jpeg';
+import imageVibaCoverLarge from 'assets/viba-cover.jpg';
 import imageVibaCover from 'assets/viba-cover.jpg';
 import imageVibaCoverPlaceholder from 'assets/viba-cover.jpg';
 import imageVibaJar from 'assets/Viba-Jar.jpg';
@@ -10,6 +10,7 @@ import imageVibaJarPlaceholder from 'assets/Viba-Jar.jpg';
 import imageVibaGoldDelivery from 'assets/Viba-Gold-Delivery.jpg';
 import imageVibaGoldDeliveryLarge from 'assets/Viba-Gold-Delivery-Large.jpg';
 import imageVibaGoldDeliveryPlaceholder from 'assets/Viba-Gold-Delivery.jpg';
+import videoVibaJar from 'assets/VibaJar.mp4';
 import imageVibaPostorder from 'assets/Viba-postorder.jpg';
 import imageVibaPostOrderLarge from 'assets/Viba-postorder-large.jpg';
 import { Footer } from 'components/Footer';
@@ -38,12 +39,6 @@ import styles from './Viba.module.css';
 const title = 'Designing the Ecommerce site - Viba by Jar';
 const description =
   'As a part of my internship at Jar, I embarked on a journey to design an e-commerce platform for pure gold jewellery from the ground up. My role extended to seamlessly integrating Viba with Jar.';
-const roles = [
-  'Product Design Intern - Jar',
-  'Basic Design Sytem',
-  'Basic & Complex flows',
-  'Founding Designer',
-];
 
 export const Viba = () => {
   const { themeId } = useTheme();
@@ -60,18 +55,19 @@ export const Viba = () => {
       <Fragment>
         <ProjectContainer className="spr">
           <Meta title={title} prefix="Projects" description={description} />
-          <ProjectBackground
-            opacity={isDark ? 0.9 : 0.8}
+          {/* <ProjectBackground
+            opacity={isDark ? 0.8 : 0.6}
             src={backgroundViba}
             srcSet={`${backgroundViba.src} 1080w, ${backgroundVibaLarge.src} 2160w`}
             placeholder={backgroundVibaPlaceholder}
-          />
-          <ProjectHeader title={title} description={description} roles={roles} />
-          <ProjectSection padding="top">
+          /> */}
+          <ProjectHeader title={title} description={description} />
+          <ProjectSection>
             <ProjectSectionContent>
               <ProjectImage
                 raised
                 key={themeId}
+                jarImg
                 srcSet={
                   isDark
                     ? [imageVibaCover, imageVibaCoverLarge]
@@ -87,65 +83,39 @@ export const Viba = () => {
           </ProjectSection>
           <ProjectSection>
             <ProjectSectionColumns>
-              <div className={styles.gridForeground}>
-                <Image
-                  srcSet={
-                    isDark
-                      ? [imageVibaPostorder, imageVibaPostOrderLarge]
-                      : [imageVibaPostorder, imageVibaPostOrderLarge]
-                  }
-                  placeholder={isDark ? imageVibaPostorder : imageVibaPostorder}
-                  alt="Configuration options for text."
-                  sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
-                />
-              </div>
               <ProjectSectionContent>
                 <ProjectTextRow>
-                  <ProjectSectionHeading>Post order Flow</ProjectSectionHeading>
+                  <ProjectSectionHeading>Viba-Jar Integration</ProjectSectionHeading>
                   <ProjectSectionText size="m">
-                    I delved into the post-order flow of Viba, meticulously examining the
-                    various emotions experienced by users after or during the order
-                    placement process. My aim was to enhance the user experience and
-                    increase the potential for repeat orders.
-                  </ProjectSectionText>
-                  <Button
-                    secondary
-                    className={styles.button}
-                    href="https://ritu-bhangale.notion.site/Streamlining-Post-Order-Process-41f6df3933c342919d40195817daa441?pvs=4"
-                  >
-                    Case Study
-                  </Button>
-                </ProjectTextRow>
-              </ProjectSectionContent>
-            </ProjectSectionColumns>
-          </ProjectSection>
-          <ProjectSection>
-            <ProjectSectionColumns>
-              <ProjectSectionContent>
-                <ProjectTextRow>
-                  <ProjectSectionHeading>Entrypoints on Jar</ProjectSectionHeading>
-                  <ProjectSectionText size="m">
-                    As the sole designer, I focused on the key entry point of integrating
-                    Viba Entrypoints within the Jar apps home page. I ensured that Viba
-                    products could seamlessly align with the gold delivery functionality,
-                    creating a unified and user-friendly experience for our customers.
-                  </ProjectSectionText>
-                  <ProjectSectionText size="l">
-                    Notably, a significant portion of the traffic to the Viba site
-                    originated from the Jar app, underlining the importance of a smooth
-                    integration.
+                    I contributed to the design and integration of Vibas website with the
+                    Jar platform, which led to a significant increase in website traffic
+                    and orders. Additionally, I conceptualized and implemented entry
+                    points for Viba within the Jar app, resulting in a significant boost
+                    in user engagement.
                   </ProjectSectionText>
                 </ProjectTextRow>
-                {/* <Button
-                  secondary
+                <Button
+                  jarbtn
                   className={styles.button}
-                  href="mailto:ritusbhangale@gmail.com"
+                  href="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=95%3A2146&type=design&node-id=108-2375&viewport=-387%2C284%2C0.42&t=IkYipAM5n9pQ6TDE-1&scaling=contain&mode=design"
                 >
                   Case Study
-                </Button> */}
+                </Button>
               </ProjectSectionContent>
-              <div className={styles.sidebarImages}>
-                <Image
+              <div className={styles.video}>
+                <video
+                  className={styles.sidebarVideo}
+                  controls
+                  src={videoVibaJar}
+                  width={270}
+                  height={600}
+                  placeholder={videoVibaJar}
+                  alt="A working prototype."
+                  sizes="(max-width: 480px) 90vw, (max-width: 768px) 80vw, 360px"
+                />
+              </div>
+              <div className={styles.video}>
+                {/* <Image
                   className={styles.sidebarImage}
                   srcSet={
                     isDark
@@ -170,8 +140,53 @@ export const Viba = () => {
                   placeholder={isDark ? imageVibaJarPlaceholder : imageVibaJarPlaceholder}
                   alt="Configuration options for a component."
                   sizes={`(max-width: ${media.mobile}px) 40vw, 20vw`}
+                /> */}
+                {/* <Image
+                  raised
+                  className={styles.video}
+                  srcSet={`${videoVibaJar} 1280w, ${videoVibaJar} 2560w`}
+                  width={360}
+                  height={800}
+                  placeholder={videoVibaJar}
+                  alt="A working prototpe."
+                  sizes={`(max-width: ${media.mobile}px) 90vw, 20vw`}
+                /> */}
+              </div>
+            </ProjectSectionColumns>
+          </ProjectSection>
+          <ProjectSection>
+            <ProjectSectionColumns>
+              <div className={styles.gridForeground}>
+                <Image
+                  jarImg
+                  srcSet={
+                    isDark
+                      ? [imageVibaPostorder, imageVibaPostOrderLarge]
+                      : [imageVibaPostorder, imageVibaPostOrderLarge]
+                  }
+                  placeholder={isDark ? imageVibaPostorder : imageVibaPostorder}
+                  alt="Configuration options for text."
+                  sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
                 />
               </div>
+              <ProjectSectionContent>
+                <ProjectTextRow>
+                  <ProjectSectionHeading>Post order Flow</ProjectSectionHeading>
+                  <ProjectSectionText size="m">
+                    I delved into the post-order flow of Viba, meticulously examining the
+                    various emotions experienced by users after or during the order
+                    placement process. My aim was to enhance the user experience and
+                    increase the potential for repeat orders.
+                  </ProjectSectionText>
+                  <Button
+                    jarbtn
+                    className={styles.button}
+                    href="https://ritu-bhangale.notion.site/Streamlining-Post-Order-Process-41f6df3933c342919d40195817daa441?pvs=4"
+                  >
+                    Case Study
+                  </Button>
+                </ProjectTextRow>
+              </ProjectSectionContent>
             </ProjectSectionColumns>
           </ProjectSection>
           <ProjectSection light={isDark}>

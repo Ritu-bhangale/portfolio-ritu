@@ -28,6 +28,7 @@ const ButtonContent = forwardRef(
       className,
       as,
       secondary,
+      jarbtn,
       loading,
       loadingText = 'loading',
       icon,
@@ -53,6 +54,7 @@ const ButtonContent = forwardRef(
         data-loading={loading}
         data-icon-only={iconOnly}
         data-secondary={secondary}
+        data-jarbtn={jarbtn}
         data-icon={icon}
         href={href}
         rel={rel || isExternal ? 'noopener noreferrer' : undefined}

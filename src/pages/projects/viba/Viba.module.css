@@ -1,8 +1,8 @@
 .video {
-  width: 120%;
+  width: 100%;
 
   @media (--mediaLaptop) {
-    width: 150%;
+    width: 100%;
   }
 
   @media (--mediaTablet) {
@@ -32,7 +32,7 @@
     grid-row: 1;
     position: relative;
     top: 5%;
-    opacity: 0.4;
+    opacity: 0.8;
   }
 
   &:last-child {
@@ -41,4 +41,8 @@
     position: relative;
     top: -5%;
   }
+}
+
+.sidebarVideo {
+  margin-left: 10vw;
 }

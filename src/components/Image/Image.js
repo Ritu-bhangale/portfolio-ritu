@@ -14,6 +14,7 @@ export const Image = ({
   reveal,
   delay = 0,
   raised,
+  jarImg,
   src: baseSrc,
   srcSet,
   placeholder,
@@ -34,6 +35,7 @@ export const Image = ({
       className={classes(styles.image, className)}
       data-visible={inViewport || loaded}
       data-reveal={reveal}
+      data-jarimg={jarImg}
       data-raised={raised}
       data-theme={themeId}
       style={cssProps({ delay: numToMs(delay) }, style)}

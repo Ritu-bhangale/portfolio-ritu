@@ -118,6 +118,7 @@ const dark = {
   colorTextTitle: 'rgb(var(--rgbText) / 1)',
   colorTextBody: 'rgb(var(--rgbText) / 0.8)',
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
+  rgbJar: '193 65 255',
 };
 
 const light = {
@@ -131,6 +132,7 @@ const light = {
   colorTextTitle: 'rgb(var(--rgbText) / 1)',
   colorTextBody: 'rgb(var(--rgbText) / 0.8)',
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
+  rgbJar: '83 10 192',
 };
 
 export const tokens = {

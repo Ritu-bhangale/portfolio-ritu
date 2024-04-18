@@ -173,7 +173,7 @@
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: var(--space4XL);
-  max-width: var(--maxWidthL);
+  max-width: var(--maxWidthM);
 
   @media (--mediaDesktop) {
     grid-template-columns: 1fr 400px;
