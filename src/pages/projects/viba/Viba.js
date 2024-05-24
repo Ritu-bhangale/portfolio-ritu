@@ -97,7 +97,7 @@ export const Viba = () => {
                 <Button
                   jarbtn
                   className={styles.button}
-                  href="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=95%3A2146&type=design&node-id=95-3645&viewport=-387%2C284%2C0.42&t=IkYipAM5n9pQ6TDE-1&scaling=contain&mode=design"
+                  href="https://portfolio-rits.framer.website/page"
                 >
                   Case Study
                 </Button>
@@ -181,7 +181,7 @@ export const Viba = () => {
                   <Button
                     jarbtn
                     className={styles.button}
-                    href="https://ritu-bhangale.notion.site/Streamlining-Post-Order-Process-41f6df3933c342919d40195817daa441?pvs=4"
+                    href="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=499%3A8583&node-id=499-8584&viewport=38%2C299%2C0.25&t=Re8qaXCo7JrQRcOJ-1&scaling=contain"
                   >
                     Case Study
                   </Button>
