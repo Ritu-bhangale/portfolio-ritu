@@ -28,7 +28,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, details, projectOne, projectTwo];
+    const sections = [intro, details, projectOne];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -105,7 +105,8 @@ export const Home = () => {
           ],
         }}
       />
-      <ProjectSummary
+
+      {/* <ProjectSummary
         id="project-2"
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
@@ -124,8 +125,8 @@ export const Home = () => {
             },
           ],
         }}
-      />
-      <div className={styles.content}>
+      /> */}
+      {/* <div className={styles.content}>
         <Card
           imageUrl={pinterestCover}
           heading="Revamping the User Experience"
@@ -144,7 +145,7 @@ export const Home = () => {
           description="Assignment based on Tealfeed Dashboard"
           externalUrl="https://www.figma.com/proto/HKvBI16T4R08ru9Zsd4u9X/tealfeed?page-id=23%3A4183&node-id=23-4184&scaling=scale-down&mode=design&t=zGkeetFjetKDIxzo-1"
         />
-      </div>
+      </div> */}
       <Footer />
     </div>
   );

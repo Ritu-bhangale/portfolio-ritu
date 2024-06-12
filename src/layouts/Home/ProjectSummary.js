@@ -123,6 +123,34 @@ export const ProjectSummary = ({
           </div>
         </>
       )}
+      {model.type === 'Image' && (
+        <>
+          <div className={styles.model}>
+            <Model
+              alt={model.alt}
+              cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+              showDelay={300}
+              show={visible}
+              models={[
+                {
+                  position: { x: -0.6, y: 1.1, z: 0 },
+                  texture: {
+                    ...model.textures[0],
+                    sizes: phoneSizes,
+                  },
+                },
+                {
+                  position: { x: 0.6, y: -0.5, z: 0.3 },
+                  texture: {
+                    ...model.textures[1],
+                    sizes: phoneSizes,
+                  },
+                },
+              ]}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 
