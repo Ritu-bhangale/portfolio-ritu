@@ -180,8 +180,9 @@ export const ProjectSummary = ({
               )}
               {(alternate || isMobile) && (
                 <>
-                  {renderPreview(visible)}
-                  {renderDetails(visible)}
+                  {/* Reverse order for mobile */}
+                  {renderDetails(visible)} {/* Details (title, description) first */}
+                  {renderPreview(visible)} {/* Preview second */}
                 </>
               )}
             </>

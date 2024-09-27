@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: center;
   display: grid;
-  grid-template-columns: var(--textColumnWidth) 1fr;
+  grid-template-columns: 1fr var(--textColumnWidth);
   grid-column-gap: var(--space2XL);
 
   @nest .summary[data-alternate='true'] & {

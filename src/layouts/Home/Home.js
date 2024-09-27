@@ -1,19 +1,18 @@
-import iiitnagpur from '../../assets/iiit nagpur.png';
-import pinterestCover from '../../assets/pinterest-cover.png';
-import tealfeedCover from '../../assets/tealfeed-cover.jpg';
-import flentCover from '../../assets/flent-cover.jpg';
 import vibaPdp from '../../assets/viba-pdp.jpg';
 import vibaPdpLarge from '../../assets/viba-pdp-large.jpg';
 import vibaPdpPlaceholder from '../../assets/viba-pdp.jpg';
 import imageVibaGoldDelivery from 'assets/Viba-Gold-Delivery.jpg';
 import imageVibaGoldDeliveryLarge from 'assets/Viba-Gold-Delivery-Large.jpg';
 import imageVibaGoldDeliveryPlaceholder from 'assets/Viba-Gold-Delivery.jpg';
+import previewVibaPostOrderFlow from 'assets/PreviewVibaPostOrderFlow.png';
+import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
 import { Footer } from 'components/Footer';
 import { Card } from 'layouts/Home/Card';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
+import { ProjectSummaryAlternate } from './ProjectSummaryalternate';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
@@ -25,10 +24,11 @@ export const Home = () => {
   const intro = useRef();
   const projectOne = useRef();
   const projectTwo = useRef();
+  const projectThree = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, details, projectOne];
+    const sections = [intro, details, projectOne, projectTwo, projectThree];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -80,16 +80,28 @@ export const Home = () => {
         visible={visibleSections.includes(details.current)}
         id="details"
       />
-      <ProjectSummary
+      <ProjectSummaryAlternate
         id="project-1"
         alternate
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing Ecommerce site - Viba by Jar"
-        description="6 Months of Product Design Internship at Jar"
+        title="Fixed Deposits order form"
+        description="This project is part of my 6-months product design intern at Upstox"
         buttonText="Read More"
-        buttonLink="/projects/viba"
+        buttonLink="https://portfolio-rits.framer.website/fd-upstox"
+        image={previewUpstoxFD} // Passing the image directly
+      />
+      <ProjectSummary
+        id="project-2"
+        alternate
+        sectionRef={projectTwo}
+        visible={visibleSections.includes(projectTwo.current)}
+        index={2}
+        title="Viba-Jar Integration"
+        description="Integration of Viba website with the Jar platform, which led to a significant increase inorders."
+        buttonText="Read More"
+        buttonLink="https://portfolio-rits.framer.website/jar"
         model={{
           type: 'phone',
           alt: 'App login screen',
@@ -105,7 +117,18 @@ export const Home = () => {
           ],
         }}
       />
-
+      <ProjectSummaryAlternate
+        id="project-3"
+        alternate
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
+        title="Post order Flow"
+        description="Created Viba's post-order flow from scratch, emphasizing user emotions to boost satisfaction and engagement."
+        buttonText="Read More"
+        buttonLink="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=499%3A8583&node-id=499-8584&viewport=38%2C299%2C0.25&t=7bgPUZED2tAs9egT-1&scaling=contain"
+        image={previewVibaPostOrderFlow} // Passing the image directly
+      />
       {/* <ProjectSummary
         id="project-2"
         sectionRef={projectTwo}

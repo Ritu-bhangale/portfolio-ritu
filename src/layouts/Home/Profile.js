@@ -14,18 +14,19 @@ import styles from './Profile.module.css';
 const ProfileText = ({ visible, titleId }) => (
   <Fragment>
     <Text className={styles.description} data-visible={visible} size="m" as="p">
-      Embracing the world of product design, I am{' '}
-      <Link href="https://www.linkedin.com/in/ritubhangale/">Ritu Bhangale</Link>,
-      committed to shaping intuitive interactions. With 6 months of experience as a
-      Product Design Intern at <Link href="https://www.myjar.app/">Jar</Link>, alongside
-      my ongoing studies in Computer Science at IIIT Nagpur, I am dedicated to making
-      design and technology seamlessly coexist.
+      I’m <Link href="https://www.linkedin.com/in/ritubhangale/">Ritu Bhangale</Link>, a
+      product designer fueled by the challenge of creating seamless, impactful user
+      experiences. Currently working at{' '}
+      <Link href="https://www.linkedin.com/company/upstox">Upstox</Link>, I bring a blend
+      of creativity and problem-solving, honed over six months at{' '}
+      <Link href="https://www.myjar.app/">Jar</Link>, where I learned what it takes to
+      design for the masses.
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      My passion lies in working with product-based companies. I thrive on immersing
-      myself in the product domain, exploring its intricacies and complexities, and
-      developing innovative solutions to improve it. I believe in using data and user
-      insights to inform my design decisions.
+      I love diving deep into product ecosystems, uncovering complex challenges, and
+      crafting thoughtful solutions that truly resonate with users. With every design
+      decision rooted in data and user insights, my goal is to create intuitive,
+      meaningful interactions that make a difference.
     </Text>
   </Fragment>
 );
