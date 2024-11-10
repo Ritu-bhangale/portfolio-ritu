@@ -137,7 +137,8 @@ export const ProjectSummary = ({
             src={image}
             placeholder={image}
             alt={title}
-            sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
+            sizes={`(max-width: ${media.mobile}px) 40vw, 25vw`}
+            style={{ marginBottom: '2vh' }}
           />
         </div>
       );

@@ -75,18 +75,13 @@ export const Home = () => {
         disciplines={disciplines}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
-      <Profile
-        sectionRef={details}
-        visible={visibleSections.includes(details.current)}
-        id="details"
-      />
       {/* Adding the 'My Work' heading using your Heading component */}
       {/* <Heading
         className={styles.heading}
         id="my-work"
-        level={3}
-        as="h1"
-        style={{ textAlign: 'center' }}
+        level={4}
+        as="h2"
+        style={{ textAlign: 'center', marginBottom: '2vh' }}
       >
         My Work
       </Heading> */}
@@ -139,6 +134,11 @@ export const Home = () => {
         buttonText="Read More"
         buttonLink="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=499%3A8583&node-id=499-8584&viewport=38%2C299%2C0.25&t=7bgPUZED2tAs9egT-1&scaling=contain"
         image={previewVibaPostOrderFlow}
+      />
+      <Profile
+        sectionRef={details}
+        visible={visibleSections.includes(details.current)}
+        id="details"
       />
       <Footer />
     </div>
