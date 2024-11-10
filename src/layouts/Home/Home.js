@@ -6,13 +6,13 @@ import imageVibaGoldDeliveryLarge from 'assets/Viba-Gold-Delivery-Large.jpg';
 import imageVibaGoldDeliveryPlaceholder from 'assets/Viba-Gold-Delivery.jpg';
 import previewVibaPostOrderFlow from 'assets/PreviewVibaPostOrderFlow.png';
 import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
+import previewFD from 'assets/FDpreview.png';
 import { Footer } from 'components/Footer';
-import { Card } from 'layouts/Home/Card';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
-import { ProjectSummaryAlternate } from './ProjectSummaryalternate';
+import { Heading } from 'components/Heading';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
@@ -80,17 +80,28 @@ export const Home = () => {
         visible={visibleSections.includes(details.current)}
         id="details"
       />
-      <ProjectSummaryAlternate
+      {/* Adding the 'My Work' heading using your Heading component */}
+      {/* <Heading
+        className={styles.heading}
+        id="my-work"
+        level={3}
+        as="h1"
+        style={{ textAlign: 'center' }}
+      >
+        My Work
+      </Heading> */}
+
+      <ProjectSummary
         id="project-1"
         alternate
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
         title="Fixed Deposits order form"
-        description="This project is part of my 6-months product design intern at Upstox"
+        description="With 95% of Indians favoring FDs, this project streamlined the booking process to make it faster and more user-friendly."
         buttonText="Read More"
         buttonLink="https://portfolio-rits.framer.website/fd-upstox"
-        image={previewUpstoxFD} // Passing the image directly
+        image={previewUpstoxFD}
       />
       <ProjectSummary
         id="project-2"
@@ -99,7 +110,7 @@ export const Home = () => {
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
         title="Viba-Jar Integration"
-        description="Integration of Viba website with the Jar platform, which led to a significant increase inorders."
+        description="Integration of Viba website with the Jar platform, which led to a significant increase in orders."
         buttonText="Read More"
         buttonLink="https://portfolio-rits.framer.website/jar"
         model={{
@@ -117,7 +128,7 @@ export const Home = () => {
           ],
         }}
       />
-      <ProjectSummaryAlternate
+      <ProjectSummary
         id="project-3"
         alternate
         sectionRef={projectThree}
@@ -127,48 +138,8 @@ export const Home = () => {
         description="Created Viba's post-order flow from scratch, emphasizing user emotions to boost satisfaction and engagement."
         buttonText="Read More"
         buttonLink="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=499%3A8583&node-id=499-8584&viewport=38%2C299%2C0.25&t=7bgPUZED2tAs9egT-1&scaling=contain"
-        image={previewVibaPostOrderFlow} // Passing the image directly
+        image={previewVibaPostOrderFlow}
       />
-      {/* <ProjectSummary
-        id="project-2"
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
-        index={2}
-        title="Unveiling the New Horizon"
-        description=" Transforming the Institute's Website for an Optimal User Experience."
-        buttonText="View project"
-        buttonLink="https://languid-turtle-a74.notion.site/Transforming-the-Institute-s-Website-for-an-Optimal-User-Experience-6d2fb0873c1a4bf09ec4878fa433df9f"
-        model={{
-          type: 'laptop',
-          alt: 'Annotating a interface of webstite UI',
-          textures: [
-            {
-              srcSet: [iiitnagpur, iiitnagpur],
-              placeholder: iiitnagpur,
-            },
-          ],
-        }}
-      /> */}
-      {/* <div className={styles.content}>
-        <Card
-          imageUrl={pinterestCover}
-          heading="Revamping the User Experience"
-          description="An UI UX case study of Pinterest. This is a conceptual project focused on redesigning the user interface and user experience of Pinterest."
-          externalUrl="https://medium.com/@rits_8/revamping-the-user-experience-pinterest-92420843dc4a"
-        />
-        <Card
-          imageUrl={flentCover}
-          heading="Flent - UI Design"
-          description="Focused on UX(UI) rather than UX(product)."
-          externalUrl="https://www.behance.net/gallery/170470277/Flent-UI"
-        />
-        <Card
-          imageUrl={tealfeedCover}
-          heading="Tealfeed Dashboard"
-          description="Assignment based on Tealfeed Dashboard"
-          externalUrl="https://www.figma.com/proto/HKvBI16T4R08ru9Zsd4u9X/tealfeed?page-id=23%3A4183&node-id=23-4184&scaling=scale-down&mode=design&t=zGkeetFjetKDIxzo-1"
-        />
-      </div> */}
       <Footer />
     </div>
   );
