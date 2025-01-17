@@ -4,6 +4,8 @@ import vibaPdpPlaceholder from '../../assets/viba-pdp.jpg';
 import imageVibaGoldDelivery from 'assets/Viba-Gold-Delivery.jpg';
 import imageVibaGoldDeliveryLarge from 'assets/Viba-Gold-Delivery-Large.jpg';
 import imageVibaGoldDeliveryPlaceholder from 'assets/Viba-Gold-Delivery.jpg';
+import imageUpstoxGold from 'assets/UpstoxGold.png';
+import imageUpstoxExplore from 'assets/UpstoxExplore.png';
 import previewVibaPostOrderFlow from 'assets/PreviewVibaPostOrderFlow.png';
 import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
 import previewFD from 'assets/FDpreview.png';
@@ -51,11 +53,16 @@ export const Home = () => {
       { rootMargin: '-100% 0px 0px 0px' }
     );
 
+    // Check if the refs are assigned to valid DOM elements before observing
     sections.forEach(section => {
-      sectionObserver.observe(section.current);
+      if (section.current) {
+        sectionObserver.observe(section.current);
+      }
     });
 
-    indicatorObserver.observe(intro.current);
+    if (intro.current) {
+      indicatorObserver.observe(intro.current);
+    }
 
     return () => {
       sectionObserver.disconnect();
@@ -76,16 +83,6 @@ export const Home = () => {
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
       {/* Adding the 'My Work' heading using your Heading component */}
-      {/* <Heading
-        className={styles.heading}
-        id="my-work"
-        level={4}
-        as="h2"
-        style={{ textAlign: 'center', marginBottom: '2vh' }}
-      >
-        My Work
-      </Heading> */}
-
       <ProjectSummary
         id="project-1"
         alternate
@@ -104,6 +101,31 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
+        title="Gold : Fragmented to seamless"
+        description="Simplifying gold investment journeys by enhancing discoverability, education, and portfolio management."
+        buttonText="Read More"
+        buttonLink="https://portfolio-rits.framer.website/gold"
+        model={{
+          type: 'phone',
+          alt: 'App login screen',
+          textures: [
+            {
+              srcSet: [imageUpstoxGold, imageUpstoxGold],
+              placeholder: imageUpstoxGold,
+            },
+            {
+              srcSet: [imageUpstoxExplore, imageUpstoxExplore],
+              placeholder: imageUpstoxExplore,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
+        id="project-3"
+        alternate
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
         title="Viba-Jar Integration"
         description="Integration of Viba website with the Jar platform, which led to a significant increase in orders."
         buttonText="Read More"
@@ -122,18 +144,7 @@ export const Home = () => {
             },
           ],
         }}
-      />
-      <ProjectSummary
-        id="project-3"
-        alternate
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="Post order Flow"
-        description="Created Viba's post-order flow from scratch, emphasizing user emotions to boost satisfaction and engagement."
-        buttonText="Read More"
-        buttonLink="https://www.figma.com/proto/YRyvTQGBNUntU1mdR8sFsd/Portfolio?page-id=499%3A8583&node-id=499-8584&viewport=38%2C299%2C0.25&t=7bgPUZED2tAs9egT-1&scaling=contain"
-        image={previewVibaPostOrderFlow}
+        className={styles.projectMargin} // Apply the class here
       />
       <Profile
         sectionRef={details}

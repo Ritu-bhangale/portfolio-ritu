@@ -41,3 +41,6 @@
   position: relative;
   width: 100%;
 }
+.projectMargin {
+  margin-top: 50px; /* Adjust the value as per your preference */
+}
