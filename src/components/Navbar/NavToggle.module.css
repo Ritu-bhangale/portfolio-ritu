@@ -6,7 +6,7 @@ button.toggle {
   top: var(--inset);
   right: var(--inset);
   z-index: var(--zIndex4);
-  display: none;
+  display: flex;
 
   @media (--mediaMobile), (--mediaMobileLS) {
     display: flex;

@@ -370,12 +370,18 @@
 
 .logoContainer {
   display: flex;
-  gap: 15px;
+  gap: 5px;
+  align-items: center;
 }
 
 .logo {
   height: 40px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.divider {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .logo:hover {

@@ -1,7 +1,9 @@
 import ArrowDown from 'assets/arrow-down.svg';
-import logoUpstox from 'assets/Upstoxlogo.svg';
-import logoJar from 'assets/Jarlogo.svg';
 import { DecoderText } from 'components/DecoderText';
+import JarLight from 'assets/Jarlight.svg';
+import JarDark from 'assets/Jardark.svg';
+import UpstoxLight from 'assets/Upstoxlight.svg';
+import UpstoxDark from 'assets/Upstoxdark.svg';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
@@ -116,10 +118,22 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
 
             {/* Fixed Banner */}
             <div className={styles.banner}>
-              <span className={styles.exText}>ex-</span>
+              <span className={styles.exText}>Ex -</span>
               <div className={styles.logoContainer}>
-                <img src={logoUpstox} alt="Upstox" className={styles.logo} />
-                <img src={logoJar} alt="Jar" className={styles.logo} />
+                {theme.themeId === 'light' ? (
+                  <>
+                    <UpstoxLight />
+                    <JarLight />
+                  </>
+                ) : (
+                  <>
+                    <UpstoxDark />
+                    <span className="divider">|</span>
+                    <JarDark />
+                  </>
+                )}
+                {/* <img src={logoUpstox} alt="Upstox" className={styles.logo} /> */}
+                {/* <img src={logoJar} alt="Jar" className={styles.logo} /> */}
               </div>
             </div>
 
