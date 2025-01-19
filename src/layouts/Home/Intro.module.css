@@ -356,3 +356,29 @@
     opacity: 1;
   }
 }
+.banner {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.exText {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  gap: 15px;
+}
+
+.logo {
+  height: 40px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}

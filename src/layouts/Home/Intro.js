@@ -1,4 +1,6 @@
 import ArrowDown from 'assets/arrow-down.svg';
+import logoUpstox from 'assets/Upstoxlogo.svg';
+import logoJar from 'assets/Jarlogo.svg';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
@@ -29,6 +31,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
   const titleId = `${id}-title`;
   const scrollToHash = useScrollToHash();
 
+  // Interval to cycle through disciplines
   useInterval(
     () => {
       const index = (disciplineIndex + 1) % disciplines.length;
@@ -62,7 +65,10 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       <Transition in key={theme.themeId} timeout={3000}>
         {(visible, status) => (
           <Fragment>
+            {/* Background Animation */}
             <DisplacementSphere />
+
+            {/* Header Section */}
             <header className={styles.text}>
               <h1 className={styles.name} data-visible={visible} id={titleId}>
                 <DecoderText text="Ritu Bhangale" delay={300} />
@@ -107,6 +113,17 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 </span>
               </Heading>
             </header>
+
+            {/* Fixed Banner */}
+            <div className={styles.banner}>
+              <span className={styles.exText}>ex-</span>
+              <div className={styles.logoContainer}>
+                <img src={logoUpstox} alt="Upstox" className={styles.logo} />
+                <img src={logoJar} alt="Jar" className={styles.logo} />
+              </div>
+            </div>
+
+            {/* Scroll Indicators */}
             <RouterLink href="/#project-1">
               <a
                 className={styles.scrollIndicator}
