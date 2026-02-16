@@ -12,7 +12,8 @@ const baseTokens = {
   durationXL: '800ms',
   systemFontStack:
     'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
-  fontStack: `Gotham, var(--systemFontStack)`,
+  fontStack: `'Seasons Sans', var(--systemFontStack)`,
+  serifFontStack: `'Seasons Serif', Georgia, serif`,
   monoFontStack:
     'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
   japaneseFontStack:
@@ -20,19 +21,21 @@ const baseTokens = {
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
-  fontSizeH0: pxToRem(140),
-  fontSizeH1: pxToRem(100),
-  fontSizeH2: pxToRem(58),
-  fontSizeH3: pxToRem(38),
-  fontSizeH4: pxToRem(28),
+  fontSizeH0: pxToRem(96),
+  fontSizeH1: pxToRem(72),
+  fontSizeH2: pxToRem(48),
+  fontSizeH3: pxToRem(40),
+  fontSizeH4: pxToRem(32),
   fontSizeH5: pxToRem(24),
-  fontSizeBodyXL: pxToRem(22),
-  fontSizeBodyL: pxToRem(20),
-  fontSizeBodyM: pxToRem(18),
-  fontSizeBodyS: pxToRem(16),
-  fontSizeBodyXS: pxToRem(14),
-  lineHeightTitle: '1.3',
-  lineHeightBody: '1.6',
+  fontSizeH6: pxToRem(28),
+  fontSizeBodyXL: pxToRem(24),
+  fontSizeBodyL: pxToRem(24),
+  fontSizeBodyM: pxToRem(20),
+  fontSizeBodyS: pxToRem(14),
+  fontSizeBodyXS: pxToRem(12),
+  lineHeightTitle: '1.5',
+  lineHeightTitleTight: '1.25',
+  lineHeightBody: '1.5', // 150%
   maxWidthS: '540px',
   maxWidthM: '720px',
   maxWidthL: '1096px',
@@ -106,33 +109,28 @@ const tokensMobileSmall = {
   fontSizeH4: pxToRem(20),
 };
 
-// Tokens that change based on theme
-const dark = {
-  themeId: 'dark',
-  rgbBackground: '17 17 17',
-  rgbBackgroundLight: '26 26 26',
-  rgbPrimary: '0 229 255',
-  rgbAccent: '0 229 255',
-  rgbText: '255 255 255',
-  rgbError: '255 55 102',
-  colorTextTitle: 'rgb(var(--rgbText) / 1)',
-  colorTextBody: 'rgb(var(--rgbText) / 0.8)',
-  colorTextLight: 'rgb(var(--rgbText) / 0.6)',
-  rgbJar: '193 65 255',
-};
-
 const light = {
   themeId: 'light',
-  rgbBackground: '242 242 242',
-  rgbBackgroundLight: '255 255 255',
-  rgbPrimary: '0 0 0',
-  rgbAccent: '0 229 255',
-  rgbText: '0 0 0',
-  rgbError: '255 0 60',
-  colorTextTitle: 'rgb(var(--rgbText) / 1)',
-  colorTextBody: 'rgb(var(--rgbText) / 0.8)',
-  colorTextLight: 'rgb(var(--rgbText) / 0.6)',
-  rgbJar: '83 10 192',
+
+  /* Backgrounds */
+  rgbBackground: '255 255 254', // #FFFFFE (bg-1)
+  rgbBackgroundAlt: '245 245 245', // #F5F5F5 (bg-2)
+
+  /* Text */
+  rgbTextPrimary: '15 15 15', // #0F0F0F
+  rgbTextSecondary: '77 77 77', // #4D4D4D
+  rgbTextTertiary: '253 253 253', // #FDFDFD (only if needed)
+
+  /* Stroke */
+  rgbStroke: '222 222 222', // #DEDEDE
+
+  /* Derived CSS vars */
+  colorTextTitle: 'rgb(var(--rgbTextPrimary) / 1)',
+  colorTextBody: 'rgb(var(--rgbTextPrimary) / 1)',
+  colorTextMuted: 'rgb(var(--rgbTextSecondary) / 1)',
+  colorStroke: 'rgb(var(--rgbStroke) / 1)',
+
+  rgbAccent: '0 229 255', // keep or update later
 };
 
 export const tokens = {
@@ -144,4 +142,4 @@ export const tokens = {
   mobileS: tokensMobileSmall,
 };
 
-export const theme = { dark, light };
+export const theme = { light };

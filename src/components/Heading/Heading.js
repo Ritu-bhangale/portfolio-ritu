@@ -7,7 +7,7 @@ export const Heading = ({
   level = 1,
   as,
   align = 'auto',
-  weight = 'medium',
+  variant = 'default',
   className,
   ...rest
 }) => {
@@ -15,16 +15,14 @@ export const Heading = ({
   const Component = as || `h${Math.max(clampedLevel, 1)}`;
 
   return (
-    <Fragment>
-      <Component
-        className={classes(styles.heading, className)}
-        data-align={align}
-        data-weight={weight}
-        data-level={clampedLevel}
-        {...rest}
-      >
-        {children}
-      </Component>
-    </Fragment>
+    <Component
+      className={classes(styles.heading, className)}
+      data-align={align}
+      data-level={clampedLevel}
+      data-variant={variant}
+      {...rest}
+    >
+      {children}
+    </Component>
   );
 };

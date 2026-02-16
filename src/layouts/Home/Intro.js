@@ -1,167 +1,121 @@
-import ArrowDown from 'assets/arrow-down.svg';
-import { DecoderText } from 'components/DecoderText';
-import JarLight from 'assets/Jarlight.svg';
-import JarDark from 'assets/Jardark.svg';
-import UpstoxLight from 'assets/Upstoxlight.svg';
-import UpstoxDark from 'assets/Upstoxdark.svg';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
-import { useTheme } from 'components/ThemeProvider';
-import { tokens } from 'components/ThemeProvider/theme';
-import { Transition } from 'components/Transition';
-import { VisuallyHidden } from 'components/VisuallyHidden';
-import { AnimatePresence } from 'framer-motion';
-import { useInterval, usePrevious, useScrollToHash } from 'hooks';
-import dynamic from 'next/dynamic';
-import RouterLink from 'next/link';
-import { Fragment, useEffect, useState } from 'react';
-import { cssProps } from 'utils/style';
+import { useScrollToHash } from 'hooks';
 import styles from './Intro.module.css';
 
-const DisplacementSphere = dynamic(() =>
-  import('layouts/Home/DisplacementSphere').then(mod => mod.DisplacementSphere)
-);
+import summerImage from 'assets/summer.png';
+import monsoonImage from 'assets/monsoon.png';
+import autumnImage from 'assets/autumn.png';
+import winterImage from 'assets/winter.png';
+import annotationIcon from 'assets/annotationIcon.svg';
 
-export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
-  const theme = useTheme();
-  const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const prevTheme = usePrevious(theme);
-  const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
-    ', and '
-  );
-  const currentDiscipline = disciplines.find((item, index) => index === disciplineIndex);
-  const titleId = `${id}-title`;
+import { useState, useRef, useEffect } from 'react';
+
+const SEASONS = ['summer', 'monsoon', 'autumn', 'winter'];
+
+const SEASON_IMAGES = [summerImage, monsoonImage, autumnImage, winterImage];
+
+function getSeasonIndexFromMonth() {
+  const month = new Date().getMonth() + 1;
+
+  if (month >= 3 && month <= 6) return 0; // summer
+  if (month >= 7 && month <= 9) return 1; // monsoon
+  if (month >= 10 && month <= 11) return 2; // autumn
+  return 3; // winter
+}
+
+export function Intro({ id, sectionRef }) {
   const scrollToHash = useScrollToHash();
 
-  // Interval to cycle through disciplines
-  useInterval(
-    () => {
-      const index = (disciplineIndex + 1) % disciplines.length;
-      setDisciplineIndex(index);
-    },
-    5000,
-    theme.themeId
-  );
-
-  useEffect(() => {
-    if (prevTheme && prevTheme.themeId !== theme.themeId) {
-      setDisciplineIndex(0);
-    }
-  }, [theme.themeId, prevTheme]);
-
-  const handleScrollClick = event => {
-    event.preventDefault();
-    scrollToHash(event.currentTarget.href);
+  const handleNavClick = hash => {
+    scrollToHash(hash);
   };
 
+  const [seasonIndex, setSeasonIndex] = useState(getSeasonIndexFromMonth());
+
+  const [isHovering, setIsHovering] = useState(false);
+  const intervalRef = useRef(null);
+
+  // Loop cycling logic
+  useEffect(() => {
+    if (!isHovering) return;
+
+    intervalRef.current = setInterval(() => {
+      setSeasonIndex(prev => (prev + 1) % SEASONS.length);
+    }, 1200);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isHovering]);
+
+  const season = SEASONS[seasonIndex];
+
   return (
-    <Section
-      className={styles.intro}
-      as="section"
-      ref={sectionRef}
-      id={id}
-      aria-labelledby={titleId}
-      tabIndex={-1}
-      {...rest}
-    >
-      <Transition in key={theme.themeId} timeout={3000}>
-        {(visible, status) => (
-          <Fragment>
-            {/* Background Animation */}
-            <DisplacementSphere />
+    <Section className={styles.intro} as="section" ref={sectionRef} id={id}>
+      <div className={styles.hero}>
+        {/* Gradient Layer */}
+        <div className={styles.gradientLayer} data-season={season}>
+          <div className={styles.ellipseOne} />
+          <div className={styles.ellipseTwo} />
+        </div>
 
-            {/* Header Section */}
-            <header className={styles.text}>
-              <h1 className={styles.name} data-visible={visible} id={titleId}>
-                <DecoderText text="Ritu Bhangale" delay={300} />
-              </h1>
-              <Heading level={0} as="h2" className={styles.title}>
-                <VisuallyHidden className={styles.label}>
-                  {`Designer + ${introLabel}`}
-                </VisuallyHidden>
-                <div className={styles.row} component="span">
-                  <AnimatePresence>
-                    {disciplines.map(item => (
-                      <Transition
-                        unmount
-                        in={item === currentDiscipline}
-                        timeout={{ enter: 3000, exit: 2000 }}
-                        key={item}
-                      >
-                        {(visible, status) => (
-                          <span
-                            aria-hidden
-                            className={styles.word}
-                            data-plus={false}
-                            data-status={status}
-                            style={cssProps({ delay: tokens.base.durationL })}
-                          >
-                            {item}
-                          </span>
-                        )}
-                      </Transition>
-                    ))}
-                  </AnimatePresence>
+        {/* Top Center Name */}
+        <div className={styles.topName}>
+          <Heading level={5} as="p">
+            Ritu Bhangale
+          </Heading>
+        </div>
+
+        {/* Left Navigation */}
+        <nav className={styles.nav}>
+          <button onClick={() => handleNavClick('#intro')}>Resume</button>
+          <button onClick={() => handleNavClick('#projects')}>Projects</button>
+          <button onClick={() => handleNavClick('#about')}>About me</button>
+        </nav>
+
+        {/* Main Content */}
+        <div className={styles.centerContent}>
+          {/* Season Circle */}
+          <div
+            className={styles.circle}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            <div
+              className={styles.stack}
+              style={{
+                transform: `translateY(-${seasonIndex * 20}%)`,
+                transition:
+                  seasonIndex === SEASONS.length ? 'none' : 'transform 800ms ease-in-out',
+              }}
+            >
+              {[...SEASON_IMAGES, SEASON_IMAGES[0]].map((image, i) => (
+                <div className={styles.season} key={i}>
+                  <img src={image.src || image} alt={SEASONS[i % SEASONS.length]} />
                 </div>
-                <span aria-hidden className={styles.row}>
-                  <span
-                    className={styles.word}
-                    data-plus={false}
-                    data-status={status}
-                    style={cssProps({ delay: tokens.base.durationXS })}
-                  >
-                    Designer
-                  </span>
-                </span>
-              </Heading>
-            </header>
-
-            {/* Fixed Banner */}
-            <div className={styles.banner}>
-              <span className={styles.exText}>Ex -</span>
-              <div className={styles.logoContainer}>
-                {theme.themeId === 'light' ? (
-                  <>
-                    <UpstoxLight />
-                    <JarLight />
-                  </>
-                ) : (
-                  <>
-                    <UpstoxDark />
-                    <span className="divider">|</span>
-                    <JarDark />
-                  </>
-                )}
-                {/* <img src={logoUpstox} alt="Upstox" className={styles.logo} /> */}
-                {/* <img src={logoJar} alt="Jar" className={styles.logo} /> */}
-              </div>
+              ))}
             </div>
+          </div>
 
-            {/* Scroll Indicators */}
-            <RouterLink href="/#project-1">
-              <a
-                className={styles.scrollIndicator}
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-                onClick={handleScrollClick}
-              >
-                <VisuallyHidden>Scroll to projects</VisuallyHidden>
-              </a>
-            </RouterLink>
-            <RouterLink href="/#project-1">
-              <a
-                className={styles.mobileScrollIndicator}
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-                onClick={handleScrollClick}
-              >
-                <VisuallyHidden>Scroll to projects</VisuallyHidden>
-                <ArrowDown aria-hidden />
-              </a>
-            </RouterLink>
-          </Fragment>
-        )}
-      </Transition>
+          {/* Headline */}
+          <Heading level={0} className={styles.headline}>
+            A <em>Designer</em>, who thinks in systems
+          </Heading>
+
+          {/* Subtext */}
+          <p className={styles.subtext}>
+            Currently designing product at ET Money
+            <br />· Previously Upstox & Jar
+          </p>
+        </div>
+
+        {/* Annotation */}
+        <p className={styles.annotation}>Blame my CSE degree for this</p>
+
+        {/* Annotation Icon */}
+        <div className={styles.annotationIcon}>
+          <img src={annotationIcon} alt="" />
+        </div>
+      </div>
     </Section>
   );
 }
