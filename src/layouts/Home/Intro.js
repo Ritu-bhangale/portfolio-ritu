@@ -1,7 +1,9 @@
 import { Heading } from 'components/Heading';
+import { Text } from 'components/Text';
 import { Section } from 'components/Section';
 import { useScrollToHash } from 'hooks';
 import styles from './Intro.module.css';
+import sectionStyles from 'components/Section/Section.module.css';
 
 import summerImage from 'assets/summer.png';
 import monsoonImage from 'assets/monsoon.png';
@@ -11,32 +13,44 @@ import annotationIcon from 'assets/annotationIcon.svg';
 
 import { useState, useRef, useEffect } from 'react';
 
+/* ---------------------------------- */
+/* Season Config                      */
+/* ---------------------------------- */
+
 const SEASONS = ['summer', 'monsoon', 'autumn', 'winter'];
 
 const SEASON_IMAGES = [summerImage, monsoonImage, autumnImage, winterImage];
 
+/* Determine season based on current month */
 function getSeasonIndexFromMonth() {
   const month = new Date().getMonth() + 1;
 
-  if (month >= 3 && month <= 6) return 0; // summer
-  if (month >= 7 && month <= 9) return 1; // monsoon
-  if (month >= 10 && month <= 11) return 2; // autumn
-  return 3; // winter
+  if (month >= 3 && month <= 6) return 0; // Summer
+  if (month >= 7 && month <= 9) return 1; // Monsoon
+  if (month >= 10 && month <= 11) return 2; // Autumn
+  return 3; // Winter
 }
+
+/* ---------------------------------- */
+/* Intro Component                    */
+/* ---------------------------------- */
 
 export function Intro({ id, sectionRef }) {
   const scrollToHash = useScrollToHash();
 
-  const handleNavClick = hash => {
-    scrollToHash(hash);
-  };
+  /* Hydration-safe initial state */
+  const [seasonIndex, setSeasonIndex] = useState(0);
 
-  const [seasonIndex, setSeasonIndex] = useState(getSeasonIndexFromMonth());
-
+  /* Hover state for cycling */
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef(null);
 
-  // Loop cycling logic
+  /* Set correct season after mount (avoids hydration mismatch) */
+  useEffect(() => {
+    setSeasonIndex(getSeasonIndexFromMonth());
+  }, []);
+
+  /* Loop seasons while hovering */
   useEffect(() => {
     if (!isHovering) return;
 
@@ -49,10 +63,19 @@ export function Intro({ id, sectionRef }) {
 
   const season = SEASONS[seasonIndex];
 
+  const handleNavClick = hash => {
+    scrollToHash(hash);
+  };
+
   return (
-    <Section className={styles.intro} as="section" ref={sectionRef} id={id}>
+    <Section
+      className={`${styles.intro} ${sectionStyles.noPadding}`}
+      as="section"
+      ref={sectionRef}
+      id={id}
+    >
       <div className={styles.hero}>
-        {/* Gradient Layer */}
+        {/* Gradient background (controlled via data-season) */}
         <div className={styles.gradientLayer} data-season={season}>
           <div className={styles.ellipseOne} />
           <div className={styles.ellipseTwo} />
@@ -67,14 +90,26 @@ export function Intro({ id, sectionRef }) {
 
         {/* Left Navigation */}
         <nav className={styles.nav}>
-          <button onClick={() => handleNavClick('#intro')}>Resume</button>
-          <button onClick={() => handleNavClick('#projects')}>Projects</button>
-          <button onClick={() => handleNavClick('#about')}>About me</button>
+          <button onClick={() => handleNavClick('#intro')}>
+            <Text as="m" variant="serif">
+              Resume
+            </Text>
+          </button>
+          <button onClick={() => handleNavClick('#projects')}>
+            <Text as="m" variant="serif">
+              Projects
+            </Text>
+          </button>
+          <button onClick={() => handleNavClick('#about')}>
+            <Text as="m" variant="serif">
+              About me
+            </Text>
+          </button>
         </nav>
 
         {/* Main Content */}
         <div className={styles.centerContent}>
-          {/* Season Circle */}
+          {/* Season Image Circle */}
           <div
             className={styles.circle}
             onMouseEnter={() => setIsHovering(true)}
@@ -84,10 +119,10 @@ export function Intro({ id, sectionRef }) {
               className={styles.stack}
               style={{
                 transform: `translateY(-${seasonIndex * 20}%)`,
-                transition:
-                  seasonIndex === SEASONS.length ? 'none' : 'transform 800ms ease-in-out',
+                transition: 'transform 800ms ease-in-out',
               }}
             >
+              {/* Duplicate first image at end for seamless loop */}
               {[...SEASON_IMAGES, SEASON_IMAGES[0]].map((image, i) => (
                 <div className={styles.season} key={i}>
                   <img src={image.src || image} alt={SEASONS[i % SEASONS.length]} />

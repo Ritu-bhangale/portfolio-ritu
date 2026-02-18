@@ -3,7 +3,7 @@
   font-family: var(--fontStack);
   color: var(--colorTextBody);
   line-height: var(--lineHeightBody);
-  letter-spacing: 0.012em; /* 1.2% */
+  letter-spacing: 0.012em;
 }
 
 /* ============================= */
@@ -12,46 +12,43 @@
 
 .text[data-size='xl'] {
   font-size: var(--fontSizeBodyXL);
-  font-weight: 400;
+  font-weight: var(--fontWeightMedium); /* 500 */
 }
 
 .text[data-size='l'] {
   font-size: var(--fontSizeBodyL);
-  font-weight: 400;
+  font-weight: var(--fontWeightRegular); /* 400 */
 }
 
 .text[data-size='m'] {
   font-size: var(--fontSizeBodyM);
-  font-weight: 400;
+  font-weight: var(--fontWeightRegular); /* 400 */
 }
 
 .text[data-size='s'] {
   font-size: var(--fontSizeBodyS);
-  font-weight: 400;
+  font-weight: var(--fontWeightRegular); /* 400 */
 }
 
 .text[data-size='xs'] {
   font-size: var(--fontSizeBodyXS);
-  font-weight: 300;
+  font-weight: var(--fontWeightLight); /* 300 */
 }
 
 /* ============================= */
-/* ===== SERIF VARIANTS ======== */
+/* ===== VARIANTS ============== */
 /* ============================= */
 
 .text[data-size='l'][data-variant='serif'] {
   font-family: var(--serifFontStack);
-  font-weight: 400;
+  font-weight: var(--fontWeightRegular); /* 400 */
 }
 
 .text[data-size='m'][data-variant='serif'] {
   font-family: var(--serifFontStack);
-  font-weight: 300;
+  font-weight: var(--fontWeightLight); /* 300 */
 }
 
-.text {
-  color: var(--colorTextBody);
-}
 .text[data-tone='secondary'] {
   color: var(--colorTextMuted);
 }

@@ -1,13 +1,15 @@
-
 import imageUpstoxGold from 'assets/UpstoxGold.png';
 import imageUpstoxExplore from 'assets/UpstoxExplore.png';
 import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
+import FDorderform from 'assets/FDOrderform.png';
+import FDsuccess from 'assets/FDsuccess.png';
 import previewETMoneyHome from 'assets/PreviewETMoneyHome.png';
 import previewETMoneyHomescroll from 'assets/PreviewETMoneyHomescroll.png';
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
+import { LifeGallery } from 'layouts/Home/LifeGallery';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { Heading } from 'components/Heading';
 import { useEffect, useRef, useState } from 'react';
@@ -22,10 +24,11 @@ export const Home = () => {
   const projectOne = useRef();
   const projectTwo = useRef();
   const projectThree = useRef();
+  const lifeGallery = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, details, projectOne, projectTwo, projectThree];
+    const sections = [intro, details, lifeGallery, projectOne, projectTwo, projectThree];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -77,18 +80,17 @@ export const Home = () => {
         disciplines={disciplines}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
-      {/* Adding the 'My Work' heading using your Heading component */}
       <ProjectSummary
-  id="project-1"
-  alternate
-  sectionRef={projectOne}
-  visible={visibleSections.includes(projectOne.current)}
-  index={1}
-  title="Re-architecting how 10M+ Investors  Discover Wealth"
-  description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
-  buttonText="Read Case Study"
-  buttonLink="/projects/etmoney-home"
-  model={{
+        id="project-1"
+        alternate
+        sectionRef={projectOne}
+        visible={visibleSections.includes(projectOne.current)}
+        index={1}
+        title="Re-architecting how 10M+ Investors  Discover Wealth"
+        description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
+        buttonText="Read Case Study"
+        buttonLink="/projects/etmoney-home"
+        model={{
           type: 'phone',
           alt: 'App login screen',
           textures: [
@@ -102,7 +104,7 @@ export const Home = () => {
             },
           ],
         }}
-/>
+      />
       <ProjectSummary
         id="project-2"
         alternate
@@ -113,7 +115,20 @@ export const Home = () => {
         description="With 95% of Indians favoring FDs, this project streamlined the booking process to make it faster and more user-friendly."
         buttonText="Read More"
         buttonLink="https://portfolio-rits.framer.website/fd-upstox"
-        image={previewUpstoxFD}
+        model={{
+          type: 'phone',
+          alt: 'Fixed Deposits order form',
+          textures: [
+            {
+              srcSet: [FDsuccess, FDsuccess],
+              placeholder: FDsuccess,
+            },
+            {
+              srcSet: [FDorderform, FDorderform],
+              placeholder: FDorderform,
+            },
+          ],
+        }}
       />
       <ProjectSummary
         id="project-3"
@@ -140,7 +155,13 @@ export const Home = () => {
           ],
         }}
       />
-      
+
+      <LifeGallery
+        sectionRef={lifeGallery}
+        visible={visibleSections.includes(lifeGallery.current)}
+        id="life-gallery"
+      />
+
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}

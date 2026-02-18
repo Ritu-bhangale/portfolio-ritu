@@ -103,21 +103,35 @@
   position: absolute;
   top: 60px;
   left: 60px;
+
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
   gap: 26px;
+
+  font-family: var(--text-style-m-serif);
+
+  color: var(--colorText2);
 }
 
 .nav button {
   background: none;
   border: none;
   padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+
+  color: inherit;
   cursor: pointer;
-  font-family: var(--serifFontStack);
-  font-size: 20px;
-  letter-spacing: 0.004em;
-  color: var(--colorTextBody);
+
   transition: opacity 300ms ease;
+}
+
+.nav button:hover {
+  opacity: 0.6;
 }
 
 .nav button:hover {

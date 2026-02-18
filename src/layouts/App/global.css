@@ -13,32 +13,114 @@
   --mobileNavOffset: calc(var(--spaceOuter) * 2 + var(--space2XL));
 }
 
+/* Light */
 @font-face {
-  font-family: 'Seasons Sans';
-  src: url('/fonts/seasons/SeasonsSans-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Seasons Sans';
-  src: url('/fonts/seasons/SeasonsSans-Medium.woff2') format('woff2');
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Regular */
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-RegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Medium */
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-Medium.woff2') format('woff2');
   font-weight: 500;
-  font-display: swap;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Seasons Sans';
-  src: url('/fonts/seasons/SeasonsSans-Semibold.woff2') format('woff2');
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-MediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-SemiBold.woff2') format('woff2');
   font-weight: 600;
-  font-display: swap;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Seasons Serif';
-  src: url('/fonts/seasons/SeasonsSerif-Regular.woff2') format('woff2');
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-SemiBoldItalic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Sans';
+  src: url('/fonts/SeasonSans-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-Regular.woff2') format('woff2');
   font-weight: 400;
-  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
 }
 
 body {

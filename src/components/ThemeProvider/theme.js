@@ -12,12 +12,13 @@ const baseTokens = {
   durationXL: '800ms',
   systemFontStack:
     'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
-  fontStack: `'Seasons Sans', var(--systemFontStack)`,
-  serifFontStack: `'Seasons Serif', Georgia, serif`,
+  fontStack: `'Season Sans', var(--systemFontStack)`,
+  serifFontStack: `'Season Serif', Georgia, serif`,
   monoFontStack:
     'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
   japaneseFontStack:
     'ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif',
+  fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
@@ -123,6 +124,9 @@ const light = {
 
   /* Stroke */
   rgbStroke: '222 222 222', // #DEDEDE
+
+  /* Primary & Accent */
+  rgbPrimary: '15 15 15', // #0f0f0f (black for buttons)
 
   /* Derived CSS vars */
   colorTextTitle: 'rgb(var(--rgbTextPrimary) / 1)',
