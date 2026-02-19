@@ -1,1 +1,1 @@
-export { default } from "../../../layouts/CaseStudies/EtMoneyHome";
+export { default } from '../../../layouts/CaseStudies/EtMoneyHome';
