@@ -1,0 +1,116 @@
+.badgeLink {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--zIndex5);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  outline: none;
+  animation: badgeEnter 560ms var(--bezierFastoutSlowin);
+  transition: transform var(--durationM) var(--bezierFastoutSlowin),
+    opacity var(--durationM) var(--bezierFastoutSlowin);
+}
+
+.badgeLink[data-hidden='true'] {
+  transform: translateX(-50%) translateY(-120%);
+  opacity: 0.001;
+}
+
+.badgeLink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgb(var(--rgbStroke) / 0.6);
+  transform: scale(2.8);
+  opacity: 0;
+  animation: convergeHalo 700ms var(--bezierFastoutSlowin);
+  pointer-events: none;
+}
+
+.badge {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgb(var(--rgbStroke));
+  display: block;
+  background: rgb(var(--rgbBackground));
+  box-shadow: 0 10px 24px rgb(var(--rgbBlack) / 0.16);
+  transition: transform var(--durationS) var(--bezierFastoutSlowin),
+    box-shadow var(--durationS) var(--bezierFastoutSlowin);
+  position: relative;
+}
+
+.badgeLink:hover .badge,
+.badgeLink:focus-visible .badge {
+  transform: scale(1.04);
+  box-shadow: 0 14px 28px rgb(var(--rgbBlack) / 0.2);
+}
+
+.badge img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.homeIcon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(var(--rgbBackground));
+  opacity: 0;
+  transition: opacity var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.homeIcon svg {
+  width: 28px;
+  height: 28px;
+  fill: rgb(var(--rgbTextPrimary));
+}
+
+.badgeLink:hover .seasonImage,
+.badgeLink:focus-visible .seasonImage {
+  opacity: 0;
+}
+
+.badgeLink:hover .homeIcon,
+.badgeLink:focus-visible .homeIcon {
+  opacity: 1;
+}
+
+@keyframes badgeEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes convergeHalo {
+  0% {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+
+  40% {
+    opacity: 0.45;
+    transform: scale(2.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}

@@ -1,8 +1,8 @@
 import 'layouts/App/reset.css';
 import 'layouts/App/global.css';
 
-import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
+import { SeasonHomeBadge } from 'components/SeasonHomeBadge';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
@@ -17,6 +17,15 @@ import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
 export const AppContext = createContext({});
 
+function getSeasonIndexFromMonth() {
+  const month = new Date().getMonth() + 1;
+
+  if (month >= 3 && month <= 6) return 0;
+  if (month >= 7 && month <= 9) return 1;
+  if (month >= 10 && month <= 11) return 2;
+  return 3;
+}
+
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -27,6 +36,12 @@ const App = ({ Component, pageProps }) => {
   useEffect(() => {
     dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
   }, [storedTheme]);
+
+  useEffect(() => {
+    if (state.seasonIndex === null) {
+      dispatch({ type: 'setSeason', value: getSeasonIndexFromMonth() });
+    }
+  }, [state.seasonIndex]);
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
@@ -47,7 +62,7 @@ const App = ({ Component, pageProps }) => {
             >
               Skip to main content
             </VisuallyHidden>
-            <Navbar />
+            <SeasonHomeBadge />
             <main className={styles.app} tabIndex={-1} id="MainContent">
               <AnimatePresence exitBeforeEnter>
                 <m.div

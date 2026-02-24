@@ -1,14 +1,9 @@
 import { Icon } from 'components/Icon';
-import { Monogram } from 'components/Monogram';
 import { useTheme } from 'components/ThemeProvider';
-import { tokens } from 'components/ThemeProvider/theme';
-import { Transition } from 'components/Transition';
-import { useAppContext, useScrollToHash, useWindowSize } from 'hooks';
+import { useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { cssProps, media, msToNum, numToMs } from 'utils/style';
-import { NavToggle } from './NavToggle';
 import styles from './Navbar.module.css';
 import { ThemeToggle } from './ThemeToggle';
 import { navLinks, socialLinks } from './navData';
@@ -17,11 +12,8 @@ export const Navbar = () => {
   const [current, setCurrent] = useState();
   const [target, setTarget] = useState();
   const { themeId } = useTheme();
-  const { menuOpen, dispatch } = useAppContext();
   const { route, asPath } = useRouter();
-  const windowSize = useWindowSize();
   const headerRef = useRef();
-  const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
   const scrollToHash = useScrollToHash();
 
   useEffect(() => {
@@ -110,7 +102,7 @@ export const Navbar = () => {
       document.removeEventListener('scroll', handleInversion);
       resetNavTheme();
     };
-  }, [themeId, windowSize, asPath]);
+  }, [themeId, asPath]);
 
   // Check if a nav item should be active
   const getCurrent = (url = '') => {
@@ -134,11 +126,6 @@ export const Navbar = () => {
     }
   };
 
-  const handleMobileNavClick = event => {
-    handleNavItemClick(event);
-    if (menuOpen) dispatch({ type: 'toggleMenu' });
-  };
-
   return (
     <header className={styles.navbar} ref={headerRef}>
       <RouterLink href={route === '/' ? '/#intro' : '/'} scroll={false}>
@@ -146,12 +133,11 @@ export const Navbar = () => {
           data-navbar-item
           className={styles.logo}
           aria-label="Ritu Bhangale, Designer"
-          onClick={handleMobileNavClick}
+          onClick={handleNavItemClick}
         >
           {/* <Monogram highlight /> */}
         </a>
       </RouterLink>
-      <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
       <nav className={styles.nav}>
         <div className={styles.navList}>
           {navLinks.map(({ label, pathname }) => (
@@ -169,31 +155,22 @@ export const Navbar = () => {
         </div>
         <NavbarIcons desktop />
       </nav>
-      <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
-        {visible => (
-          <nav className={styles.mobileNav} data-visible={visible}>
-            {navLinks.map(({ label, pathname }, index) => (
-              <RouterLink href={pathname} scroll={false} key={label}>
-                <a
-                  className={styles.mobileNavLink}
-                  data-visible={visible}
-                  aria-current={getCurrent(pathname)}
-                  onClick={handleMobileNavClick}
-                  style={cssProps({
-                    transitionDelay: numToMs(
-                      Number(msToNum(tokens.base.durationS)) + index * 50
-                    ),
-                  })}
-                >
-                  {label}
-                </a>
-              </RouterLink>
-            ))}
-            <NavbarIcons />
-            <ThemeToggle isMobile />
-          </nav>
-        )}
-      </Transition>
+      <nav className={styles.mobileNav}>
+        {navLinks.map(({ label, pathname }) => (
+          <RouterLink href={pathname} scroll={false} key={label}>
+            <a
+              className={styles.mobileNavLink}
+              data-navbar-item
+              aria-current={getCurrent(pathname)}
+              onClick={handleNavItemClick}
+            >
+              {label}
+            </a>
+          </RouterLink>
+        ))}
+        <NavbarIcons />
+        <ThemeToggle isMobile />
+      </nav>
       {/* {!isMobile && <ThemeToggle data-navbar-item />} */}
     </header>
   );

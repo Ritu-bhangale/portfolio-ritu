@@ -1,7 +1,7 @@
 import { Heading } from 'components/Heading';
 import { Text } from 'components/Text';
 import { Section } from 'components/Section';
-import { useScrollToHash } from 'hooks';
+import { useAppContext, useScrollToHash } from 'hooks';
 import styles from './Intro.module.css';
 import sectionStyles from 'components/Section/Section.module.css';
 
@@ -21,47 +21,50 @@ const SEASONS = ['summer', 'monsoon', 'autumn', 'winter'];
 
 const SEASON_IMAGES = [summerImage, monsoonImage, autumnImage, winterImage];
 
-/* Determine season based on current month */
-function getSeasonIndexFromMonth() {
-  const month = new Date().getMonth() + 1;
-
-  if (month >= 3 && month <= 6) return 0; // Summer
-  if (month >= 7 && month <= 9) return 1; // Monsoon
-  if (month >= 10 && month <= 11) return 2; // Autumn
-  return 3; // Winter
-}
-
 /* ---------------------------------- */
 /* Intro Component                    */
 /* ---------------------------------- */
 
 export function Intro({ id, sectionRef }) {
   const scrollToHash = useScrollToHash();
-
-  /* Hydration-safe initial state */
-  const [seasonIndex, setSeasonIndex] = useState(0);
+  const { seasonIndex, dispatch } = useAppContext();
 
   /* Hover state for cycling */
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef(null);
-
-  /* Set correct season after mount (avoids hydration mismatch) */
-  useEffect(() => {
-    setSeasonIndex(getSeasonIndexFromMonth());
-  }, []);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   /* Loop seasons while hovering */
   useEffect(() => {
     if (!isHovering) return;
 
     intervalRef.current = setInterval(() => {
-      setSeasonIndex(prev => (prev + 1) % SEASONS.length);
+      const current = typeof seasonIndex === 'number' ? seasonIndex : 0;
+      const next = (current + 1) % SEASONS.length;
+      dispatch({ type: 'setSeason', value: next });
     }, 1200);
 
     return () => clearInterval(intervalRef.current);
-  }, [isHovering]);
+  }, [dispatch, isHovering, seasonIndex]);
 
-  const season = SEASONS[seasonIndex];
+  useEffect(() => {
+    const handleScroll = () => {
+      const maxScroll = 360;
+      const progress = Math.min(window.scrollY / maxScroll, 1);
+      setScrollProgress(progress);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const activeSeasonIndex = typeof seasonIndex === 'number' ? seasonIndex : 0;
+  const season = SEASONS[activeSeasonIndex];
+  const circleSize = 200 - 136 * scrollProgress;
+  const circleTop = 156 - 132 * scrollProgress;
+  const circleBorder = 10 - 6 * scrollProgress;
 
   const handleNavClick = hash => {
     scrollToHash(hash);
@@ -95,12 +98,12 @@ export function Intro({ id, sectionRef }) {
               Resume
             </Text>
           </button>
-          <button onClick={() => handleNavClick('#projects')}>
+          <button onClick={() => handleNavClick('#project-1')}>
             <Text as="m" variant="serif">
               Projects
             </Text>
           </button>
-          <button onClick={() => handleNavClick('#about')}>
+          <button onClick={() => handleNavClick('#details')}>
             <Text as="m" variant="serif">
               About me
             </Text>
@@ -109,27 +112,37 @@ export function Intro({ id, sectionRef }) {
 
         {/* Main Content */}
         <div className={styles.centerContent}>
-          {/* Season Image Circle */}
-          <div
-            className={styles.circle}
+          <div className={styles.circlePlaceholder} />
+
+          <button
+            className={styles.circleFixed}
+            aria-label="Go to home hero"
+            onClick={() => handleNavClick('#intro')}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
+            style={{
+              '--circleSize': `${circleSize}px`,
+              '--circleTop': `${circleTop}px`,
+              '--circleBorder': `${circleBorder}px`,
+            }}
           >
-            <div
-              className={styles.stack}
-              style={{
-                transform: `translateY(-${seasonIndex * 20}%)`,
-                transition: 'transform 800ms ease-in-out',
-              }}
-            >
-              {/* Duplicate first image at end for seamless loop */}
-              {[...SEASON_IMAGES, SEASON_IMAGES[0]].map((image, i) => (
-                <div className={styles.season} key={i}>
-                  <img src={image.src || image} alt={SEASONS[i % SEASONS.length]} />
-                </div>
-              ))}
+            <div className={styles.circle}>
+              <div
+                className={styles.stack}
+                style={{
+                  transform: `translateY(-${activeSeasonIndex * 20}%)`,
+                  transition: 'transform 800ms ease-in-out',
+                }}
+              >
+                {/* Duplicate first image at end for seamless loop */}
+                {[...SEASON_IMAGES, SEASON_IMAGES[0]].map((image, i) => (
+                  <div className={styles.season} key={i}>
+                    <img src={image.src || image} alt={SEASONS[i % SEASONS.length]} />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </button>
 
           {/* Headline */}
           <Heading level={0} className={styles.headline}>

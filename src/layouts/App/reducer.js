@@ -1,5 +1,6 @@
 export const initialState = {
-  menuOpen: false,
+  theme: 'dark',
+  seasonIndex: null,
 };
 
 export function reducer(state, action) {
@@ -12,8 +13,8 @@ export function reducer(state, action) {
       const newThemeId = state.theme === 'dark' ? 'light' : 'dark';
       return { ...state, theme: newThemeId };
     }
-    case 'toggleMenu':
-      return { ...state, menuOpen: !state.menuOpen };
+    case 'setSeason':
+      return { ...state, seasonIndex: value };
     default:
       throw new Error();
   }
