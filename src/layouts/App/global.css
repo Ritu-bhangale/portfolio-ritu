@@ -97,9 +97,23 @@
 
 @font-face {
   font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Season Serif';
   src: url('/fonts/SeasonSerif-TRIAL-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-RegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
@@ -111,6 +125,13 @@
 
 @font-face {
   font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-MediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Season Serif';
   src: url('/fonts/SeasonSerif-TRIAL-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
@@ -118,9 +139,37 @@
 
 @font-face {
   font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-SemiBoldItalic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Season Serif';
   src: url('/fonts/SeasonSerif-TRIAL-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Season Serif';
+  src: url('/fonts/SeasonSerif-TRIAL-HeavyItalic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
 }
 
 body {
@@ -185,4 +234,12 @@ body {
     transform: scale3d(0, 1, 1);
     transform-origin: right;
   }
+}
+
+/* Remove any legacy hamburger/toggle button across the app */
+button[aria-label='Menu'],
+a[aria-label='Menu'],
+[data-icon='menu'],
+[data-menu='true'] {
+  display: none !important;
 }

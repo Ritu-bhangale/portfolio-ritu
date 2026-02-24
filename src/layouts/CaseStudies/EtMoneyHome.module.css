@@ -1,858 +1,299 @@
-.page {
-  display: flex;
-  padding: 0 15rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
-}
-
 .container {
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
   display: flex;
-  min-width: 20rem;
-  max-width: 72rem;
-  padding: 7.125rem 0 10rem 0;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 3.125rem;
-  flex: 1 0 0;
+  gap: var(--space2XL);
+  text-align: center;
 }
-
-/* HERO SECTION */
-.heading {
+.body {
   display: flex;
-  padding: 3.125rem 0;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 7.5rem;
-  align-self: stretch;
+  gap: var(--space4XL);
+}
+.topSections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space4XL);
 }
 
-.title {
-  align-self: stretch;
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 4rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 150%;
+.caseSections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space4XL);
 }
 
-.title em {
-  font-style: italic;
-  font-weight: 600;
+.hero {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  align-items: flex-start;
+  text-align: left;
+  gap: 32px;
 }
 
-/* BADGE GROUP */
+.heroTitle {
+  width: 100%;
+  max-width: 1248px;
+}
+
 .badgeGroup {
   display: flex;
-  gap: 0.75rem;
-  align-items: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
 }
 
 .badge {
-  display: flex;
-  gap: 0.75rem;
+  min-height: 32px;
+  display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  background: #111;
-  border-radius: 0.25rem;
-  height: 2rem;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.badgeIconWrap {
+  background: rgb(17 17 17);
 }
 
 .badgeIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgb(var(--rgbTextTertiary));
 }
 
-.badgeIcon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.badgeEt {
+  background: rgb(38 138 93);
 }
 
-.badgeGreen {
-  background: #268a5d;
+.badgeFintech {
+  background: rgb(107 70 193);
 }
 
-.badgePurple {
-  background: #6b46c1;
-}
-
-.badgeBlue {
-  background: #2b6cb0;
+.badgeExplore {
+  background: rgb(43 108 176);
 }
 
 .badgeText {
-  color: #fff;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0.016em;
-  margin: 0;
+  color: rgb(var(--rgbTextTertiary));
+  font-weight: var(--fontWeightMedium);
 }
 
-/* IMPACT CARDS SECTION */
-.impactSection {
+.roleImpactGrid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3.75rem;
-  align-self: stretch;
-  padding: 7.5rem 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 60px;
+  text-align: left;
 }
 
-.impactCard {
+.roleImpactCard {
   display: flex;
   flex-direction: column;
-  gap: 1.375rem;
+  gap: 22px;
+}
+
+.stepper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceL);
+}
+
+.stepper::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: rgb(44 166 0);
+}
+
+.step {
+  position: relative;
+  display: flex;
   align-items: flex-start;
-  flex: 1;
+  gap: var(--spaceM);
 }
 
-.cardHeading {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.5;
-  height: 2.25rem;
-  margin: 0;
-  width: 100%;
-}
-
-.metricsGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.metricBox {
-  background: #f5f5f5;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.metricText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.stakeholderList {
-  list-style: disc;
-  margin: 0;
-  padding-left: 1.875rem;
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.stakeholderList li {
-  margin-bottom: 0;
-}
-
-.roleText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.durationText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.durationText p {
-  margin: 0;
-}
-
-/* SUMMARY SECTION */
-.summarySection {
-  display: flex;
-  padding: 7.5rem 0;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  align-self: stretch;
-}
-
-.sectionTitle {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 2.75rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* DETAILED CONTENT SECTION */
-.detailedSection {
-  display: flex;
-  padding: 3.125rem 0;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5rem;
-  align-self: stretch;
-}
-
-.timelineEntry {
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-  width: 100%;
-}
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-  width: 100%;
-}
-
-.timelineIndicator {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  width: auto;
-}
-
-.dot {
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #000;
+.stepDot {
+  position: relative;
+  margin-top: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  flex-shrink: 0;
+  background: rgb(44 166 0);
+  flex: 0 0 12px;
+  z-index: 1;
 }
 
-.date {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.timelineText {
-  color: rgba(0, 0, 0, 0.7);
-  font-family: 'Libre Caslon Text', serif;
-  font-size: 2.75rem;
-  font-weight: 500;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.largeHeading {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.longText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.boldText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.highlightText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.sectionHeading {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.svgFrame {
+.metrics {
   width: 100%;
-  max-width: 1248px;
-  height: auto;
-  border-radius: 0.75rem;
-}
-
-/* METRICS SECTION */
-.metricsSection {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 12px;
+}
+
+.metricItem {
   width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgb(var(--rgbBackgroundAlt));
 }
 
-.metricsCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+.list {
+  margin: 0;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceS);
+}
+
+.quickSummary {
+  position: relative;
   width: 100%;
+  border: 1px solid var(--colorStroke);
+  border-radius: 24px;
+  padding: 80px var(--spaceXL);
+  background: linear-gradient(
+    to top,
+    rgb(var(--rgbBackground)) 0%,
+    rgb(var(--rgbBackgroundAlt)) 100%
+  );
 }
 
-.metricCardBox {
+.quickSummaryLead {
+  color: var(--colorTextMuted);
+}
+
+.quickSummaryTitle {
+  margin-top: 8px;
+}
+
+.block {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 1.5rem;
-  background: transparent;
+  align-items: center;
+  gap: 12px;
 }
 
-.metricDescription {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
+.whatDidntWorkBlock {
+  margin-top: var(--space2XL);
 }
 
-/* RESEARCH SECTION */
-.researchSection {
+.textWide {
+  max-width: 796px;
+}
+
+.label {
+  color: var(--colorTextMuted);
+}
+
+.calloutMuted {
+  color: var(--colorTextMuted);
+}
+
+.calloutStrong {
+  color: var(--colorTextTitle);
+}
+
+.greenCallout {
+  color: var(--colorTextTitle);
+}
+
+.wealthEmphasis {
+  font-style: italic;
+  color: rgb(44 101 70);
+}
+
+.redCallout {
+  color: rgb(210 37 37);
+}
+
+.subtitleEmphasisRed {
+  color: rgb(210 37 37);
+  font-style: italic;
+  font-weight: var(--fontWeightMedium);
+}
+
+.callMeta {
   display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-}
-
-.subheading {
-  color: #000;
-  font-family: 'Libre Caslon Text', serif;
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* EXPLORATION SECTION */
-.explorationSection {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-}
-
-.explorationWhatDidntWork {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  background: transparent;
-}
-
-.explorationWhatDidntWork h3 {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.explorationWhatDidntWork p {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* WIREFRAMES SECTION */
-.wireframesSection {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-}
-
-/* REVISED SECTION */
-.revisedSection {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-}
-
-.sectionText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* FINAL SECTION */
-.finalSection {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 100%;
-}
-
-.versionText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* CASES SECTION */
-.casesSection {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  width: 100%;
-}
-
-.caseStudy {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  width: 100%;
-}
-
-.caseHeading {
-  color: #000;
-  font-family: 'Libre Caslon Text', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.caseDescription {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* IMPACT FINAL SECTION */
-.impactFinal {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  align-self: stretch;
-}
-
-.impactCards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  width: 100%;
-}
-
-.impactCardLarge {
-  display: flex;
-  flex-direction: column;
-  gap: 3.75rem;
-  padding: 2.75rem;
-  background: #fff;
-  border: 1px solid #dedede;
-  border-radius: 1.5rem;
-}
-
-.impactMetricLabel {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.51;
-  letter-spacing: 0.008em;
-  margin: 0;
-}
-
-.impactMetricValue {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 1.51;
-  letter-spacing: 0.016em;
-  margin: 0;
-}
-
-.positive {
-  color: #0d6e00;
-}
-
-.arrow {
-  margin: 0 0.5rem;
-}
-
-.impactMetricSubtext {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.51;
-  letter-spacing: 0.0056em;
-  margin: 0;
-}
-
-.impactDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.impactDetails p {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.51;
-  letter-spacing: 0.008em;
-  margin: 0;
-}
-
-.impactText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.51;
-  letter-spacing: 0.008em;
-  margin: 0;
-}
-
-/* NEXT SECTION */
-.nextSection {
-  display: flex;
-  padding: 2rem 0;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: var(--spaceS);
+}
+
+.callMetaIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: rgb(199 232 187);
+  display: inline-flex;
   align-items: center;
-  gap: 0;
-  align-self: stretch;
-  margin-top: 3rem;
+  justify-content: center;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .page {
-    padding: 0 1rem;
-  }
-
-  .title {
-    font-size: 2.25rem;
-  }
-
-  .badgeGroup {
-    gap: 0.5rem;
-  }
-
-  .impactSection {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .metricsCards {
-    grid-template-columns: 1fr;
-  }
-
-  .impactCards {
-    grid-template-columns: 1fr;
-  }
-
-  .largeHeading,
-  .sectionHeading {
-    font-size: 1.75rem;
-  }
+.callMetaIconGlyph {
+  color: rgb(44 166 0);
+  font-size: 12px;
+  line-height: 1;
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 0 1rem;
-  }
-
-  .container {
-    padding: 3rem 0 5rem 0;
-    gap: 2rem;
-  }
-
-  .heading {
-    gap: 3rem;
-  }
-
-  .title {
-    font-size: 1.75rem;
-  }
-
-  .badgeGroup {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
-}
-
-/* TESTIMONIALS */
-.testimonialGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  margin: 2rem 0;
-}
-
-.testimonial {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.testimonialBox {
-  display: flex;
-  gap: 1.625rem;
-  padding: 1.25rem;
-  background: #f5f5f5;
-  border-radius: 0.5rem;
-}
-
-.testimonialLine {
-  width: 0.125rem;
-  height: 100%;
-  background: #000;
-  flex-shrink: 0;
-}
-
-.testimonialContent {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  flex: 1;
-}
-
-.rating {
-  display: flex;
+.callMetaDots {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 2px;
 }
 
-.stars {
-  display: flex;
-  gap: 0.25rem;
-  font-size: 1.125rem;
+.callMetaDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(44 166 0);
 }
 
-.starFilled {
-  color: #ffd700;
+.heroEmphasis {
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--colorTextTitle);
 }
 
-.starEmpty {
-  color: #ccc;
+.titleEmphasis {
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
 }
 
-.ratingValue {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  margin-left: 0.5rem;
+.titleLineMuted {
+  color: var(--colorTextMuted);
 }
 
-.quote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
+.titleLineEmphasis {
+  color: var(--colorTextTitle);
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
 }
 
-.testimonialAuthor {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-left: 1.5rem;
-}
-
-.authorName {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* CHART AND DIAGRAM STYLES */
-.chartLabel {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.chartNote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.diagramTitle {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.diagramText {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.diagramInsight {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* COMPETITOR SECTION */
-.competitorSection {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  width: 100%;
-  margin: 2rem 0;
-}
-
-.competitorCard {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: #f5f5f5;
-  border-radius: 0.5rem;
-}
-
-.competitorName {
-  color: #000;
-  font-family: 'Season Serif', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.competitorNote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* WIREFRAME NOTE */
-.wireframeNote {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  background: transparent;
-}
-
-.wireframeNote p {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* EXPLORATION NOTE */
-.explorationNote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 1rem 0;
-}
-
-/* FINAL NOTE */
-.finalNote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 1rem 0;
-}
-
-/* CASE NOTE */
-.caseNote {
-  color: #000;
-  font-family: 'Season Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* RESPONSIVE FOR COMPETITOR SECTION */
-@media (max-width: 900px) {
-  .competitorSection {
+@media (--mediaTablet) {
+  .roleImpactGrid {
     grid-template-columns: 1fr;
+    gap: var(--spaceXL);
+    text-align: center;
   }
 
-  .testimonialGrid {
-    grid-template-columns: 1fr;
+  .list {
+    align-items: center;
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  .quickSummary {
+    padding: var(--space2XL) var(--spaceL);
   }
 }
