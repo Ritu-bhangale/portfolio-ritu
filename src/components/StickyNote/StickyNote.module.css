@@ -1,0 +1,111 @@
+.note {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  text-align: center;
+  padding: 0 1rem;
+  border-radius: 0;
+  border: 0.549px solid var(--colors-transparent-dark-grey, rgb(51 51 51 / 10%));
+  filter: drop-shadow(0 2.196px 4.391px rgb(0 0 0 / 10%));
+  cursor: grab;
+  user-select: none;
+}
+
+.note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: rgb(255 255 255 / 10%);
+}
+
+.note[data-size='large'] {
+  width: 14.40931rem;
+  height: 14.40931rem;
+  padding-top: 1rem;
+}
+
+.note[data-size='small'] {
+  width: 10.5rem;
+  height: 10.5rem;
+  padding-top: 0.75rem;
+}
+
+.note[data-variant='aqua'] {
+  background: var(--gradient-blue, linear-gradient(180deg, #8fd6dc 0%, #6fc4c7 100%));
+}
+
+.note[data-variant='green'] {
+  background: var(--gradient-green, linear-gradient(180deg, #b3dc93 0%, #a5cf70 100%));
+}
+
+.note[data-variant='yellow'] {
+  background: var(--gradient-yellow, linear-gradient(180deg, #f3e095 0%, #edda80 100%));
+}
+
+.note[data-variant='pink'] {
+  background: var(--gradient-pink, linear-gradient(180deg, #f2a6b2 0%, #ed8798 100%));
+}
+
+.text {
+  margin: 0;
+  color: var(--colors-dark-grey, #333);
+  text-align: center;
+  font-family: 'Season Serif-TRIAL', var(--serifFontStack);
+}
+
+.note[data-size='large'] .text {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 720;
+  line-height: 150%;
+  letter-spacing: 0.005rem;
+}
+
+.note[data-size='small'] .text {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 145%;
+  letter-spacing: 0.003rem;
+}
+
+.icon {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(var(--rgbBackground));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--colorTextMuted);
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+@media (--mediaTablet) {
+  .note[data-size='small'] {
+    width: 9.5rem;
+    height: 9.5rem;
+  }
+}
+
+@media (--mediaMobile) {
+  .note[data-size='small'] {
+    width: 10rem;
+    height: 10rem;
+  }
+}

@@ -41,7 +41,7 @@ const baseTokens = {
   maxWidthM: '720px',
   maxWidthL: '1096px',
   maxWidthXL: '1680px',
-  spaceOuter: '64px',
+  spaceOuter: '240px',
   spaceXS: '4px',
   spaceS: '8px',
   spaceM: '12px',

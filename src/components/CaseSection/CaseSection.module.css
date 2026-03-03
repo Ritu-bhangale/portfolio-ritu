@@ -17,8 +17,8 @@
 }
 
 .container[data-size='small'] {
-  padding-left: var(--space4XL);
-  padding-right: var(--space4XL);
+  padding-left: var(--space5XL);
+  padding-right: var(--space5XL);
 }
 
 .header[data-guides='true']::before,
@@ -104,6 +104,7 @@
 
 .media {
   display: block;
+  width: 100%;
 }
 
 .header + .media {
