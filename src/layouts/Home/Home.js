@@ -1,14 +1,8 @@
-import vibaPdp from '../../assets/viba-pdp.jpg';
-import vibaPdpLarge from '../../assets/viba-pdp-large.jpg';
-import vibaPdpPlaceholder from '../../assets/viba-pdp.jpg';
-import imageVibaGoldDelivery from 'assets/Viba-Gold-Delivery.jpg';
-import imageVibaGoldDeliveryLarge from 'assets/Viba-Gold-Delivery-Large.jpg';
-import imageVibaGoldDeliveryPlaceholder from 'assets/Viba-Gold-Delivery.jpg';
 import imageUpstoxGold from 'assets/UpstoxGold.png';
 import imageUpstoxExplore from 'assets/UpstoxExplore.png';
-import previewVibaPostOrderFlow from 'assets/PreviewVibaPostOrderFlow.png';
 import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
-import previewFD from 'assets/FDpreview.png';
+import previewETMoneyHome from 'assets/PreviewETMoneyHome.png';
+import previewETMoneyHomescroll from 'assets/PreviewETMoneyHomescroll.png';
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
@@ -89,11 +83,24 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Fixed Deposits order form"
-        description="With 95% of Indians favoring FDs, this project streamlined the booking process to make it faster and more user-friendly."
-        buttonText="Read More"
-        buttonLink="https://portfolio-rits.framer.website/fd-upstox"
-        image={previewUpstoxFD}
+        title="Re-architecting how 10M+ Investors  Discover Wealth"
+        description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
+        buttonText="Request access to read"
+        buttonLink="/projects/etmoney-home"
+        model={{
+          type: 'phone',
+          alt: 'App login screen',
+          textures: [
+            {
+              srcSet: [previewETMoneyHome, previewETMoneyHome],
+              placeholder: previewETMoneyHome,
+            },
+            {
+              srcSet: [previewETMoneyHomescroll, previewETMoneyHomescroll],
+              placeholder: previewETMoneyHomescroll,
+            },
+          ],
+        }}
       />
       <ProjectSummary
         id="project-2"
@@ -101,6 +108,18 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
+        title="Fixed Deposits order form"
+        description="With 95% of Indians favoring FDs, this project streamlined the booking process to make it faster and more user-friendly."
+        buttonText="Read More"
+        buttonLink="https://portfolio-rits.framer.website/fd-upstox"
+        image={previewUpstoxFD}
+      />
+      <ProjectSummary
+        id="project-3"
+        alternate
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
         title="Gold : Fragmented to seamless"
         description="Simplifying gold investment journeys by enhancing discoverability, education, and portfolio management."
         buttonText="Read More"
@@ -116,31 +135,6 @@ export const Home = () => {
             {
               srcSet: [imageUpstoxExplore, imageUpstoxExplore],
               placeholder: imageUpstoxExplore,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-3"
-        alternate
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="Viba-Jar Integration"
-        description="Integration of Viba website with the Jar platform, which led to a significant increase in orders."
-        buttonText="Read More"
-        buttonLink="https://portfolio-rits.framer.website/jar"
-        model={{
-          type: 'phone',
-          alt: 'App login screen',
-          textures: [
-            {
-              srcSet: [imageVibaGoldDelivery, imageVibaGoldDeliveryLarge],
-              placeholder: imageVibaGoldDeliveryPlaceholder,
-            },
-            {
-              srcSet: [vibaPdp, vibaPdpLarge],
-              placeholder: vibaPdpPlaceholder,
             },
           ],
         }}
