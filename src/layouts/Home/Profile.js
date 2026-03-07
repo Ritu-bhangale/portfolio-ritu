@@ -5,7 +5,9 @@ import { Image } from 'components/Image';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { Transition } from 'components/Transition';
+import { useSeasonalHoverEffect } from 'hooks';
 import { Fragment, useState } from 'react';
+import { classes } from 'utils/style';
 import { media } from 'utils/style';
 import styles from './Profile.module.css';
 
@@ -38,6 +40,7 @@ const ExperienceItem = ({ visible, title, description }) => (
 
 export const Profile = ({ id, visible, sectionRef }) => {
   const [focused, setFocused] = useState(false);
+  const { handleMouseEnter, handleMouseLeave } = useSeasonalHoverEffect();
   const titleId = `${id}-title`;
 
   const experiences = [
@@ -96,7 +99,12 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   About
                 </div>
                 <div className={styles.aboutContent}>
-                  <div className={styles.aboutItem} data-visible={visible}>
+                  <div
+                    className={classes(styles.aboutItem, 'season-button')}
+                    data-visible={visible}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <div className={styles.aboutLabel}>Education</div>
                     <div className={styles.aboutValue}>
                       <strong>Maharaja Agrasen Institute of Technology</strong>

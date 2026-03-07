@@ -1,6 +1,5 @@
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
-import { useTheme } from 'components/ThemeProvider';
 import { useReducedMotion } from 'framer-motion';
 import { useHasMounted, useInViewport } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
@@ -21,7 +20,6 @@ export const Image = ({
   ...rest
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const { themeId } = useTheme();
   const containerRef = useRef();
   const src = baseSrc || srcSet?.[0];
   const inViewport = useInViewport(containerRef, !getIsVideo(src));
@@ -37,7 +35,6 @@ export const Image = ({
       data-reveal={reveal}
       data-jarimg={jarImg}
       data-raised={raised}
-      data-theme={themeId}
       style={cssProps({ delay: numToMs(delay) }, style)}
       ref={containerRef}
     >

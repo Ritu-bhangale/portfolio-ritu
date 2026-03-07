@@ -6,7 +6,7 @@ import { SeasonHomeBadge } from 'components/SeasonHomeBadge';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
-import { useFoucFix, useLocalStorage } from 'hooks';
+import { useFoucFix } from 'hooks';
 import styles from 'layouts/App/App.module.css';
 import { initialState, reducer } from 'layouts/App/reducer';
 import Head from 'next/head';
@@ -27,15 +27,10 @@ function getSeasonIndexFromMonth() {
 }
 
 const App = ({ Component, pageProps }) => {
-  const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
   useFoucFix();
-
-  useEffect(() => {
-    dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
-  }, [storedTheme]);
 
   useEffect(() => {
     if (state.seasonIndex === null) {
@@ -45,7 +40,7 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
-      <ThemeProvider themeId={state.theme}>
+      <ThemeProvider>
         <LazyMotion features={domAnimation}>
           <Fragment>
             <Head>

@@ -71,6 +71,8 @@ const metricNotes = [
   {
     id: 'aum',
     text: 'Increase AUM managed by ET Money',
+    backText: 'Watch me taking greeat steps in this direction.',
+    interaction: 'flip',
     variant: 'aqua',
     icon: BulbIcon,
     rotate: 0,
@@ -79,6 +81,8 @@ const metricNotes = [
   {
     id: 'average-products',
     text: 'Increase average products held per user (from 1.2)',
+    backText: 'Watch me take it to 1.46.',
+    interaction: 'flip',
     variant: 'green',
     icon: BulbIcon,
     rotate: 2,
@@ -87,6 +91,8 @@ const metricNotes = [
   {
     id: 'nps',
     text: 'Improve NPS and restore positive user sentiment',
+    backText: 'Watch me increase it by +83.',
+    interaction: 'flip',
     variant: 'yellow',
     icon: BulbIcon,
     rotate: -7,
@@ -122,7 +128,9 @@ const exploreNotes = [
   {
     id: 'fatigue',
     text: 'Avoid scroll fatigue',
+    backText: 'Highlight next-best actions to keep momentum.',
     variant: 'pink',
+    interaction: 'flip',
     icon: AnnotationIcon,
     rotate: -6,
     className: 'exploreNotePink',
@@ -432,6 +440,8 @@ export default function EtMoneyHome() {
                 <StickyNote
                   key={note.id}
                   text={note.text}
+                  backText={note.backText}
+                  interaction={note.interaction}
                   size="large"
                   variant={note.variant}
                   icon={note.icon}
@@ -528,6 +538,8 @@ export default function EtMoneyHome() {
                   <StickyNote
                     key={note.id}
                     text={note.text}
+                    backText={note.backText}
+                    interaction={note.interaction}
                     size="small"
                     variant={note.variant}
                     icon={note.icon}

@@ -3,7 +3,6 @@ import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
-import { useTheme } from 'components/ThemeProvider';
 import { Transition } from 'components/Transition';
 import { useWindowSize } from 'hooks';
 import dynamic from 'next/dynamic';
@@ -30,11 +29,9 @@ export const ProjectSummary = ({
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
-  const theme = useTheme();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
-  const svgOpacity = theme.themeId === 'light' ? 0.7 : 1;
   const indexText = index < 10 ? `0${index}` : index;
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;

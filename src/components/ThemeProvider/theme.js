@@ -110,9 +110,7 @@ const tokensMobileSmall = {
   fontSizeH4: pxToRem(20),
 };
 
-const light = {
-  themeId: 'light',
-
+const theme = {
   /* Backgrounds */
   rgbBackground: '255 255 254', // #FFFFFE (bg-1)
   rgbBackgroundAlt: '245 245 245', // #F5F5F5 (bg-2)
@@ -127,12 +125,17 @@ const light = {
 
   /* Primary & Accent */
   rgbPrimary: '15 15 15', // #0f0f0f (black for buttons)
+  rgbJar: '83 10 192',
+  rgbError: '255 0 60',
 
   /* Derived CSS vars */
   colorTextTitle: 'rgb(var(--rgbTextPrimary) / 1)',
   colorTextBody: 'rgb(var(--rgbTextPrimary) / 1)',
   colorTextMuted: 'rgb(var(--rgbTextSecondary) / 1)',
+  colorTextLight: 'rgb(var(--rgbTextSecondary) / 1)',
   colorStroke: 'rgb(var(--rgbStroke) / 1)',
+  rgbText: '15 15 15',
+  rgbBackgroundLight: '245 245 245',
 
   rgbAccent: '0 229 255', // keep or update later
 };
@@ -146,4 +149,4 @@ export const tokens = {
   mobileS: tokensMobileSmall,
 };
 
-export const theme = { light };
+export { theme };

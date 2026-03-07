@@ -6,8 +6,10 @@ import styles from './StickyNote.module.css';
 
 export const StickyNote = ({
   text,
+  backText,
   size = 'large',
   variant = 'green',
+  interaction = 'default',
   icon = '💡',
   draggable = true,
   constraintsRef,
@@ -18,6 +20,7 @@ export const StickyNote = ({
   textClassName,
   style,
 }) => {
+  const isFlip = interaction === 'flip' && Boolean(backText);
   const dragProps = draggable
     ? {
         drag: true,
@@ -40,16 +43,42 @@ export const StickyNote = ({
       className={classes(styles.note, className)}
       data-size={size}
       data-variant={variant}
+      data-interaction={interaction}
       style={{ rotate: `${rotate}deg`, x, y, ...style }}
       whileHover={{ y: -4, scale: 1.015 }}
       {...dragProps}
     >
-      <Text as="p" className={classes(styles.text, textClassName)}>
-        {text}
-      </Text>
-      <span className={styles.icon} aria-hidden="true">
-        {renderIcon()}
-      </span>
+      {isFlip ? (
+        <div className={styles.flipBody}>
+          <div className={styles.flipInner}>
+            <div className={styles.faceFront}>
+              <Text as="p" className={classes(styles.text, textClassName)}>
+                {text}
+              </Text>
+              <span className={styles.icon} aria-hidden="true">
+                {renderIcon()}
+              </span>
+            </div>
+            <div className={styles.faceBack}>
+              <Text as="p" className={classes(styles.text, textClassName)}>
+                {backText}
+              </Text>
+              <span className={styles.icon} aria-hidden="true">
+                {renderIcon()}
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Text as="p" className={classes(styles.text, textClassName)}>
+          {text}
+        </Text>
+      )}
+      {!isFlip && (
+        <span className={styles.icon} aria-hidden="true">
+          {renderIcon()}
+        </span>
+      )}
     </motion.article>
   );
 };

@@ -209,12 +209,28 @@
 }
 
 .aboutItem {
+  position: relative;
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationL);
 
   &[data-visible='true'] {
     opacity: 1;
   }
+}
+
+.aboutItem:global(.season-button) {
+  position: relative;
+  overflow: visible;
+}
+
+.aboutItem:global(.season-button.frosted)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .aboutLabel {

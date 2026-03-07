@@ -4,56 +4,25 @@ import GothamBookItalic from 'assets/fonts/gotham-book-italic.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMediumItalic from 'assets/fonts/gotham-medium-italic.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import { useHasMounted } from 'hooks';
 import Head from 'next/head';
-import { createContext, useEffect } from 'react';
-import { classes, media } from 'utils/style';
+import { createContext } from 'react';
+import { media } from 'utils/style';
 import { theme, tokens } from './theme';
-import { useTheme } from './useTheme';
 
 export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({
-  themeId = 'light',
   theme: themeOverrides,
   children,
-  className,
-  as: Component = 'div',
-  ...rest
 }) => {
-  const currentTheme = { ...theme[themeId], ...themeOverrides };
-  const parentTheme = useTheme();
-  const isRootProvider = !parentTheme.themeId;
-  const hasMounted = useHasMounted();
-
-  // Save root theme id to localstorage and apply class to body
-  useEffect(() => {
-    if (isRootProvider && hasMounted) {
-      window.localStorage.setItem('theme', JSON.stringify(themeId));
-      document.body.dataset.theme = themeId;
-    }
-  }, [themeId, isRootProvider, hasMounted]);
+  const currentTheme = { ...theme, ...themeOverrides };
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {isRootProvider && (
-        <>
-          <Head>
-            <meta name="theme-color" content={`rgb(${currentTheme.rgbBackground})`} />
-          </Head>
-          {children}
-        </>
-      )}
-      {/* Nested providers need a div to override theme tokens */}
-      {!isRootProvider && (
-        <Component
-          className={classes('theme-provider', className)}
-          data-theme={themeId}
-          {...rest}
-        >
-          {children}
-        </Component>
-      )}
+      <Head>
+        <meta name="theme-color" content={`rgb(${currentTheme.rgbBackground})`} />
+      </Head>
+      {children}
     </ThemeContext.Provider>
   );
 };
@@ -71,7 +40,6 @@ export function squish(styles) {
 export function createThemeProperties(theme) {
   return squish(
     Object.keys(theme)
-      .filter(key => key !== 'themeId')
       .map(key => `--${key}: ${theme[key]};`)
       .join('\n\n')
   );
@@ -84,9 +52,7 @@ export function createThemeStyleObject(theme) {
   let style = {};
 
   for (const key of Object.keys(theme)) {
-    if (key !== 'themeId') {
-      style[`--${key}`] = theme[key];
-    }
+    style[`--${key}`] = theme[key];
   }
 
   return style;
@@ -117,9 +83,9 @@ export const tokenStyles = squish(`
   }
 
   ${createMediaTokenProperties()}
-
-  [data-theme='light'] {
-    ${createThemeProperties(theme.light)}
+  
+  :root {
+    ${createThemeProperties(theme)}
   }
 `);
 
