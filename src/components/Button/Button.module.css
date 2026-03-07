@@ -10,23 +10,20 @@
   height: var(--buttonSize);
   padding: var(--buttonPadding);
   cursor: pointer;
-  transition-property: opacity, color, background, border;
+  transition-property: opacity, color, background;
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--spaceS);
   color: var(--buttonTextColor);
   position: relative;
   isolation: isolate;
-  border: 1px solid rgb(255 255 255 / 0);
 
   &:active {
     transition-duration: calc(var(--durationXS) / 2);
   }
 
-  &::before {
+  &::after {
     content: '';
     transition-property: opacity, color, background;
     transition-duration: var(--durationM);
@@ -38,28 +35,8 @@
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    border-radius: inherit;
-    transition: opacity 180ms ease;
-    z-index: 1;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
-    background: linear-gradient(
-      120deg,
-      rgb(255 255 255 / 0.25) 0%,
-      rgb(255 255 255 / 0.08) 25%,
-      rgb(255 255 255 / 0.05) 45%,
-      rgb(255 255 255 / 0.15) 70%,
-      rgb(255 255 255 / 0.25) 100%
-    );
-  }
-
   @media (--mediaUseMotion) {
-    transition-property: transform, opacity, color, background, border;
+    transition-property: transform, opacity, color, background;
 
     &:hover {
       transform: scale(1.05);
@@ -81,7 +58,7 @@
     height: calc((32 / 16) * 1rem);
     width: 100%;
 
-    &::before {
+    &::after {
       content: '';
       height: calc((32 / 16) * 1rem);
       position: absolute;
@@ -97,7 +74,7 @@
       background: transparent;
     }
 
-    &:hover::before {
+    &:hover::after {
       transform: scale3d(1, 1, 1);
       transform-origin: left;
     }
@@ -107,7 +84,7 @@
     }
 
     @media (--mediaUseMotion) {
-      &::before {
+      &::after {
         transition: transform var(--durationM) var(--bezierFastoutSlowin);
       }
     }
@@ -122,7 +99,7 @@
     left: calc(var(--buttonSpace) * -1);
     height: calc((32 / 16) * 1rem);
 
-    &::before {
+    &::after {
       content: '';
       height: calc((32 / 16) * 1rem);
       position: absolute;
@@ -138,7 +115,7 @@
       background: transparent;
     }
 
-    &:hover::before {
+    &:hover::after {
       transform: scale3d(1, 1, 1);
       transform-origin: left;
     }
@@ -148,7 +125,7 @@
     }
 
     @media (--mediaUseMotion) {
-      &::before {
+      &::after {
         transition: transform var(--durationM) var(--bezierFastoutSlowin);
       }
     }
@@ -171,11 +148,11 @@
       transform: none;
     }
 
-    &::before {
+    &::after {
       background: rgb(var(--rgbText) / 0);
     }
 
-    &:hover::before {
+    &:hover::after {
       background: rgb(var(--rgbText) / 0.1);
     }
   }
@@ -183,18 +160,6 @@
   &[disabled] {
     pointer-events: none;
     opacity: 0.4;
-  }
-
-  &:not([data-secondary='true']):not([data-jarbtn='true']):not([data-icon-only='true']):hover {
-    border: 1px solid rgb(255 255 255 / 0.25);
-  }
-
-  &:not([data-secondary='true']):not([data-jarbtn='true']):not([data-icon-only='true']):hover::before {
-    background: rgb(255 255 255 / 0.1);
-  }
-
-  &:not([data-secondary='true']):not([data-jarbtn='true']):not([data-icon-only='true']):hover::after {
-    opacity: 1;
   }
 }
 
@@ -204,12 +169,11 @@
   opacity: var(--buttonTextOpacity);
   position: relative;
   line-height: 1;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity var(--durationM) var(--bezierFastoutSlowin);
-  z-index: 2;
 }
 
 .loader {
@@ -219,7 +183,6 @@
   color: rgb(var(--rgbBackground));
   opacity: 0;
   transition: opacity var(--durationM) ease var(--buttonLoaderDelay);
-  z-index: 2;
 
   &[data-visible='true'] {
     opacity: 1;
@@ -230,7 +193,6 @@
   transition-property: opacity, fill;
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
-  z-index: 2;
 
   @media (--mediaUseMotion) {
     transition-property: transform, opacity, fill;
@@ -252,134 +214,5 @@
 
   @nest .button[data-loading='true'] & {
     opacity: 0;
-  }
-}
-
-.button:global(.season-button) {
-  position: relative;
-}
-
-.summerEnabled {
-  overflow: visible;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -40px;
-    pointer-events: none;
-    z-index: -2;
-    background: radial-gradient(
-      circle,
-      rgb(255 215 106 / 0.35) 0%,
-      rgb(255 196 106 / 0.25) 35%,
-      rgb(255 196 106 / 0.15) 55%,
-      rgb(255 196 106 / 0) 70%
-    );
-    filter: blur(28px);
-    opacity: 0;
-    transition: opacity 180ms ease;
-  }
-}
-
-.summerEnabled:hover {
-  --buttonTextColor: rgb(var(--rgbPrimary));
-}
-
-.summerEnabled:hover::after {
-  opacity: 1;
-}
-
-.endIconStack {
-  position: relative;
-  display: inline-grid;
-  align-items: center;
-  flex: 0 0 auto;
-
-  & > * {
-    grid-area: 1 / 1;
-  }
-}
-
-.arrowIcon {
-  opacity: 1;
-  transition: opacity 160ms ease;
-}
-
-.flowerIcon {
-  opacity: 0;
-  transform: rotate(0deg);
-  transition: opacity 160ms ease;
-  z-index: 3;
-}
-
-.sunBurst {
-  justify-self: center;
-  align-self: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgb(255 215 106 / 0.6) 0%,
-    rgb(255 196 106 / 0.3) 40%,
-    rgb(255 196 106 / 0) 70%
-  );
-  transform: scale(1);
-  opacity: 0;
-  pointer-events: none;
-  margin-left: var(--spaceS);
-  z-index: 0;
-}
-
-.sunBurstActive {
-  animation: sunBurstPulse 500ms ease-out forwards;
-}
-
-.flowerSpin {
-  animation: flowerSpinFast 450ms ease-out !important;
-}
-
-@media (--mediaUseMotion) {
-  .summerEnabled:hover {
-    transform: scale(1.05);
-  }
-}
-
-.summerEnabled:hover .arrowIcon {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.summerEnabled:hover .flowerIcon {
-  opacity: 1;
-  animation: flowerRotate 6s linear infinite;
-}
-
-@keyframes flowerRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes flowerSpinFast {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes sunBurstPulse {
-  from {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(2);
   }
 }
