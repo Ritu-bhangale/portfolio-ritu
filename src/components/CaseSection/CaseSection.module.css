@@ -1,0 +1,128 @@
+.section {
+  display: grid;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxWidthXL);
+  box-sizing: border-box;
+  margin: 0;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.container[data-size='small'] {
+  padding-left: var(--space5XL);
+  padding-right: var(--space5XL);
+}
+
+.header[data-guides='true']::before,
+.header[data-guides='true']::after {
+  content: '';
+  width: 1px;
+  height: 160px;
+  background: var(--colorStroke);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaceL);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceS);
+}
+
+.timelineText {
+  color: var(--colorTextTitle);
+  text-align: center;
+  font-style: normal;
+  font-weight: var(--fontWeightBold);
+  line-height: 1.5;
+}
+
+.dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgb(44 166 0);
+}
+
+.dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgb(199 232 187 / 75%);
+  transform: translate(-50%, -50%);
+  animation: timelinePulse 1.8s ease-out infinite;
+}
+
+@keyframes timelinePulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0.85;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before {
+    animation: none;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.media {
+  display: block;
+  width: 100%;
+}
+
+.header + .media {
+  margin-top: var(--space2XL);
+}
+
+.media > svg,
+.media > img {
+  width: 100%;
+  height: auto;
+}
+
+.container [data-size='l'][data-variant='serif'] {
+  color: rgb(0 0 0 / 70%);
+  text-align: center;
+  font-family: var(--fontStack);
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: var(--fontWeightRegular);
+  line-height: 1.5;
+}

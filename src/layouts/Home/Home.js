@@ -85,8 +85,8 @@ export const Home = () => {
         index={1}
         title="Re-architecting how 10M+ Investors  Discover Wealth"
         description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
-        buttonText="Connect to know more"
-        buttonLink="https://calendly.com/ritusbhangale/connect-one-on-one"
+        buttonText="Read Case Study"
+        buttonLink="/projects/etmoney-home"
         model={{
           type: 'phone',
           alt: 'App login screen',
