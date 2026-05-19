@@ -104,7 +104,7 @@ export function Hero({ id, sectionRef }) {
             Hi, I am Ritu Bhangale
           </Heading>
           <Heading level={0} align="center" className={styles.headline}>
-            I <span className={styles.heroEmphasis}>design </span>
+            I <span className={styles.heroEmphasis}>shape </span>
             how people{' '}
             <span className={styles.headlineWrap}>
               <span className={styles.heroEmphasis}>experience </span>
