@@ -101,7 +101,7 @@ export function Hero({ id, sectionRef }) {
       <div className={styles.content}>
         <div className={styles.headlineGroup}>
           <Heading level={6} align="center" className={styles.label}>
-            I am Ritu Bhangale
+            Hi, I am Ritu Bhangale
           </Heading>
           <Heading level={0} align="center" className={styles.headline}>
             I <span className={styles.heroEmphasis}>design </span>

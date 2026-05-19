@@ -93,11 +93,11 @@ const tokensTablet = {
 
 const tokensMobile = {
   spaceOuter: '24px',
-  fontSizeH0: pxToRem(48),
-  fontSizeH1: pxToRem(40),
-  fontSizeH2: pxToRem(34),
-  fontSizeH3: pxToRem(28),
-  fontSizeH4: pxToRem(22),
+  fontSizeH0: pxToRem(36),
+  fontSizeH1: pxToRem(32),
+  fontSizeH2: pxToRem(28),
+  fontSizeH3: pxToRem(24),
+  fontSizeH4: pxToRem(20),
   fontSizeH5: pxToRem(18),
   fontSizeBodyXL: pxToRem(17),
   fontSizeBodyL: pxToRem(17),
@@ -107,8 +107,8 @@ const tokensMobile = {
 
 const tokensMobileSmall = {
   spaceOuter: '16px',
-  fontSizeH0: pxToRem(42),
-  fontSizeH1: pxToRem(38),
+  fontSizeH0: pxToRem(30),
+  fontSizeH1: pxToRem(28),
   fontSizeH2: pxToRem(28),
   fontSizeH3: pxToRem(24),
   fontSizeH4: pxToRem(20),

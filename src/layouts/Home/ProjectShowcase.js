@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button } from 'components/Button';
 import { Heading } from 'components/Heading';
@@ -84,7 +85,15 @@ export function ProjectShowcase({
           </Button>
         </div>
       </div>
-      <div className={styles.visual}>{children}</div>
+      {buttonHref && !wip ? (
+        <Link href={buttonHref} passHref>
+          <a className={styles.visual} aria-label={title}>
+            {children}
+          </a>
+        </Link>
+      ) : (
+        <div className={styles.visual}>{children}</div>
+      )}
     </div>
   );
 }

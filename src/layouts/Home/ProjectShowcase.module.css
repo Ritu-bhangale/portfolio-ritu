@@ -18,6 +18,9 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .thumbnail {
@@ -94,12 +97,20 @@
 }
 
 @media (max-width: 768px) {
+  .showcase {
+    flex-direction: column-reverse;
+  }
+
   .info {
-    padding: var(--spaceL) var(--spaceOuter);
+    padding: var(--spaceL) var(--spaceOuter) var(--space4XL);
   }
 
   .titleGroup {
     flex-direction: column;
     gap: var(--spaceM);
+  }
+
+  .description {
+    display: none;
   }
 }
