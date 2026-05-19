@@ -5,7 +5,6 @@
   --buttonPadding: 0 var(--spaceL);
   --buttonTextColor: rgb(var(--rgbBackground));
   --buttonTextOpacity: 1;
-  --buttonLoaderDelay: 0s;
 
   height: var(--buttonSize);
   padding: var(--buttonPadding);
@@ -131,8 +130,57 @@
     }
   }
 
+  &[data-wip='true'] {
+    --buttonTextColor: rgb(var(--rgbBackground));
+    cursor: not-allowed;
+    opacity: 1;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f5c518,
+        #f5c518 4px,
+        rgb(var(--rgbBlack)) 4px,
+        rgb(var(--rgbBlack)) 8px
+      );
+      z-index: 1;
+    }
+
+    &::after {
+      background: rgb(var(--rgbPrimary));
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+    }
+
+    &:hover {
+      transform: none;
+    }
+  }
+
   &[data-loading='true'] {
-    --buttonTextOpacity: 0;
+    pointer-events: none;
+
+    &::after {
+      background: linear-gradient(
+          100deg,
+          rgb(var(--rgbPrimary)) 40%,
+          rgb(var(--rgbPrimary) / 0.5) 50%,
+          rgb(var(--rgbPrimary)) 60%
+        )
+        rgb(var(--rgbPrimary));
+      background-size: 200% 100%;
+      animation: buttonShimmer 1.5s ease infinite;
+    }
+
+    &:hover {
+      transform: none;
+    }
   }
 
   &[data-icon-only='true'] {
@@ -157,9 +205,13 @@
     }
   }
 
-  &[disabled] {
+  &[disabled]:not([data-wip='true']) {
     pointer-events: none;
     opacity: 0.4;
+  }
+
+  &[disabled][data-wip='true'] {
+    pointer-events: none;
   }
 }
 
@@ -176,16 +228,29 @@
   transition: opacity var(--durationM) var(--bezierFastoutSlowin);
 }
 
-.loader {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgb(var(--rgbBackground));
-  opacity: 0;
-  transition: opacity var(--durationM) ease var(--buttonLoaderDelay);
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgb(var(--rgbBackground) / 0.3);
+  border-top-color: rgb(var(--rgbBackground));
+  border-radius: 50%;
+  animation: buttonSpin 0.6s linear infinite;
+  flex-shrink: 0;
+  margin-left: var(--spaceS);
+}
 
-  &[data-visible='true'] {
-    opacity: 1;
+@keyframes buttonSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes buttonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
 
@@ -212,7 +277,17 @@
     }
   }
 
-  @nest .button[data-loading='true'] & {
-    opacity: 0;
+}
+
+@media (--mediaMobile) {
+  .button {
+    --buttonSize: calc((44 / 16) * 1rem);
+    --buttonFontSize: calc((15 / 16) * 1rem);
+    --buttonPadding: 0 var(--spaceM);
+  }
+
+  .spinner {
+    width: 14px;
+    height: 14px;
   }
 }

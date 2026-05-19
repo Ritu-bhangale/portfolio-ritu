@@ -1,151 +1,109 @@
-import imageUpstoxGold from 'assets/UpstoxGold.png';
-import imageUpstoxExplore from 'assets/UpstoxExplore.png';
-import previewUpstoxFD from 'assets/PreviewUpstoxFD.png';
-import previewETMoneyHome from 'assets/PreviewETMoneyHome.png';
-import previewETMoneyHomescroll from 'assets/PreviewETMoneyHomescroll.png';
 import { Footer } from 'components/Footer';
-import { Meta } from 'components/Meta';
-import { Intro } from 'layouts/Home/Intro';
-import { Profile } from 'layouts/Home/Profile';
-import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { Heading } from 'components/Heading';
-import { useEffect, useRef, useState } from 'react';
+import { Meta } from 'components/Meta';
+import { useRef } from 'react';
+import { Hero } from './Hero';
+import { ProjectShowcase } from './ProjectShowcase';
+// import { CSProjects } from './CSProjects';
+// import { AboutMe } from './AboutMe';
+// import { LifeGallery } from './LifeGallery';
+import exploreThumbnail from 'assets/home/ExploreThumbnail.png';
+import exploreThumbnailMobile from 'assets/home/ExploreThumbnailMobile.png';
+import mfDashboardThumbnail from 'assets/home/MFDashboardThumbnail.png';
+import mfDashboardThumbnailMobile from 'assets/home/MFDashboardThumbnailMobile.png';
+import fdOrderformThumbnail from 'assets/home/FDOrderform.png';
+import fdOrderformThumbnailMobile from 'assets/home/FDOrderFormMobile.png';
 import styles from './Home.module.css';
-
-const disciplines = ['Product', 'UX', 'Interaction'];
+import showcaseStyles from './ProjectShowcase.module.css';
 
 export const Home = () => {
-  const [visibleSections, setVisibleSections] = useState([]);
-  const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
-  const intro = useRef();
-  const projectOne = useRef();
-  const projectTwo = useRef();
-  const projectThree = useRef();
-  const details = useRef();
-
-  useEffect(() => {
-    const sections = [intro, details, projectOne, projectTwo, projectThree];
-
-    const sectionObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const section = entry.target;
-            observer.unobserve(section);
-            if (visibleSections.includes(section)) return;
-            setVisibleSections(prevSections => [...prevSections, section]);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
-    );
-
-    const indicatorObserver = new IntersectionObserver(
-      ([entry]) => {
-        setScrollIndicatorHidden(!entry.isIntersecting);
-      },
-      { rootMargin: '-100% 0px 0px 0px' }
-    );
-
-    // Check if the refs are assigned to valid DOM elements before observing
-    sections.forEach(section => {
-      if (section.current) {
-        sectionObserver.observe(section.current);
-      }
-    });
-
-    if (intro.current) {
-      indicatorObserver.observe(intro.current);
-    }
-
-    return () => {
-      sectionObserver.disconnect();
-      indicatorObserver.disconnect();
-    };
-  }, [visibleSections]);
+  const introRef = useRef();
+  const aboutRef = useRef();
+  const galleryRef = useRef();
 
   return (
     <div className={styles.home}>
       <Meta
         title="Product Designer"
-        description="Design portfolio of Ritu - Product designer with a passion for UX/UI design. Focused on creating innovative solutions for web and mobile apps, with expertise in design thinking and accessibility."
+        description="Design portfolio of Ritu Bhangale - Product designer crafting thoughtful product experiences at ET Money. Previously Upstox & Jar."
       />
-      <Intro
-        id="intro"
-        sectionRef={intro}
-        disciplines={disciplines}
-        scrollIndicatorHidden={scrollIndicatorHidden}
-      />
-      {/* Adding the 'My Work' heading using your Heading component */}
-      <ProjectSummary
-        id="project-1"
-        alternate
-        sectionRef={projectOne}
-        visible={visibleSections.includes(projectOne.current)}
+      <Hero id="intro" sectionRef={introRef} />
+
+      <Heading level={4} align="center" as="h2" id="selected-work" className={styles.sectionHeading}>
+        Selected work
+      </Heading>
+
+      <ProjectShowcase
         index={1}
-        title="Re-architecting how 10M+ Investors  Discover Wealth"
+        tags={[
+          { label: 'Business shift' },
+          { label: 'NPS score' },
+          { label: 'User satisfaction', accent: '#34a853' },
+        ]}
+        title="Re-architecting how 10M+ Investors Discover Wealth"
         description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
-        buttonText="Read Case Study"
-        buttonLink="/projects/etmoney-home"
-        model={{
-          type: 'phone',
-          alt: 'App login screen',
-          textures: [
-            {
-              srcSet: [previewETMoneyHome, previewETMoneyHome],
-              placeholder: previewETMoneyHome,
-            },
-            {
-              srcSet: [previewETMoneyHomescroll, previewETMoneyHomescroll],
-              placeholder: previewETMoneyHomescroll,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-2"
-        alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
+        buttonHref="/projects/etmoney-home"
+        backgroundColor="#F4FFF9"
+      >
+        <img
+          src={exploreThumbnail?.src || exploreThumbnail}
+          alt="ET Money Explore redesign"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailDesktop}`}
+        />
+        <img
+          src={exploreThumbnailMobile?.src || exploreThumbnailMobile}
+          alt="ET Money Explore redesign"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailMobile}`}
+        />
+      </ProjectShowcase>
+
+      <ProjectShowcase
         index={2}
+        tags={[{ label: 'Dashboard' }, { label: 'Mutual funds' }]}
+        title="Designing how Mutual funds investors see there wealth"
+        description="Improved portfolio data reliability by redesigning holdings architecture to reduce preprocessing dependency, enabling ~99.9% portfolio accuracy."
+        buttonHref="/projects/etmoney-home"
+        backgroundColor="#FFFFF6"
+        wip
+      >
+        <img
+          src={mfDashboardThumbnail?.src || mfDashboardThumbnail}
+          alt="Mutual Funds dashboard redesign"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailDesktop}`}
+        />
+        <img
+          src={mfDashboardThumbnailMobile?.src || mfDashboardThumbnailMobile}
+          alt="Mutual Funds dashboard redesign"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailMobile}`}
+        />
+      </ProjectShowcase>
+
+      <ProjectShowcase
+        index={3}
+        tags={[{ label: 'Flow optimization' }]}
         title="Fixed Deposits order form"
         description="With 95% of Indians favoring FDs, this project streamlined the booking process to make it faster and more user-friendly."
-        buttonText="Read More"
-        buttonLink="https://portfolio-rits.framer.website/fd-upstox"
-        image={previewUpstoxFD}
-      />
-      <ProjectSummary
-        id="project-3"
-        alternate
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="Gold : Fragmented to seamless"
-        description="Simplifying gold investment journeys by enhancing discoverability, education, and portfolio management."
-        buttonText="Read More"
-        buttonLink="https://portfolio-rits.framer.website/gold"
-        model={{
-          type: 'phone',
-          alt: 'App login screen',
-          textures: [
-            {
-              srcSet: [imageUpstoxGold, imageUpstoxGold],
-              placeholder: imageUpstoxGold,
-            },
-            {
-              srcSet: [imageUpstoxExplore, imageUpstoxExplore],
-              placeholder: imageUpstoxExplore,
-            },
-          ],
-        }}
-        className={styles.projectMargin} // Apply the class here
-      />
-      <Profile
-        sectionRef={details}
-        visible={visibleSections.includes(details.current)}
-        id="details"
-      />
-      <Footer />
+        buttonHref="https://portfolio-rits.framer.website/fd-upstox"
+        backgroundColor="#F9F8FF"
+      >
+        <img
+          src={fdOrderformThumbnail?.src || fdOrderformThumbnail}
+          alt="Fixed Deposits order form"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailDesktop}`}
+        />
+        <img
+          src={fdOrderformThumbnailMobile?.src || fdOrderformThumbnailMobile}
+          alt="Fixed Deposits order form"
+          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailMobile}`}
+        />
+      </ProjectShowcase>
+
+      <div className={styles.restOfPage}>
+        {/* <CSProjects id="cs-projects" /> */}
+        {/* <AboutMe id="about-me" sectionRef={aboutRef} /> */}
+        {/* <LifeGallery id="life-gallery" sectionRef={galleryRef} /> */}
+        {/* <Footer /> */}
+      </div>
     </div>
   );
 };

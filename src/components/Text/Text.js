@@ -4,20 +4,20 @@ import styles from './Text.module.css';
 export const Text = ({
   children,
   size = 'm',
-  as: Component = 'span',
-  align = 'auto',
-  weight = 'auto',
-  secondary,
+  variant = 'sans',
+  tone = 'primary',
+  as = 'p',
   className,
   ...rest
 }) => {
+  const Component = as;
+
   return (
     <Component
       className={classes(styles.text, className)}
-      data-align={align}
       data-size={size}
-      data-weight={weight}
-      data-secondary={secondary}
+      data-variant={variant}
+      data-tone={tone}
       {...rest}
     >
       {children}

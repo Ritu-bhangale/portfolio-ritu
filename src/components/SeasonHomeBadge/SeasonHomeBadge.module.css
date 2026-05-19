@@ -1,0 +1,51 @@
+.badgeLink {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--zIndex5);
+  text-decoration: none;
+  outline: none;
+  animation: badgeEnter 560ms var(--bezierFastoutSlowin);
+  transition: transform var(--durationM) var(--bezierFastoutSlowin),
+    opacity var(--durationM) var(--bezierFastoutSlowin);
+}
+
+.badgeLink[data-hidden='true'] {
+  transform: translateX(-50%) translateY(-120%);
+  opacity: 0.001;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(var(--rgbPrimary));
+  color: rgb(var(--rgbBackground));
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightSemiBold);
+  letter-spacing: 0.04em;
+  transition: transform var(--durationS) var(--bezierFastoutSlowin),
+    box-shadow var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.badgeLink:hover .badge,
+.badgeLink:focus-visible .badge {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgb(var(--rgbBlack) / 0.2);
+}
+
+@keyframes badgeEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

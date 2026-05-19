@@ -1,0 +1,346 @@
+.aboutMe {
+  padding: 120px 0;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spaceOuter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 104px;
+}
+
+.heading {
+  font-family: var(--serifFontStack);
+  font-size: 48px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  color: #0f0f0f;
+  letter-spacing: 0.192px;
+  line-height: 1.5;
+}
+
+/* ---- Columns ---- */
+.columns {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1440px;
+}
+
+/* ---- Left column ---- */
+.leftCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.photoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.photoWrapper {
+  width: 360px;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bio {
+  font-family: var(--fontStack);
+  font-size: 20px;
+  font-weight: 400;
+  color: #4d4d4d;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.24px;
+}
+
+/* ---- Contact ---- */
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--fontStack);
+  font-size: 24px;
+  font-weight: 400;
+  color: #0f0f0f;
+  letter-spacing: 0.36px;
+  line-height: 1.5;
+}
+
+.contactItem svg {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: #0f0f0f;
+}
+
+/* ---- Education ---- */
+.education {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sectionLabel {
+  font-family: var(--fontStack);
+  font-size: 32px;
+  font-weight: 600;
+  color: #0f0f0f;
+  margin: 0;
+  letter-spacing: 0.6px;
+  line-height: normal;
+}
+
+.eduBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.eduPeriod {
+  font-family: var(--fontStack);
+  font-size: 20px;
+  font-weight: 400;
+  color: #4d4d4d;
+  letter-spacing: 0.8px;
+  line-height: normal;
+}
+
+.eduDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.eduNameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.eduDegree {
+  font-family: var(--fontStack);
+  font-size: 28px;
+  font-weight: 600;
+  color: #0f0f0f;
+  letter-spacing: 0.4px;
+  line-height: normal;
+}
+
+.eduInstitute {
+  font-family: var(--fontStack);
+  font-size: 24px;
+  font-weight: 500;
+  color: #0f0f0f;
+  letter-spacing: 0.4px;
+  line-height: normal;
+}
+
+.eduField {
+  font-family: var(--fontStack);
+  font-size: 20px;
+  font-weight: 400;
+  color: #4d4d4d;
+  letter-spacing: 0.24px;
+  line-height: 1.5;
+}
+
+/* ---- Right column / Experience timeline ---- */
+.rightCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.timelineTrack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 17px;
+  flex-shrink: 0;
+}
+
+.timelineSpacerTop {
+  height: 54px;
+  flex-shrink: 0;
+}
+
+.timelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0f0f0f;
+  flex-shrink: 0;
+}
+
+.timelineLine {
+  width: 1px;
+  flex: 1;
+  background: #dedede;
+}
+
+.timelineItem:first-child .timelineLine:first-child {
+  background: transparent;
+}
+
+.timelineItem:last-child .timelineLine:last-child {
+  background: transparent;
+}
+
+.timelineContent {
+  flex: 1;
+  min-width: 0;
+  max-width: 508px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 48px;
+}
+
+.timelineItem:last-child .timelineContent {
+  padding-bottom: 0;
+}
+
+.expPeriod {
+  font-family: var(--fontStack);
+  font-size: 20px;
+  font-weight: 400;
+  color: #4d4d4d;
+  letter-spacing: 0.8px;
+  line-height: normal;
+}
+
+.expDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.expNameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expRole {
+  font-family: var(--fontStack);
+  font-size: 28px;
+  font-weight: 600;
+  color: #0f0f0f;
+  margin: 0;
+  letter-spacing: 0.4px;
+  line-height: normal;
+}
+
+.expCompany {
+  font-family: var(--fontStack);
+  font-size: 24px;
+  color: #0f0f0f;
+  letter-spacing: 0.4px;
+  line-height: normal;
+}
+
+.expCompanyName {
+  font-weight: 500;
+}
+
+.expCompanySep {
+  font-weight: 600;
+}
+
+.expCompanyDesc {
+  font-weight: 400;
+}
+
+.expDescription {
+  font-family: var(--fontStack);
+  font-size: 20px;
+  font-weight: 400;
+  color: #4d4d4d;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.24px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1040px) {
+  .heading {
+    font-size: 36px;
+  }
+
+  .sectionLabel {
+    font-size: 26px;
+  }
+
+  .expRole,
+  .eduDegree {
+    font-size: 22px;
+  }
+
+  .expCompany,
+  .eduInstitute {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .photoWrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  .heading {
+    font-size: 32px;
+  }
+
+  .container {
+    gap: 64px;
+  }
+
+  .contactItem {
+    font-size: 18px;
+  }
+
+  .contactItem svg {
+    width: 24px;
+    height: 24px;
+  }
+}

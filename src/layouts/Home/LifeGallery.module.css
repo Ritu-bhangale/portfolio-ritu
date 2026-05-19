@@ -1,0 +1,29 @@
+.lifeGallery {
+  padding: var(--space5XL) 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spaceOuter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space3XL);
+}
+
+.heading {
+  font-family: var(--serifFontStack);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: var(--fontWeightRegular);
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+  color: rgb(var(--rgbTextPrimary));
+}
+
+.galleryImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}

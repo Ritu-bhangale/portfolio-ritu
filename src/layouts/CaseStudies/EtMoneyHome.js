@@ -5,30 +5,31 @@ import { Text } from 'components/Text';
 import { CaseSection } from 'components/CaseSection';
 import { StickyNote } from 'components/StickyNote';
 import { CaseStudyRailNav } from 'components/CaseStudyRailNav';
-
 import styles from './EtMoneyHome.module.css';
 
-import DiscoveryChart from 'assets/DiscoveryChart.svg';
-import UserResearchDiagram from 'assets/UserResearchDiagram.svg';
-import IAExplorationSVG from 'assets/IAExplorationSVG.svg';
-import CompetitorAnalysis from 'assets/CompetitorAnalysis.svg';
-import WireframesSVG from 'assets/WireframesSVG.svg';
-import FinalV1SVG from 'assets/FinalV1SVG.svg';
-import CasesSVG from 'assets/CasesSVG.svg';
-import GeniusSVG from 'assets/GeniusSvg.svg';
-import ReviewSS1 from 'assets/ReviewSS1.png';
-import ReviewSS2 from 'assets/ReviewSS2.png';
-import ReviewSS3 from 'assets/ReviewSS3.png';
-import ReviewSS4 from 'assets/ReviewSS4.png';
-import ReviewSS5 from 'assets/ReviewSS5.png';
-import FinalIA from 'assets/FinalIA.svg';
-import BulbIcon from 'assets/bulb.svg';
-import AnnotationIcon from 'assets/annotationIcon.svg';
-import NavSKUapproach from 'assets/NavSKUApproach.svg';
-import V2Growwealth from 'assets/V2Growwealth.svg';
-import DropOffSVG from 'assets/DropOffSVG.svg';
-import NewProduct from 'assets/NewProduct.svg';
-import ImpactLaunchScreenshot from 'assets/impactLaunchScreenshot.png';
+import DiscoveryChart from 'assets/etmoney/DiscoveryChart.svg';
+import IAExplorationSVG from 'assets/etmoney/IAExplorationSVG.svg';
+import CompetitorAnalysis from 'assets/etmoney/CompetitorAnalysis.svg';
+import WireframesSVG from 'assets/etmoney/WireframesSVG.svg';
+import FinalV1SVG from 'assets/etmoney/FinalV1SVG.svg';
+import CasesSVG from 'assets/etmoney/CasesSVG.svg';
+import GeniusSVG from 'assets/etmoney/GeniusSvg.svg';
+import ReviewSS1 from 'assets/etmoney/ReviewSS1.png';
+import ReviewSS2 from 'assets/etmoney/ReviewSS2.png';
+import ReviewSS3 from 'assets/etmoney/ReviewSS3.png';
+import ReviewSS4 from 'assets/etmoney/ReviewSS4.png';
+import ReviewSS5 from 'assets/etmoney/ReviewSS5.png';
+import FinalIA from 'assets/etmoney/FinalIA.svg';
+import BulbIcon from 'assets/etmoney/bulb.svg';
+import AnnotationIcon from 'assets/shared/annotationIcon.svg';
+import NavSKUapproach from 'assets/etmoney/NavSKUapproach.svg';
+import V2Growwealth from 'assets/etmoney/V2Growwealth.svg';
+import DropOffSVG from 'assets/etmoney/DropOffSVG.svg';
+import NewProduct from 'assets/etmoney/NewProduct.svg';
+import ImpactLaunchScreenshot from 'assets/etmoney/impactLaunchScreenshot.png';
+import ImpactSvg from 'assets/etmoney/ImpactSvg.svg';
+import UsersentimentSvg from 'assets/etmoney/UsersentimentSvg.svg';
+import ExploreThumbnail from 'assets/etmoney/ExploreThumbnail.png';
 
 const caseStudyNavItems = [
   { id: 'context', label: 'Context' },
@@ -71,7 +72,7 @@ const metricNotes = [
   {
     id: 'aum',
     text: 'Increase AUM managed by ET Money',
-    backText: 'Watch me taking greeat steps in this direction.',
+    backText: '...',
     interaction: 'flip',
     variant: 'aqua',
     icon: BulbIcon,
@@ -81,7 +82,7 @@ const metricNotes = [
   {
     id: 'average-products',
     text: 'Increase average products held per user (from 1.2)',
-    backText: 'Watch me take it to 1.46.',
+    backText: '...',
     interaction: 'flip',
     variant: 'green',
     icon: BulbIcon,
@@ -91,7 +92,7 @@ const metricNotes = [
   {
     id: 'nps',
     text: 'Improve NPS and restore positive user sentiment',
-    backText: 'Watch me increase it by +83.',
+    backText: '...',
     interaction: 'flip',
     variant: 'yellow',
     icon: BulbIcon,
@@ -168,33 +169,8 @@ export default function EtMoneyHome() {
             <div className={`${styles.container} ${styles.hero}`}>
               <Heading level={1} align="start" className={styles.heroTitle}>
                 Re-architecting how 10M+ Investors
-                <br />
-                <span className={styles.heroEmphasis}>Discover</span> Wealth
+                <span className={styles.heroEmphasis}> Discover</span> Wealth
               </Heading>
-
-              <div className={styles.badgeGroup}>
-                <span
-                  className={`${styles.badge} ${styles.badgeIconWrap}`}
-                  aria-hidden="true"
-                >
-                  <span className={styles.badgeIcon} />
-                </span>
-                <span className={`${styles.badge} ${styles.badgeEt}`}>
-                  <Text as="span" size="s" className={styles.badgeText}>
-                    ET Money
-                  </Text>
-                </span>
-                <span className={`${styles.badge} ${styles.badgeFintech}`}>
-                  <Text as="span" size="s" className={styles.badgeText}>
-                    Fintech
-                  </Text>
-                </span>
-                <span className={`${styles.badge} ${styles.badgeExplore}`}>
-                  <Text as="span" size="s" className={styles.badgeText}>
-                    App home - Explore
-                  </Text>
-                </span>
-              </div>
             </div>
           </Section>
 
@@ -261,6 +237,15 @@ export default function EtMoneyHome() {
                   </div>
                 </div>
               </div>
+
+              <figure className={styles.exploreThumbnailCard}>
+                <img
+                  className={styles.exploreThumbnailImage}
+                  src={ExploreThumbnail?.src || ExploreThumbnail}
+                  alt="ET Money Explore page redesign"
+                  loading="lazy"
+                />
+              </figure>
             </div>
           </Section>
 
@@ -282,7 +267,7 @@ export default function EtMoneyHome() {
         <div className={styles.caseSections}>
           <div id="context" className={styles.sectionAnchor} />
           <CaseSection
-            timeline="Dec, 2024"
+            timeline="Back in Dec, 2024"
             title={
               <>
                 <span className={styles.titleLineMuted}>ET Money introduced a</span>
@@ -297,76 +282,27 @@ export default function EtMoneyHome() {
             <GeniusSVG />
           </CaseSection>
 
-          <div id="problem-discover" className={styles.sectionAnchor} />
           <CaseSection
-            subtitle={
+            title={
               <>
-                User sentiment started{' '}
-                <span className={styles.subtitleEmphasisRed}>worsening</span>
+                <span className={styles.titleLineMuted}>Impact of </span>
+                <span className={styles.titleLineEmphasis}>Dec’24 </span>
+                <span className={styles.titleLineMuted}>release</span>
               </>
             }
+            subtitle="The release successfully increased Genius adoption, but its impact varied significantly across user cohorts."
             size="large"
           >
-            <div
-              className={styles.reviewScroller}
-              aria-label="Continuously scrolling reviews"
-            >
-              <div className={styles.reviewTrack}>
-                {reviewScreenshotSlots.map(review => (
-                  <figure className={styles.reviewCard} key={review.id}>
-                    <img
-                      className={styles.reviewImage}
-                      src={review.src?.src || review.src}
-                      width={review.src?.width}
-                      height={review.src?.height}
-                      alt={review.alt}
-                      loading="lazy"
-                      onError={event => {
-                        event.currentTarget.parentElement?.classList.add(
-                          styles.reviewCardEmpty
-                        );
-                      }}
-                      onLoad={event => {
-                        event.currentTarget.parentElement?.classList.remove(
-                          styles.reviewCardEmpty
-                        );
-                      }}
-                    />
-                    <figcaption className={styles.reviewPlaceholder}>
-                      Upload {review.id}.png
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-              <div className={styles.reviewTrack} aria-hidden="true">
-                {reviewScreenshotSlots.map(review => (
-                  <figure className={styles.reviewCard} key={`${review.id}-clone`}>
-                    <img
-                      className={styles.reviewImage}
-                      src={review.src?.src || review.src}
-                      width={review.src?.width}
-                      height={review.src?.height}
-                      alt=""
-                      loading="lazy"
-                      onError={event => {
-                        event.currentTarget.parentElement?.classList.add(
-                          styles.reviewCardEmpty
-                        );
-                      }}
-                      onLoad={event => {
-                        event.currentTarget.parentElement?.classList.remove(
-                          styles.reviewCardEmpty
-                        );
-                      }}
-                    />
-                    <figcaption className={styles.reviewPlaceholder}>
-                      Upload {review.id}.png
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </div>
+            <ImpactSvg />
           </CaseSection>
+
+          <CaseSection
+            title="Emerging challenges"
+            size="large"
+          >
+            <UsersentimentSvg />
+          </CaseSection>
+          <div id="problem-discover" className={styles.sectionAnchor} />
 
           <CaseSection
             timeline="June, 2025"
@@ -387,12 +323,13 @@ export default function EtMoneyHome() {
             title={
               <>
                 <span className={styles.structuralHeadingTop}>
-                  The existing app structure
+                  Existing IA was{' '}
+                  <span className={styles.headingItalics}>intent first. </span>
                 </span>
                 <br />
-                <span className={styles.structuralHeadingNegative}>was not</span>{' '}
                 <span className={styles.structuralHeadingStrong}>
-                  enabling broader discovery
+                  User behaviour was{' '}
+                  <span className={styles.headingItalics}>product-first. </span>
                 </span>
               </>
             }
@@ -413,25 +350,6 @@ export default function EtMoneyHome() {
               </Text>
             </div>
           </Section>
-
-          <CaseSection
-            headerMeta={
-              <div className={styles.callMeta}>
-                <span className={styles.callMetaIcon} aria-hidden="true">
-                  <span className={styles.callMetaIconGlyph}>☎</span>
-                </span>
-                <span className={styles.callMetaDots} aria-hidden="true">
-                  <span className={styles.callMetaDot} />
-                  <span className={styles.callMetaDot} />
-                  <span className={styles.callMetaDot} />
-                </span>
-              </div>
-            }
-            subtitleTop="To start with we started talking to users who have an active AUM & SIPs"
-            title="Understanding how users perceived ET Money?"
-          >
-            <UserResearchDiagram />
-          </CaseSection>
 
           <div id="exploration-insights" className={styles.sectionAnchor} />
           <CaseSection size="small" title="Metrics we were solving for">

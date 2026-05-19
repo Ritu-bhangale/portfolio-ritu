@@ -1,4 +1,4 @@
-import ArrowDown from 'assets/arrow-down.svg';
+import ArrowDown from 'assets/shared/arrow-down.svg';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
 import { Heading } from 'components/Heading';

@@ -3,7 +3,6 @@ import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
-import { useTheme } from 'components/ThemeProvider';
 import { Transition } from 'components/Transition';
 import { useWindowSize } from 'hooks';
 import { useState } from 'react';
@@ -25,7 +24,6 @@ export const ProjectSummaryAlternate = ({
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
-  const theme = useTheme();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;

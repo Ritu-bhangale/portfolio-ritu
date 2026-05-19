@@ -163,7 +163,6 @@ export const Model = ({
 
     // The plane with the color of the ground
     const fillMaterial = new MeshBasicMaterial({
-      color: 0xffffff,
       opacity: 0,
       transparent: true,
     });
@@ -397,7 +396,6 @@ const Device = ({
 
       gltf.scene.traverse(async node => {
         if (node.material) {
-          node.material.color = new Color(0x1f2025);
           node.material.color.convertSRGBToLinear();
         }
 
