@@ -5,11 +5,11 @@ import { useAppContext, useScrollToHash } from 'hooks';
 import styles from './Intro.module.css';
 import sectionStyles from 'components/Section/Section.module.css';
 
-import summerImage from 'assets/summer.png';
-import monsoonImage from 'assets/monsoon.png';
-import autumnImage from 'assets/autumn.png';
-import winterImage from 'assets/winter.png';
-import annotationIcon from 'assets/annotationIcon.svg';
+import summerImage from 'assets/home/summer.png';
+import monsoonImage from 'assets/home/monsoon.png';
+import autumnImage from 'assets/home/autumn.png';
+import winterImage from 'assets/home/winter.png';
+import annotationIcon from 'assets/shared/annotationIcon.svg?url';
 
 import { useState, useRef, useEffect } from 'react';
 

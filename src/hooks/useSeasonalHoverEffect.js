@@ -1,4 +1,4 @@
-import autumnLeaf from 'assets/Autumn leaf.svg';
+import autumnLeaf from 'assets/shared/Autumn leaf.svg';
 import { useAppContext } from 'hooks/useAppContext';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 

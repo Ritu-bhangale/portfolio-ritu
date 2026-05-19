@@ -21,6 +21,7 @@ const baseTokens = {
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
+  fontWeightSemiBold: 600,
   fontWeightBold: 700,
   fontSizeH0: pxToRem(96),
   fontSizeH1: pxToRem(72),
@@ -61,8 +62,8 @@ const baseTokens = {
 
 // Tokens that change based on viewport size
 const tokensDesktop = {
-  fontSizeH0: pxToRem(120),
-  fontSizeH1: pxToRem(80),
+  fontSizeH0: pxToRem(96),
+  fontSizeH1: pxToRem(72),
 };
 
 const tokensLaptop = {
@@ -71,31 +72,34 @@ const tokensLaptop = {
   maxWidthL: '812px',
   maxWidthXL: '1248px',
   spaceOuter: '48px',
-  fontSizeH0: pxToRem(100),
-  fontSizeH1: pxToRem(70),
+  fontSizeH0: pxToRem(88),
+  fontSizeH1: pxToRem(64),
   fontSizeH2: pxToRem(50),
   fontSizeH3: pxToRem(36),
   fontSizeH4: pxToRem(26),
   fontSizeH5: pxToRem(22),
+  fontSizeBodyXL: pxToRem(22),
 };
 
 const tokensTablet = {
-  fontSizeH0: pxToRem(80),
+  fontSizeH0: pxToRem(72),
   fontSizeH1: pxToRem(60),
   fontSizeH2: pxToRem(48),
   fontSizeH3: pxToRem(32),
   fontSizeH4: pxToRem(24),
   fontSizeH5: pxToRem(20),
+  fontSizeBodyXL: pxToRem(20),
 };
 
 const tokensMobile = {
   spaceOuter: '24px',
-  fontSizeH0: pxToRem(56),
+  fontSizeH0: pxToRem(48),
   fontSizeH1: pxToRem(40),
   fontSizeH2: pxToRem(34),
   fontSizeH3: pxToRem(28),
   fontSizeH4: pxToRem(22),
   fontSizeH5: pxToRem(18),
+  fontSizeBodyXL: pxToRem(17),
   fontSizeBodyL: pxToRem(17),
   fontSizeBodyM: pxToRem(16),
   fontSizeBodyS: pxToRem(14),
@@ -108,6 +112,7 @@ const tokensMobileSmall = {
   fontSizeH2: pxToRem(28),
   fontSizeH3: pxToRem(24),
   fontSizeH4: pxToRem(20),
+  fontSizeBodyXL: pxToRem(16),
 };
 
 const theme = {

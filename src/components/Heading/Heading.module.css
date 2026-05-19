@@ -1,7 +1,7 @@
 .heading {
   margin: 0;
   color: var(--colorTextTitle);
-  letter-spacing: 0.004em; /* 0.4% */
+  letter-spacing: 0.0004em; /* 0.4% */
 }
 
 /* ============================= */
@@ -10,11 +10,11 @@
 
 /* H0 */
 .heading[data-level='0'] {
-  font-family: var(--serifFontStack);
+  font-family: var(--fontStack);
   font-size: var(--fontSizeH0);
   font-weight: var(--fontWeightMedium);
   line-height: 1.25;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.0005em;
 }
 
 /* H1 */
@@ -23,7 +23,7 @@
   font-size: var(--fontSizeH1);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.0005em;
 }
 
 /* H2 */
@@ -32,7 +32,7 @@
   font-size: var(--fontSizeH2);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.0004em;
 }
 
 /* H3 */
@@ -41,7 +41,7 @@
   font-size: var(--fontSizeH3);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.0002em;
 }
 
 /* H4 (default = serif semibold) */
@@ -50,7 +50,7 @@
   font-size: var(--fontSizeH4);
   font-weight: var(--fontWeightBold);
   line-height: 1.5;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.0001em;
 }
 
 /* H5 */
@@ -67,6 +67,7 @@
 
 .heading[data-level='4'][data-variant='sans'] {
   font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
 }
 
 /* ============================= */

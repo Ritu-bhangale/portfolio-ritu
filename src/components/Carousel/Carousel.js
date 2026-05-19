@@ -1,5 +1,5 @@
-import ArrowLeft from 'assets/arrow-left.svg';
-import ArrowRight from 'assets/arrow-right.svg';
+import ArrowLeft from 'assets/shared/arrow-left.svg';
+import ArrowRight from 'assets/shared/arrow-right.svg';
 import { animate, useReducedMotion } from 'framer-motion';
 import { useInViewport } from 'hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';

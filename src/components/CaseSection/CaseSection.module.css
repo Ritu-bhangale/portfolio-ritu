@@ -121,8 +121,48 @@
   color: rgb(0 0 0 / 70%);
   text-align: center;
   font-family: var(--fontStack);
-  font-size: 1.5rem;
+  font-size: var(--fontSizeBodyL);
   font-style: normal;
   font-weight: var(--fontWeightRegular);
   line-height: 1.5;
+}
+
+@media (--mediaTablet) {
+  .container[data-size='small'] {
+    padding-left: var(--space3XL);
+    padding-right: var(--space3XL);
+  }
+
+  .container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (--mediaMobile) {
+  .container[data-size='small'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .container {
+    padding-top: var(--spaceXL);
+    padding-bottom: var(--spaceXL);
+  }
+
+  .header + .media {
+    margin-top: var(--spaceL);
+  }
+
+  .header[data-guides='true']::before,
+  .header[data-guides='true']::after {
+    height: 80px;
+  }
+}
+
+@media (--mediaMobileS) {
+  .container {
+    padding-top: var(--spaceL);
+    padding-bottom: var(--spaceL);
+  }
 }

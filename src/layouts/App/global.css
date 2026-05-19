@@ -191,8 +191,8 @@ body {
 }
 
 ::selection {
-  background: rgb(var(--rgbAccent));
-  color: rgb(var(--rgbBlack));
+  background: rgb(var(--rgbBlack));
+  color: rgb(var(--rgbWhite));
 }
 
 :focus {

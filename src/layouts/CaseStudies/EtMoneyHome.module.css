@@ -7,18 +7,20 @@
   align-items: center;
   gap: var(--space2XL);
   text-align: center;
+  box-sizing: border-box;
 }
 .body {
   display: flex;
   flex-direction: column;
   gap: var(--space4XL);
-  padding-top: var(--space4XL);
+  padding-top: var(--space3XL);
   padding-bottom: var(--space4XL);
+  overflow-x: clip;
 }
 .topSections {
   display: flex;
   flex-direction: column;
-  gap: var(--space4XL);
+  gap: var(--spaceL);
 }
 
 .caseSections {
@@ -105,6 +107,17 @@
   gap: 22px;
 }
 
+.exploreThumbnailCard {
+  margin: var(--space3XL) 0 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.exploreThumbnailImage {
+  width: 100%;
+  display: block;
+}
+
 .stepper {
   position: relative;
   display: flex;
@@ -187,7 +200,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: var(--spaceL);
+  margin-top: var(--space4XL);
+  width: 100%;
+}
+
+.block > svg,
+.block > img {
+  width: 100%;
+  height: auto;
 }
 
 .whatDidntWorkBlock {
@@ -593,16 +614,27 @@
 }
 
 @media (--mediaTablet) {
+  .body {
+    gap: var(--space3XL);
+  }
+
+  .container {
+    padding: 0 var(--spaceL);
+  }
+
+  .hero {
+    padding-top: var(--spaceXL);
+    padding-bottom: var(--spaceXL);
+  }
+
   .roleImpactGrid {
     grid-template-columns: 1fr;
     gap: var(--spaceXL);
-    text-align: center;
+    text-align: left;
   }
 
   .list {
-    align-items: center;
-    padding-left: 0;
-    list-style-position: inside;
+    padding-left: 20px;
   }
 
   .quickSummary {
@@ -611,6 +643,11 @@
 
   .iaNarrativeSection {
     gap: var(--spaceXL);
+  }
+
+  .iaNarrativeLead,
+  .iaNarrativeHeading {
+    max-width: 100%;
   }
 
   .metricsBoard {
@@ -624,12 +661,12 @@
   }
 
   .exploreTextColumn {
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .exploreSubHeading {
-    text-align: center;
+    text-align: left;
   }
 
   .exploreList {
@@ -638,6 +675,10 @@
 
   .exploreNotesBoard {
     width: min(100%, 380px);
+  }
+
+  .exploreBodyText {
+    max-width: 100%;
   }
 
   .reviewTrack {
@@ -655,24 +696,86 @@
     gap: var(--spaceXL);
   }
 
+  .impactLead {
+    max-width: 100%;
+  }
+
   .impactLaunchCard {
     max-width: 100%;
+  }
+
+  .impactPrimaryDescription {
+    max-width: 100%;
+  }
+
+  .textWide {
+    max-width: 100%;
+  }
+
+  .exploreThumbnailCard {
+    margin-top: var(--space2XL);
   }
 }
 
 @media (--mediaMobile) {
+  .body {
+    gap: var(--space2XL);
+    padding-top: var(--spaceXL);
+    padding-bottom: var(--space2XL);
+  }
+
+  .topSections {
+    gap: var(--spaceM);
+  }
+
+  .caseSections {
+    gap: var(--space2XL);
+  }
+
+  .container {
+    padding: 0 var(--spaceM);
+    gap: var(--spaceL);
+  }
+
+  .hero {
+    padding-top: var(--spaceL);
+    padding-bottom: var(--spaceL);
+    gap: var(--spaceL);
+  }
+
+  .roleImpactGrid {
+    gap: var(--spaceL);
+  }
+
+  .roleImpactCard {
+    gap: var(--spaceM);
+  }
+
+  .metricItem {
+    padding: 12px;
+  }
+
+  .stepper {
+    gap: var(--spaceM);
+  }
+
   .metricsBoard {
     flex-direction: column;
     align-items: center;
     padding-bottom: var(--spaceM);
   }
 
+  .exploreSection {
+    margin-top: var(--spaceL);
+    gap: var(--spaceXL);
+  }
+
   .exploreFlow {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .exploreNotesBoard {
-    width: 320px;
+    width: min(100%, 320px);
     height: 470px;
   }
 
@@ -701,6 +804,56 @@
     --reviewFrameHeight: min(32vw, 180px);
     width: 100%;
   }
+
+  .exploreThumbnailCard {
+    margin-top: var(--spaceXL);
+    border-radius: 12px;
+  }
+
+  .block {
+    margin-top: var(--space2XL);
+    gap: var(--spaceM);
+  }
+
+  .whatDidntWorkBlock {
+    margin-top: var(--spaceL);
+  }
+
+  .quickSummary {
+    padding: var(--spaceXL) var(--spaceM);
+    border-radius: 16px;
+  }
+}
+
+@media (--mediaMobileS) {
+  .container {
+    padding: 0 var(--spaceS);
+  }
+
+  .roleImpactGrid {
+    gap: var(--spaceM);
+  }
+
+  .exploreNotesBoard {
+    width: 280px;
+    height: 440px;
+  }
+
+  .exploreNoteAqua {
+    left: 50px;
+  }
+
+  .exploreNoteYellow {
+    right: 0;
+  }
+
+  .exploreNoteGreen {
+    left: 0;
+  }
+
+  .exploreNotePink {
+    right: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -708,10 +861,7 @@
     animation: none;
   }
 }
-.block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spaceL);
-  margin-top: var(--space4XL);
+
+.headingItalics {
+  font-style: italic;
 }

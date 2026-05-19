@@ -1,6 +1,4 @@
 import { Icon } from 'components/Icon';
-import { Loader } from 'components/Loader';
-import { Transition } from 'components/Transition';
 import RouterLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
@@ -29,6 +27,7 @@ const ButtonContent = forwardRef(
       as,
       secondary,
       jarbtn,
+      wip,
       loading,
       loadingText = 'loading',
       icon,
@@ -55,11 +54,12 @@ const ButtonContent = forwardRef(
         data-icon-only={iconOnly}
         data-secondary={secondary}
         data-jarbtn={jarbtn}
+        data-wip={wip}
         data-icon={icon}
-        href={href}
-        rel={rel || isExternal ? 'noopener noreferrer' : undefined}
-        target={target || isExternal ? '_blank' : undefined}
-        disabled={disabled}
+        href={wip ? undefined : href}
+        rel={!wip && (rel || isExternal) ? 'noopener noreferrer' : undefined}
+        target={!wip && (target || isExternal) ? '_blank' : undefined}
+        disabled={disabled || wip}
         ref={ref}
         {...rest}
       >
@@ -71,25 +71,21 @@ const ButtonContent = forwardRef(
             icon={icon}
           />
         )}
-        {!!children && <span className={styles.text}>{children}</span>}
-        {!!iconEnd && (
-          <Icon
-            className={styles.icon}
-            data-end={!iconOnly}
-            data-shift={iconHoverShift}
-            icon={iconEnd}
-          />
+        {!!children && (
+          <span className={styles.text}>{loading ? loadingText : children}</span>
         )}
-        <Transition unmount in={loading}>
-          {visible => (
-            <Loader
-              className={styles.loader}
-              size={32}
-              text={loadingText}
-              data-visible={visible}
+        {loading ? (
+          <span className={styles.spinner} aria-hidden="true" />
+        ) : (
+          !!iconEnd && (
+            <Icon
+              className={styles.icon}
+              data-end={!iconOnly}
+              data-shift={iconHoverShift}
+              icon={iconEnd}
             />
-          )}
-        </Transition>
+          )
+        )}
       </Component>
     );
   }

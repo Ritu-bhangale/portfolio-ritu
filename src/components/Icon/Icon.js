@@ -12,6 +12,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Link from './svg/link.svg';
+import Lock from './svg/lock.svg';
 import Menu from './svg/menu.svg';
 import Pause from './svg/pause.svg';
 import Play from './svg/play.svg';
@@ -31,6 +32,7 @@ export const icons = {
   behance: BookIcon,
   linkedin: LinkedInIcon,
   link: Link,
+  lock: Lock,
   menu: Menu,
   pause: Pause,
   play: Play,
