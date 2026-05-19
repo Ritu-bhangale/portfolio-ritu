@@ -297,12 +297,7 @@ export default function EtMoneyHome() {
           </CaseSection>
 
           <CaseSection
-            subtitle={
-              <>
-                User sentiment started{' '}
-                <span className={styles.subtitleEmphasisRed}>worsening</span>
-              </>
-            }
+            title="Emerging challenges"
             size="large"
           >
             <UsersentimentSvg />

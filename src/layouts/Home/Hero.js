@@ -105,8 +105,11 @@ export function Hero({ id, sectionRef }) {
           </Heading>
           <Heading level={0} align="center" className={styles.headline}>
             I <span className={styles.heroEmphasis}>design </span>
-            how people <span className={styles.heroEmphasis}>experience </span>
-            products
+            how people{' '}
+            <span className={styles.headlineWrap}>
+              <span className={styles.heroEmphasis}>experience </span>
+              products
+            </span>
           </Heading>
         </div>
       </div>
