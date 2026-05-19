@@ -5,16 +5,29 @@ import { useRef } from 'react';
 import { Hero } from './Hero';
 import { ProjectShowcase } from './ProjectShowcase';
 // import { CSProjects } from './CSProjects';
-// import { AboutMe } from './AboutMe';
-// import { LifeGallery } from './LifeGallery';
-import exploreThumbnail from 'assets/home/ExploreThumbnail.png';
-import exploreThumbnailMobile from 'assets/home/ExploreThumbnailMobile.png';
+import { AboutMe } from './AboutMe';
+import { LifeGallery } from './LifeGallery';
+import { ExploreShowcase } from 'components/ExploreShowcase';
+import HomePagescroll from 'assets/home/HomePagescroll.png';
+import HomeReview1 from 'assets/home/Review1.png';
+import HomeReview2 from 'assets/home/Review2.png';
+import HomeReview3 from 'assets/home/Review3.png';
+import HomeReview4 from 'assets/home/Review4.png';
+import HomeReview5 from 'assets/home/Review5.png';
 import mfDashboardThumbnail from 'assets/home/MFDashboardThumbnail.png';
 import mfDashboardThumbnailMobile from 'assets/home/MFDashboardThumbnailMobile.png';
 import fdOrderformThumbnail from 'assets/home/FDOrderform.png';
 import fdOrderformThumbnailMobile from 'assets/home/FDOrderFormMobile.png';
 import styles from './Home.module.css';
 import showcaseStyles from './ProjectShowcase.module.css';
+
+const exploreReviewCards = [
+  { id: 'review-1', src: HomeReview1, alt: 'User review 1' },
+  { id: 'review-2', src: HomeReview2, alt: 'User review 2' },
+  { id: 'review-3', src: HomeReview3, alt: 'User review 3' },
+  { id: 'review-4', src: HomeReview4, alt: 'User review 4' },
+  { id: 'review-5', src: HomeReview5, alt: 'User review 5' },
+];
 
 export const Home = () => {
   const introRef = useRef();
@@ -29,33 +42,35 @@ export const Home = () => {
       />
       <Hero id="intro" sectionRef={introRef} />
 
-      <Heading level={4} align="center" as="h2" id="selected-work" className={styles.sectionHeading}>
+      <Heading
+        level={3}
+        align="center"
+        as="h3"
+        id="selected-work"
+        className={styles.sectionHeading}
+      >
         Selected work
       </Heading>
 
-      <ProjectShowcase
-        index={1}
-        tags={[
-          { label: 'Business shift' },
-          { label: 'NPS score' },
-          { label: 'User satisfaction', accent: '#34a853' },
-        ]}
-        title="Re-architecting how 10M+ Investors Discover Wealth"
-        description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
-        buttonHref="/projects/etmoney-home"
-        backgroundColor="#F4FFF9"
-      >
-        <img
-          src={exploreThumbnail?.src || exploreThumbnail}
-          alt="ET Money Explore redesign"
-          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailDesktop}`}
-        />
-        <img
-          src={exploreThumbnailMobile?.src || exploreThumbnailMobile}
-          alt="ET Money Explore redesign"
-          className={`${showcaseStyles.thumbnail} ${showcaseStyles.thumbnailMobile}`}
-        />
-      </ProjectShowcase>
+      <div className={styles.scrollShowcaseWrap} data-scroll-showcase>
+        <ProjectShowcase
+          index={1}
+          tags={[
+            { label: 'Business shift' },
+            { label: 'NPS score' },
+            { label: 'User satisfaction', accent: '#34a853' },
+          ]}
+          title="Re-architecting how 10M+ Investors Discover Wealth"
+          description="Re-architected the app navigation and rebuilt the App Home to scale with a distribution-first business model and improve product discovery."
+          buttonHref="/projects/etmoney-home"
+          backgroundColor="#F4FFF9"
+        >
+          <ExploreShowcase
+            screenshotSrc={HomePagescroll}
+            reviewCards={exploreReviewCards}
+          />
+        </ProjectShowcase>
+      </div>
 
       <ProjectShowcase
         index={2}
@@ -100,9 +115,27 @@ export const Home = () => {
 
       <div className={styles.restOfPage}>
         {/* <CSProjects id="cs-projects" /> */}
-        {/* <AboutMe id="about-me" sectionRef={aboutRef} /> */}
-        {/* <LifeGallery id="life-gallery" sectionRef={galleryRef} /> */}
-        {/* <Footer /> */}
+        <Heading
+          level={2}
+          align="center"
+          as="h2"
+          id="selected-work"
+          className={styles.sectionHeading}
+        >
+          About me
+        </Heading>
+        <AboutMe id="about-me" sectionRef={aboutRef} />
+        <Heading
+          level={2}
+          align="center"
+          as="h2"
+          id="selected-work"
+          className={styles.sectionHeading}
+        >
+          What my life looks like, <br/> outside design
+        </Heading>
+        <LifeGallery id="life-gallery" sectionRef={galleryRef} />
+        <Footer />
       </div>
     </div>
   );

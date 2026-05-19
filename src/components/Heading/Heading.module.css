@@ -69,6 +69,10 @@
   font-family: var(--fontStack);
   font-weight: var(--fontWeightSemiBold);
 }
+.heading[data-level='3'][data-variant='sans'] {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
+}
 
 /* ============================= */
 /* ===== TEXT ALIGNMENT ======= */

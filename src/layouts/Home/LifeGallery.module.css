@@ -1,9 +1,9 @@
 .lifeGallery {
-  padding: var(--space5XL) 0;
+  padding: 0;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 var(--spaceOuter);
   display: flex;
@@ -18,7 +18,8 @@
   font-weight: var(--fontWeightRegular);
   font-style: italic;
   text-align: center;
-  margin: 0;
+  margin: var(--space5XL) 0 var(--space3XL);
+  padding: 0 var(--spaceOuter);
   color: rgb(var(--rgbTextPrimary));
 }
 
@@ -27,3 +28,4 @@
   height: auto;
   border-radius: 12px;
 }
+

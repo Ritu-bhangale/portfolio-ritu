@@ -1,5 +1,5 @@
 .aboutMe {
-  padding: 120px 0;
+  padding: 0 0 120px;
 }
 
 .container {
@@ -14,10 +14,11 @@
 
 .heading {
   font-family: var(--serifFontStack);
-  font-size: 48px;
+  font-size: var(--fontSizeH2);
   font-weight: 500;
   text-align: center;
-  margin: 0;
+  margin: 120px 0 104px;
+  padding: 0 var(--spaceOuter);
   color: #0f0f0f;
   letter-spacing: 0.192px;
   line-height: 1.5;
@@ -61,7 +62,7 @@
 
 .bio {
   font-family: var(--fontStack);
-  font-size: 20px;
+  font-size: var(--fontSizeBodyM);
   font-weight: 400;
   color: #4d4d4d;
   line-height: 1.5;
@@ -81,7 +82,7 @@
   align-items: center;
   gap: 20px;
   font-family: var(--fontStack);
-  font-size: 24px;
+  font-size: var(--fontSizeBodyXL);
   font-weight: 400;
   color: #0f0f0f;
   letter-spacing: 0.36px;
@@ -141,7 +142,7 @@
 
 .eduDegree {
   font-family: var(--fontStack);
-  font-size: 28px;
+  font-size: var(--fontSizeH5);
   font-weight: 600;
   color: #0f0f0f;
   letter-spacing: 0.4px;
@@ -150,7 +151,7 @@
 
 .eduInstitute {
   font-family: var(--fontStack);
-  font-size: 24px;
+  font-size: var(--fontSizeBodyXL);
   font-weight: 500;
   color: #0f0f0f;
   letter-spacing: 0.4px;
@@ -159,7 +160,7 @@
 
 .eduField {
   font-family: var(--fontStack);
-  font-size: 20px;
+  font-size: var(--fontSizeBodyM);
   font-weight: 400;
   color: #4d4d4d;
   letter-spacing: 0.24px;
@@ -189,34 +190,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 17px;
-  flex-shrink: 0;
-}
-
-.timelineSpacerTop {
-  height: 54px;
+  width: 12px;
   flex-shrink: 0;
 }
 
 .timelineDot {
-  width: 16px;
-  height: 16px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #0f0f0f;
+  border: 1.5px solid #0f0f0f;
+  background: transparent;
   flex-shrink: 0;
 }
 
-.timelineLine {
+.timelineLineTop {
+  width: 1px;
+  height: 9px;
+  background: #dedede;
+  flex-shrink: 0;
+}
+
+.timelineLineBottom {
   width: 1px;
   flex: 1;
   background: #dedede;
 }
 
-.timelineItem:first-child .timelineLine:first-child {
+.timelineItem:first-child .timelineLineTop {
   background: transparent;
 }
 
-.timelineItem:last-child .timelineLine:last-child {
+.timelineItem:last-child .timelineLineBottom {
   background: transparent;
 }
 
@@ -257,7 +261,7 @@
 
 .expRole {
   font-family: var(--fontStack);
-  font-size: 28px;
+  font-size: var(--fontSizeH5);
   font-weight: 600;
   color: #0f0f0f;
   margin: 0;
@@ -267,7 +271,7 @@
 
 .expCompany {
   font-family: var(--fontStack);
-  font-size: 24px;
+  font-size: var(--fontSizeBodyXL);
   color: #0f0f0f;
   letter-spacing: 0.4px;
   line-height: normal;
@@ -287,7 +291,7 @@
 
 .expDescription {
   font-family: var(--fontStack);
-  font-size: 20px;
+  font-size: var(--fontSizeBodyM);
   font-weight: 400;
   color: #4d4d4d;
   line-height: 1.5;
@@ -296,30 +300,22 @@
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 1040px) {
-  .heading {
-    font-size: 36px;
-  }
-
-  .sectionLabel {
-    font-size: 26px;
-  }
-
-  .expRole,
-  .eduDegree {
-    font-size: 22px;
-  }
-
-  .expCompany,
-  .eduInstitute {
-    font-size: 20px;
-  }
-}
-
 @media (max-width: 768px) {
+  .aboutMe {
+    padding: 0 0 60px;
+  }
+
+  .heading {
+    margin: 60px 0 48px;
+  }
+
   .columns {
     flex-direction: column;
     gap: 48px;
+  }
+
+  .leftCol {
+    gap: 40px;
   }
 
   .photoWrapper {
@@ -327,20 +323,21 @@
     height: 260px;
   }
 
-  .heading {
-    font-size: 32px;
+  .photoBlock {
+    gap: 32px;
   }
 
   .container {
-    gap: 64px;
-  }
-
-  .contactItem {
-    font-size: 18px;
+    gap: 48px;
   }
 
   .contactItem svg {
     width: 24px;
     height: 24px;
   }
+
+  .timelineContent {
+    padding-bottom: 32px;
+  }
+
 }

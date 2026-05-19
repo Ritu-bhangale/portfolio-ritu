@@ -3,7 +3,17 @@
 }
 
 .sectionHeading {
-  padding: var(--space3XL) 0 var(--spaceXL);
+  padding: var(--space3XL) 0 var(--space2XL);
+}
+
+.scrollShowcaseWrap {
+  height: 250vh;
+}
+
+.scrollShowcaseWrap > * {
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .restOfPage {
