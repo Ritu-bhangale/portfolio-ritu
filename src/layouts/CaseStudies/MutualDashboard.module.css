@@ -1,0 +1,423 @@
+.container {
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space2XL);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space4XL);
+  padding-top: var(--space3XL);
+  padding-bottom: var(--space4XL);
+  overflow-x: clip;
+}
+
+.topSections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceL);
+}
+
+.caseSections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space4XL);
+}
+
+.sectionAnchor {
+  position: relative;
+  top: -90px;
+  height: 0;
+}
+
+/* ── Hero ── */
+.hero {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  align-items: flex-start;
+  text-align: left;
+  gap: 32px;
+}
+
+.heroTitle {
+  width: 100%;
+  max-width: 1100px;
+}
+
+.heroEmphasis {
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
+  color: var(--colorTextTitle);
+}
+
+/* ── Generic section image ── */
+.sectionImage {
+  margin: 0;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Responsive SVG components ── */
+.svgFull {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.svgWrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Why from scratch — 3-col grid ── */
+.whyGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: var(--spaceL);
+}
+
+.whyCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceM);
+  padding: 24px;
+  border-radius: 16px;
+  background: rgb(var(--rgbBackgroundAlt));
+  text-align: left;
+}
+
+.whyVisual {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spaceS);
+}
+
+.whyCardImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.whyIconImg {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+.whyList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Scale stat cards ── */
+.scaleGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: var(--spaceL);
+}
+
+.scaleCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spaceM);
+  padding: 40px 24px;
+  border-radius: 16px;
+  background: rgb(var(--rgbBackgroundAlt));
+  text-align: center;
+}
+
+.scaleLabel {
+  color: var(--colorTextMuted);
+}
+
+/* ── User intent quote ── */
+.quoteSection {
+  max-width: 900px;
+  gap: var(--spaceS);
+}
+
+.quoteLead {
+  color: var(--colorTextMuted);
+}
+
+.quoteHeading {
+  font-style: italic;
+}
+
+/* ── Portfolio snapshot before/after ── */
+.snapshotStack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: var(--spaceL);
+}
+
+.snapshotBlock {
+  width: 100%;
+  border-radius: 16px;
+  background: rgb(var(--rgbBackgroundAlt));
+  overflow: hidden;
+}
+
+.snapshotBlockLabel {
+  display: block;
+  padding: 28px 32px 0;
+  text-align: center;
+}
+
+.snapshotFrame {
+  margin: 0;
+  padding: var(--spaceXL);
+  overflow: hidden;
+}
+
+.snapshotFrame .img {
+  border-radius: 8px;
+}
+
+/* ── Architecture flow diagram ── */
+.archContainer {
+  width: 100%;
+  border-radius: 16px;
+  background: rgb(var(--rgbBackgroundAlt));
+  padding: var(--space2XL) var(--spaceXL);
+  margin-top: var(--spaceL);
+}
+
+.archFlow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spaceL);
+}
+
+.archStep {
+  flex: 1;
+  max-width: 280px;
+  background: rgb(var(--rgbBackground));
+  border-radius: 12px;
+  padding: var(--spaceXL) var(--spaceL);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceS);
+}
+
+.archStepMiddle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spaceM);
+  flex: 1;
+  max-width: 280px;
+}
+
+.archStepMiddle .archStep {
+  width: 100%;
+  max-width: none;
+}
+
+.archArrow {
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  color: var(--colorTextMuted);
+  margin-top: 22px;
+}
+
+.archNote {
+  padding: 0 var(--spaceS);
+  color: var(--colorTextMuted);
+}
+
+.archStepSub {
+  color: var(--colorTextMuted);
+}
+
+/* ── Heading modifiers ── */
+.titleLineMuted {
+  color: var(--colorTextMuted);
+}
+
+.titleLineEmphasis {
+  color: var(--colorTextTitle);
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
+}
+
+.emphasisItalic {
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
+}
+
+.greenEmphasis {
+  font-style: italic;
+  color: rgb(44 101 70);
+}
+
+/* ── Responsive ── */
+@media (--mediaTablet) {
+  .body {
+    gap: var(--space3XL);
+  }
+
+  .container {
+    padding: 0 var(--spaceL);
+  }
+
+  .hero {
+    padding-top: var(--spaceXL);
+    padding-bottom: var(--spaceXL);
+  }
+
+  .sectionImage {
+    border-radius: 12px;
+  }
+
+  .whyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .scaleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .scaleCard {
+    padding: 32px 20px;
+  }
+
+  .snapshotBlockLabel {
+    padding: 20px 20px 0;
+  }
+
+  .snapshotFrame {
+    padding: var(--spaceL);
+  }
+
+  .archContainer {
+    padding: var(--spaceXL) var(--spaceL);
+  }
+}
+
+@media (--mediaMobile) {
+  .body {
+    gap: var(--space2XL);
+    padding-top: var(--spaceXL);
+    padding-bottom: var(--space2XL);
+  }
+
+  .topSections {
+    gap: var(--spaceM);
+  }
+
+  .caseSections {
+    gap: var(--space2XL);
+  }
+
+  .container {
+    padding: 0 var(--spaceM);
+    gap: var(--spaceL);
+  }
+
+  .hero {
+    padding-top: var(--spaceL);
+    padding-bottom: var(--spaceL);
+    gap: var(--spaceL);
+  }
+
+  .sectionImage {
+    border-radius: 8px;
+  }
+
+  .whyGrid {
+    gap: 12px;
+    margin-top: var(--spaceM);
+  }
+
+  .whyCard {
+    padding: 18px;
+  }
+
+  .scaleGrid {
+    gap: 12px;
+    margin-top: var(--spaceM);
+  }
+
+  .scaleCard {
+    padding: 24px 16px;
+    gap: var(--spaceS);
+  }
+
+  .quoteSection {
+    gap: var(--spaceXS);
+  }
+
+  .snapshotStack {
+    gap: 12px;
+    margin-top: var(--spaceM);
+  }
+
+  .snapshotBlock {
+    border-radius: 12px;
+  }
+
+  .snapshotBlockLabel {
+    padding: 16px 16px 0;
+  }
+
+  .snapshotFrame {
+    padding: var(--spaceM);
+  }
+
+  .archContainer {
+    padding: var(--spaceXL) var(--spaceM);
+  }
+
+  .archFlow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spaceM);
+  }
+
+  .archStep,
+  .archStepMiddle {
+    max-width: none;
+  }
+
+  .archArrow {
+    transform: rotate(90deg);
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+@media (--mediaMobileS) {
+  .container {
+    padding: 0 var(--spaceS);
+  }
+}

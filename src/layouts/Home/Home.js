@@ -77,9 +77,8 @@ export const Home = () => {
         tags={[{ label: 'Dashboard' }, { label: 'Mutual funds' }]}
         title="Designing how Mutual funds investors see there wealth"
         description="Improved portfolio data reliability by redesigning holdings architecture to reduce preprocessing dependency, enabling ~99.9% portfolio accuracy."
-        buttonHref="/projects/etmoney-home"
+        buttonHref="/projects/mutual-dashboard"
         backgroundColor="#FFFFF6"
-        wip
       >
         <img
           src={mfDashboardThumbnail?.src || mfDashboardThumbnail}
