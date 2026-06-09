@@ -66,6 +66,19 @@ const App = ({ Component, pageProps }) => {
                 rel="canonical"
                 href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${canonicalRoute}`}
               />
+              {/* Google Analytics */}
+              <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-LFH046PDD6"
+              />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LFH046PDD6');`,
+                }}
+              />
             </Head>
             <VisuallyHidden
               showOnFocus
