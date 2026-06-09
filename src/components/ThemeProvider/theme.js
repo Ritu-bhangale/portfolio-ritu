@@ -142,7 +142,8 @@ const theme = {
   rgbText: '15 15 15',
   rgbBackgroundLight: '245 245 245',
 
-  rgbAccent: '0 229 255', // keep or update later
+  rgbAccent: '222 0 104', // #DE0068
+  colorAccent: 'rgb(var(--rgbAccent) / 1)',
 };
 
 export const tokens = {

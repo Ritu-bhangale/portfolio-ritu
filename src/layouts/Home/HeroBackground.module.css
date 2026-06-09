@@ -1,0 +1,19 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+  pointer-events: auto;
+}
+
+.canvas[data-visible='true'] {
+  opacity: 1;
+}
+
+@media (--mediaReduceMotion) {
+  .canvas {
+    transition: none;
+  }
+}

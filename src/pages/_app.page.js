@@ -2,16 +2,16 @@ import 'layouts/App/reset.css';
 import 'layouts/App/global.css';
 
 import { ThemeProvider } from 'components/ThemeProvider';
-import { SeasonHomeBadge } from 'components/SeasonHomeBadge';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
+import { Loader } from 'components/Loader';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { useFoucFix } from 'hooks';
 import styles from 'layouts/App/App.module.css';
 import { initialState, reducer } from 'layouts/App/reducer';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Fragment, createContext, useEffect, useReducer } from 'react';
+import { Fragment, createContext, useEffect, useReducer, useState } from 'react';
 import { msToNum } from 'utils/style';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
@@ -28,6 +28,7 @@ function getSeasonIndexFromMonth() {
 
 const App = ({ Component, pageProps }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isLoading, setIsLoading] = useState(true);
   const { route, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
   useFoucFix();
@@ -38,11 +39,28 @@ const App = ({ Component, pageProps }) => {
     }
   }, [state.seasonIndex]);
 
+  useEffect(() => {
+    const hasSeenLoader = localStorage.getItem('portfolioLoaderSeen');
+
+    if (hasSeenLoader) {
+      // Loader already shown before, skip it
+      setIsLoading(false);
+    } else {
+      // First visit, show loader
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        localStorage.setItem('portfolioLoaderSeen', 'true');
+      }, 2400);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
       <ThemeProvider>
         <LazyMotion features={domAnimation}>
           <Fragment>
+            <Loader isVisible={isLoading} />
             <Head>
               <link
                 rel="canonical"
@@ -57,7 +75,6 @@ const App = ({ Component, pageProps }) => {
             >
               Skip to main content
             </VisuallyHidden>
-            <SeasonHomeBadge />
             <main className={styles.app} tabIndex={-1} id="MainContent">
               <AnimatePresence exitBeforeEnter>
                 <m.div

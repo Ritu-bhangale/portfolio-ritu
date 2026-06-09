@@ -1,277 +1,485 @@
 .hero {
   position: relative;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
-  padding: 0 var(--spaceOuter);
+  background: #fff;
+  padding: 88px var(--spaceOuter) var(--space5XL);
 }
 
-.heroEmphasis {
-  font-weight: var(--fontWeightLight);
-  font-family: var(--serifFontStack);
+@media (--mediaTablet) {
+  .hero {
+    min-height: auto;
+    padding: 72px var(--spaceOuter) var(--space4XL);
+  }
 }
 
-/* ---- Gradient background ---- */
-
-.ellipse1,
-.ellipse2,
-.ellipse3 {
-  position: absolute;
-  border-radius: 100%;
-  filter: blur(80px);
+@media (--mediaMobile) {
+  .hero {
+    padding: 56px var(--spaceOuter) var(--space3XL);
+  }
 }
 
-/* Green blob — large, left-of-center, bleeds off top */
-.ellipse1 {
-  width: 792px;
-  height: 792px;
-  left: 557px;
-  top: -404px;
-  border-radius: 588px;
-  background: radial-gradient(50% 50% at 50% 50%, #f086af 0%, #fff 100%);
-  filter: blur(148.40989685058594px);
-}
-
-/* Pink/purple blob — right-of-center, bleeds off top */
-.ellipse2 {
-  width: 588px;
-  height: 588px;
-  left: 953px;
-  top: -373px;
-  border-radius: 792px;
-  background: radial-gradient(50% 50% at 50% 50%, #bd84e6 0%, #fff 100%);
-  filter: blur(199.89903259277344px);
-}
-
-/* Subtle lavender wash bridging the two */
-.ellipse3 {
-  width: 500px;
-  height: 500px;
-  left: 750px;
-  top: -300px;
-  border-radius: 634px;
-  background: radial-gradient(50% 50% at 50% 50%, #f3d265 0%, #fff 100%);
-  filter: blur(120px);
-}
-
-/* ---- Navigation ---- */
-.nav {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: var(--space3XL);
-  z-index: 2;
-}
-
-.nav button,
-.navLink {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 0;
-  text-decoration: none;
-  transition: opacity var(--durationS) ease;
-}
-
-.nav button:hover,
-.navLink:hover {
-  opacity: 0.6;
-}
-
-/* ---- Content ---- */
-.content {
+.inner {
   position: relative;
   z-index: 1;
-  text-align: center;
-  max-width: 1200px;
   width: 100%;
-  padding: 0 var(--spaceL);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: var(--maxWidthL);
+  margin: 0 auto;
 }
 
-.headlineGroup {
+/* ---- Email header rows ---- */
+.head {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  margin-bottom: var(--space2XL);
+  max-width: 760px;
+  border-bottom: 1px solid rgb(var(--rgbStroke));
+  padding-bottom: var(--space2XL);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 78px 1fr;
   align-items: center;
   gap: 32px;
+  min-height: 48px;
 }
 
-.label {
-  margin: 0;
-}
-
-.headline {
-  text-align: center;
-}
-
-.headlineWrap {
-  white-space: nowrap;
-}
-
-/* ---- Subtext ---- */
-.subtext {
-  position: absolute;
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  white-space: nowrap;
-}
-
-/* ---- Scroll cue ---- */
-.scrollCue {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  transition: opacity var(--durationS) ease;
-}
-
-.scrollDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgb(var(--rgbTextPrimary));
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0.4;
-    transform: translateY(8px);
+@media (--mediaMobile) {
+  .row {
+    grid-template-columns: 72px 1fr;
+    gap: var(--spaceL);
   }
 }
 
-/* ---- Hamburger toggle (hidden on desktop) ---- */
-.menuToggle {
-  display: none;
+.rowLabel {
+  font-family: var(--fontStack);
+  font-size: 14px;
+  font-weight: var(--fontWeightSemiBold);
+  letter-spacing: 0.336px;
+  text-transform: uppercase;
+  color: #8c8c8c;
+}
+
+.rowValue {
+  min-width: 0;
+}
+
+/* ---- FROM: ritu's [desk] with a select-arrow ---- */
+.fromRow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Figma cursor floats just above-left of the "r", tip pointing into the word */
+.fromCursor {
   position: absolute;
-  top: 32px;
-  right: var(--spaceL);
-  z-index: var(--zIndex5);
-  width: 40px;
-  height: 40px;
+  left: -6px;
+  top: -22px;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.28));
+}
+
+.fromText {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 24px;
+  letter-spacing: 0.288px;
+  color: rgb(var(--rgbTextPrimary));
+}
+
+/* ---- Figma selection frame (From "desk" + To "you") ---- */
+.selectionFrame {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  padding: 0px 6px;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 24px;
+  letter-spacing: 0.288px;
+  border: 1.5px solid var(--frameColor);
+  line-height: 1.5;
 }
 
-.menuBar {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: rgb(var(--rgbTextPrimary));
-  border-radius: 2px;
-  transition: transform var(--durationS) var(--bezierFastoutSlowin),
-    opacity var(--durationS) var(--bezierFastoutSlowin);
+/* dark frame: grey border/handles, near-black text (Figma) */
+.frame_dark {
+  --frameColor: #4d4d4d;
+  color: #0f0f0f;
 }
 
-.menuToggle[data-open='true'] .menuBar:first-child {
-  transform: translateY(4px) rotate(45deg);
+.frame_blue {
+  --frameColor: rgb(var(--rgbAccent));
+  color: rgb(var(--rgbAccent));
+  cursor: none;
+  transition: transform var(--durationS) var(--bezierFastoutSlowin);
 }
 
-.menuToggle[data-open='true'] .menuBar:last-child {
-  transform: translateY(-4px) rotate(-45deg);
+.youFrame:hover {
+  transform: translateY(-1px);
 }
 
-/* ---- Mobile menu overlay (hidden on desktop) ---- */
-.mobileMenu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: calc(var(--zIndex5) - 1);
-  background: rgb(var(--rgbBackground) / 0.97);
-  backdrop-filter: blur(8px);
-  flex-direction: column;
+.youText {
+  font-weight: var(--fontWeightSemiBold);
+  color: rgb(var(--rgbAccent));
+}
+
+/* corner handles — hollow squares (white fill + thin border) like Figma */
+.handle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border: 1px solid var(--frameColor);
+}
+
+.handleTL { top: -2px; left: -2px; }
+.handleTR { top: -2px; right: -2px; }
+.handleBL { bottom: -2px; left: -2px; }
+.handleBR { bottom: -2px; right: -2px; }
+
+/* ---- Contact row — plain icon + text, no pills ---- */
+.contactRow {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--durationM) var(--bezierFastoutSlowin);
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-.mobileMenu[data-open='true'] {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobileNav {
-  display: flex;
-  flex-direction: column;
+.contactChip {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space2XL);
-}
-
-.mobileNavLink {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: var(--spaceS) var(--spaceL);
+  gap: 8px;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 20px;
+  letter-spacing: 0.48px;
+  color: #4d4d4d;
   text-decoration: none;
-  transition: opacity var(--durationS) ease;
+  transition: color var(--durationS) ease;
 }
 
-.mobileNavLink:hover {
-  opacity: 0.6;
+.contactChip svg {
+  width: 24px;
+  height: 24px;
+  color: rgb(var(--rgbTextSecondary));
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-  .nav {
+.contactChip:hover {
+  color: rgb(var(--rgbAccent));
+}
+
+.contactChip:hover svg {
+  color: rgb(var(--rgbAccent));
+}
+
+/* ---- Resume attachment ---- */
+.attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 16px;
+  border: 1px solid rgb(var(--rgbStroke));
+  border-radius: 100px;
+  background: #fff;
+  text-decoration: none;
+  color: rgb(var(--rgbTextPrimary));
+  overflow: visible;
+  transition: border-color var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.attachment:hover {
+  border-color: rgb(var(--rgbAccent));
+}
+
+.attachment:hover .attachmentLabel {
+  color: rgb(var(--rgbAccent));
+}
+
+/* app-icon tile stack — three rounded square tiles, offset + tilt (Figma).
+   Each image is a complete app icon, so it fills the tile edge-to-edge. */
+.tileStack {
+  position: relative;
+  flex-shrink: 0;
+  width: 78px;
+  height: 46px;
+}
+
+.tile {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow:
+    0 9.6px 5.75px -2px rgb(0 0 0 / 0.05),
+    0 3.8px 3.8px -1px rgb(0 0 0 / 0.09),
+    0 1.9px 1.9px 0 rgb(0 0 0 / 0.1);
+  transition: transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* resting positions/tilts, back→front */
+.tileJar { left: 26px; top: 2px; transform: rotate(6deg); z-index: 1; }
+.tileUpstox { left: 14px; top: 5px; transform: rotate(-3deg); z-index: 2; }
+.tileEtmoney { left: 0; top: -2px; transform: rotate(-2deg); z-index: 3; }
+
+/* fan out on hover — ET Money up-left, Jar right+up, Upstox down (per Figma) */
+.attachment:hover .tileEtmoney { transform: translate(-7px, -16px) rotate(-9deg); }
+.attachment:hover .tileJar { transform: translate(17px, -12px) rotate(12deg); }
+.attachment:hover .tileUpstox { transform: translate(2px, 16px) rotate(-12deg); }
+
+.attachmentLabel {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 20px;
+  letter-spacing: 0.48px;
+  color: #4d4d4d;
+}
+
+.attachmentDownload {
+  display: inline-flex;
+  color: rgb(var(--rgbAccent));
+}
+
+.attachmentDownload svg {
+  width: 24px;
+  height: 24px;
+}
+
+.attachment:hover .attachmentDownload {
+  color: rgb(var(--rgbAccent));
+}
+
+/* ---- Letter body — scroll-scrubbed typewriter (extra.email style) ---- */
+.body {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 48px;
+  line-height: 1.5;
+  letter-spacing: 0.384px;
+  color: rgb(var(--rgbTextPrimary));
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+@media (--mediaTablet) {
+  .body {
+    font-size: 2.5rem; /* 40px */
+  }
+}
+
+@media (--mediaMobile) {
+  .body {
+    font-size: 1.75rem; /* 28px */
+  }
+}
+
+/* ---- Hero header: phone-screen scaling ---- */
+@media (--mediaMobile) {
+  .head {
+    gap: 18px;
+  }
+
+  .row {
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .rowLabel {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ritu's / desk / you */
+  .fromText,
+  .selectionFrame {
+    font-size: 19px;
+  }
+
+  .fromRow {
+    gap: 8px;
+  }
+
+  .fromCursor {
+    width: 18px;
+    height: auto;
+    left: -2px;
+    top: -16px;
+  }
+
+  /* contact stacks; email shrinks + wraps so it never overflows */
+  .contactRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contactChip {
+    font-size: 15px;
+    letter-spacing: 0;
+    gap: 6px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .contactChip svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* Hide email on mobile, keep LinkedIn */
+  .contactChip:first-child {
     display: none;
   }
 
-  .menuToggle {
-    display: flex;
+  .attachmentLabel {
+    font-size: 16px;
   }
 
-  .mobileMenu {
-    display: flex;
+  .attachment {
+    padding: 4px 14px;
+    gap: 8px;
   }
 
-  .subtext {
-    bottom: 80px;
-    white-space: normal;
-    text-align: center;
-    width: 80%;
+  /* Reduce tile stack sizes on mobile */
+  .tileStack {
+    width: 60px;
+    height: 35px;
   }
 
-  .gradientBg {
-    width: 100vw;
-    transform: translateX(-50%) scale(0.55);
+  .tile {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .tileJar { left: 20px; top: 1px; }
+  .tileUpstox { left: 11px; top: 4px; }
+  .tileEtmoney { left: 0; top: -2px; }
+
+  .attachment:hover .tileEtmoney { transform: translate(-5px, -12px) rotate(-9deg); }
+  .attachment:hover .tileJar { transform: translate(13px, -10px) rotate(12deg); }
+  .attachment:hover .tileUpstox { transform: translate(1px, 12px) rotate(-12deg); }
+}
+
+/* The wrap reserves the full text height (via the ghost copy) so the page
+   layout stays stable while the animated copy types in over the top of it. */
+.revealWrap {
+  position: relative;
+}
+
+/* readable, layout-sizing copy — fades out once the typewriter takes over */
+.ghost {
+  opacity: 1;
+}
+
+.active .ghost {
+  opacity: 0;
+}
+
+/* animated copy, overlaid on the ghost; hidden until the script is live */
+.bodyAnim {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.active .bodyAnim {
+  opacity: 1;
+}
+
+.char {
+  display: inline;
+}
+
+/* blinking accent caret that leads the reveal */
+.caret {
+  display: inline-block;
+  width: 0.055em;
+  min-width: 2px;
+  height: 0.92em;
+  margin: 0 0.04em -0.12em 0.06em;
+  border-radius: 1px;
+  background: rgb(var(--rgbAccent));
+  vertical-align: baseline;
+  animation: caretBlink 1.06s steps(1, end) infinite;
+}
+
+@keyframes caretBlink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .headlineGroup {
-    gap: 20px;
-  }
+/* ---- Figma multiplayer cursor for "You" ---- */
+.figmaCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--zIndex5);
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--durationXS) ease;
+  will-change: transform;
+}
 
-  .subtext {
-    bottom: 72px;
-  }
+.figmaCursor[data-on='true'] {
+  opacity: 1;
+}
 
-  .menuToggle {
-    top: 24px;
-    right: var(--spaceM);
+.figmaCursorIcon {
+  color: rgb(var(--rgbAccent));
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
+}
+
+.figmaLabel {
+  margin-top: 12px;
+  margin-left: -2px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgb(var(--rgbAccent));
+  color: #fff;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 11px;
+  line-height: 1.4;
+  box-shadow: 0 4px 10px -3px rgb(var(--rgbAccent) / 0.5);
+}
+
+/* ---- Reduced motion ---- */
+@media (--mediaReduceMotion) {
+  /* no typewriter — the static ghost copy stays visible (script bails early) */
+  .caret {
+    animation: none;
+  }
+  .youFrame:hover,
+  .attachment:hover {
+    transition: none;
   }
 }

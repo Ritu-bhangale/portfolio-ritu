@@ -1,22 +1,155 @@
+/* Footer ≈ half the viewport. The cover image is cropped to this height — the
+   image does not dictate footer height. */
 .footer {
-  --lineHeightBody: 1.1;
-
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  width: 100vw;
-  padding: var(--space3XL) var(--spaceL);
-  z-index: var(--zIndex2);
   position: relative;
-  color: var(--colorTextLight);
+  width: 100%;
+  min-height: 65vh;
+  overflow: hidden;
+  background-color: #2f8fd8; /* sky fallback */
+  color: #fff;
+  z-index: var(--zIndex2);
+  isolation: isolate;
+}
+
+/* reveal mode (home): pinned to the viewport bottom, behind the page layer.
+   The page scrolls up and uncovers it — popcorn.space-style. */
+.reveal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 65vh;
+  z-index: 0;
+}
+
+.reveal .inner {
+  min-height: 100%;
+}
+
+/* lemon-tree image — pinned to the right, slightly below the top edge (Figma) */
+.bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: cover;
+  z-index: 0;
+}
+
+/* white → transparent fade at the top so the page blends into the sky (Figma) */
+.fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 43%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Two stacked sections in flow: contact block at top, wordmark at the bottom. */
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: 65vh;
+  padding: clamp(80px, 12vw, 140px) clamp(24px, 7vw, 100px) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightLight);
+  font-style: normal;
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.5;
+  letter-spacing: 0.336px;
+  color: #fff;
+  margin: 0;
+}
+
+.cta {
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightBold);
+  font-style: normal;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.5;
+  letter-spacing: 0.864px;
+  color: #ffc429; /* Summer yellow */
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  gap: clamp(20px, 3vw, 34px);
+  margin-top: clamp(20px, 3vw, 44px);
 }
 
 .link {
-  display: inline-flex;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  color: #fff;
+  text-decoration: none;
+  transition: color var(--durationS) ease;
 }
 
-.date {
-  padding-right: var(--spaceXS);
+.link:hover {
+  color: #ffc429;
+}
+
+/* ---- Oversized seasonal wordmark — pinned to the footer bottom ----
+   Fixed 200px (per Figma). Always anchored to the footer's bottom edge and
+   pushed down 40% of its height so only the top ~60% shows; the lower 40% is
+   clipped by the footer's overflow. Aligned to the content margin; nowrap lets
+   the Devanagari run right past the tree. */
+.wordmark {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  transform: translateY(40%);
   display: inline-flex;
+  align-items: baseline;
+  gap: 0.14em;
+  margin: 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightBold);
+  font-size: clamp(120px, 18vw, 480px);
+  line-height: 1;
+  letter-spacing: 2.571px;
+  color: #f5f5f5;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.glyph {
+  font-weight: var(--fontWeightSemiBold);
+  letter-spacing: 0;
+}
+
+@media (--mediaMobile) {
+  .links {
+    flex-direction: column;
+    gap: var(--spaceM);
+  }
+
+  /* Drop the 120px floor so the wordmark scales down to fit the phone width
+     instead of overflowing (it was clipping to "Summ"). */
+  .wordmark {
+    font-size: 19vw;
+    letter-spacing: 0;
+    transform: translateY(34%);
+  }
 }

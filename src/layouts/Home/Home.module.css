@@ -1,23 +1,31 @@
-.home {
-  overflow-x: clip;
-}
-
-.sectionHeading {
-  padding: var(--space3XL) 0 var(--space2XL);
-}
-
-.scrollShowcaseWrap {
-  height: 250vh;
-}
-
-.scrollShowcaseWrap > * {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-}
-
-.restOfPage {
+/* top layer — sits above the fixed footer (z-index) with a rounded bottom edge.
+   Its bottom margin opens a viewport-tall gap so, as you scroll to the end, the
+   layer slides up and reveals the footer pinned underneath (popcorn.space style). */
+.pageLayer {
   position: relative;
-  z-index: 4;
-  background: rgb(var(--rgbBackground));
+  z-index: 1;
+  width: 100%;
+  background: #fff;
+  overflow: clip;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  margin-bottom: 65vh;
+}
+
+@media (--mediaMobile) {
+  .pageLayer {
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+  }
+}
+
+/* illusion-art section divider — Figma: 647×200, centered */
+.divider {
+  display: block;
+  width: 647px;
+  max-width: 90%;
+  height: auto;
+  margin: var(--space2XL) auto;
+  pointer-events: none;
+  user-select: none;
 }

@@ -1,50 +1,42 @@
-import { Text } from 'components/Text';
-import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useReducedMotion } from 'framer-motion';
-import { useHasMounted } from 'hooks';
-import { createPortal } from 'react-dom';
-import { classes, cssProps } from 'utils/style';
+import { useAppContext } from 'hooks/useAppContext';
+import { getSeasonTheme } from 'utils/season';
+import { m } from 'framer-motion';
 import styles from './Loader.module.css';
 
-export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
-  const reduceMotion = useReducedMotion();
-  const hasMounted = useHasMounted();
-
-  const renderScreenReaderTextPortal = () => {
-    if (!hasMounted) return;
-
-    return createPortal(
-      <VisuallyHidden className="loader-announcement" aria-live="assertive">
-        {text}
-      </VisuallyHidden>,
-      document.getElementById('portal-root')
-    );
-  };
-
-  if (reduceMotion) {
-    return (
-      <Text className={classes(styles.text, className)} weight="medium" {...rest}>
-        {text}
-        {renderScreenReaderTextPortal()}
-      </Text>
-    );
-  }
-
-  const gapSize = Math.round((size / 3) * 0.2);
-  const spanSize = Math.round(size / 3 - gapSize * 2 - 1);
+export const Loader = ({ isVisible }) => {
+  const { seasonIndex } = useAppContext();
+  const season = getSeasonTheme(seasonIndex);
 
   return (
-    <div
-      className={classes(styles.loader, className)}
-      style={cssProps({ size, spanSize, gapSize }, style)}
-      {...rest}
+    <m.div
+      className={styles.loader}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      style={{
+        pointerEvents: isVisible ? 'auto' : 'none',
+      }}
     >
       <div className={styles.content}>
-        <div className={styles.span} />
-        <div className={styles.span} />
-        <div className={styles.span} />
+        <m.h1
+          className={styles.name}
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+        >
+          <span className={styles.nameGradient}>Ritu Bhangale</span>
+        </m.h1>
+
+        <m.p
+          className={styles.text}
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.3, duration: 0.4 }}
+        >
+          loading in <span className={styles.season}>{season.label}</span> {season.glyph}
+        </m.p>
       </div>
-      {renderScreenReaderTextPortal()}
-    </div>
+    </m.div>
   );
 };

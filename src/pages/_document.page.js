@@ -2,6 +2,11 @@ import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { fontStyles, tokenStyles } from 'components/ThemeProvider';
 import { Head, Html, Main, NextScript } from 'next/document';
+import { getCurrentSeasonTheme } from 'utils/season';
+
+// Override the global accent with the active season's accent. Computed at SSR so
+// there's no hydration flash; placed after tokenStyles so it wins the cascade.
+const seasonStyles = `:root{--rgbAccent:${getCurrentSeasonTheme().accent};}`;
 
 export default function Document() {
   return (
@@ -19,6 +24,7 @@ export default function Document() {
         <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
         <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
         <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
+        <style dangerouslySetInnerHTML={{ __html: seasonStyles }} />
       </Head>
       <body tabIndex={-1}>
         <Main />

@@ -179,7 +179,9 @@ body {
   transition: background var(--durationM) ease;
   color: var(--colorTextBody);
   width: 100vw;
-  overflow-x: hidden;
+  /* clip (not hidden): trims horizontal overflow without making body a scroll
+     container, which would break position: sticky descendants */
+  overflow-x: clip;
 
   &:focus {
     outline: none;

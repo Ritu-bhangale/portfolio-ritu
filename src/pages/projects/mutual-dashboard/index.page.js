@@ -1,1 +1,1 @@
-export { default } from '../../../layouts/CaseStudies/MutualDashboard';
+export { default } from '../../../layouts/CaseStudies/MutualDashboardShort';

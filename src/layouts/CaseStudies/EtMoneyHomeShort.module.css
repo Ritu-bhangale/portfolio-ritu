@@ -1,0 +1,693 @@
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+
+.article {
+  width: 100%;
+  position: relative;
+  /* Figma Summer palette */
+  --accentBlue: #0065d8; /* Summer/blue/1 */
+  --accentCyan: #6cc8ef; /* Summer/blue/2 */
+  --accentWarn: #ff4c4c;
+  --textLight: #fdfdfd; /* Text/3 — on dark */
+  --textMuted2: #4d4d4d; /* Text/2 */
+  /* Figma serif tracking ≈ 0.004em (0.08px @ 20px, 0.256px @ 64px) */
+  --serifTrack: 0.004em;
+  /* Figma content frame = 1080px wide (180px margins on a 1440 canvas) */
+  --pageMax: 1080px;
+  --pagePad: 24px;
+  /* backgroundColor animated by framer-motion */
+}
+
+/* Shared page container — matches Figma 1080px content width */
+.page {
+  width: 100%;
+  max-width: var(--pageMax);
+  margin: 0 auto;
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+}
+
+/* ── Shared sticky container ──────────────────────────────────────────────── */
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Scene wrappers — height = how long you spend scrolling each scene ─────── */
+
+.scene1Wrap { height: 120vh; }
+/* Figma stacks Problem directly above Root (240px gap) with no full-screen
+   dwell between them. Heights kept just above 100vh so each scene pins for one
+   viewport with a short reveal scrub — the reveal now runs to ~0.85 of each
+   scene (see rangeEnd values) so there is almost no static pinned scroll left
+   over, which is what read as excess empty space before. */
+.scene2Wrap { height: 130vh; }
+.scene3Wrap { height: 125vh; }
+
+/* scenes 4–7 are regular flow — solid white so the dark→light boundary is a
+   clean hard cut (no fade): each paints over the black article background. */
+.scene4Wrap {
+  position: relative;
+  background: #fffffe;
+  display: flex;
+  align-items: center;
+  padding: var(--space4XL) 0;
+}
+.scene5Wrap {
+  position: relative;
+  background: #fffffe;
+  min-height: 150vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space4XL) 0;
+}
+.scene6Wrap {
+  position: relative;
+  background: #fffffe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space4XL) 0 var(--space2XL);
+}
+.scene7Wrap {
+  position: relative;
+  background: #fffffe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space2XL) var(--spaceOuter) var(--space4XL);
+}
+
+/* ── Scene 1: Hero ───────────────────────────────────────────────────────── */
+
+/* Figma atmosphere: cool blue dominates the upper area, cream glow stays
+   concentrated around the phone (lower-center) — no broad cream spread. */
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(46% 34% at 50% 82%, rgba(255, 245, 205, 0.9) 0%, rgba(255, 245, 205, 0) 70%),
+    linear-gradient(180deg, #d8f0ff 0%, #ecf7ff 34%, #ffffff 72%, #fffdf6 100%);
+  pointer-events: none;
+}
+
+/* Figma comp (hero frame 1440×836): headline upper-center, phone emerges from
+   lower portion anchored to the hero bottom edge and cropped by it. Both meet
+   near center — phone top (y411 ≈ 49%) overlaps headline lower line. */
+.heroInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+/* Figma: headline x182 y291 w1076 — Season Serif Regular 64px, lh1.5, ls0.256px.
+   Sits in upper-center (top ≈ 35% of hero), full content width, centered. */
+.heroHeadline {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--pageMax);
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+  font-family: var(--serifFontStack);
+  font-size: clamp(2rem, 4.6vw, 64px);
+  line-height: 1.5;
+  letter-spacing: var(--serifTrack);
+  color: #0f0f0f;
+  font-weight: var(--fontWeightRegular);
+  margin: 0;
+}
+
+/* "10M+" — Season Serif Bold, Summer/blue/2 */
+.accentCyan {
+  color: var(--accentCyan);
+  font-weight: var(--fontWeightBold);
+}
+
+/* "discover" — Season Serif Bold Italic, Summer/blue/1 */
+.accentBlue {
+  color: var(--accentBlue);
+  font-style: italic;
+  font-weight: var(--fontWeightBold);
+}
+
+/* Device emerges from below the fold: its top edge sits just under the headline
+   (top ≈ 57%, right below the headline's lower line — no empty gap) and the
+   majority of the phone runs past the hero boundary, cropped by the sticky.
+   Only the upper portion (status bar / search / first cards) stays visible —
+   immediate connection to the headline, curiosity about what's below. */
+.heroPhoneWrap {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  transform: translateX(-50%);
+  width: min(430px, 64vw);
+  pointer-events: none;
+}
+
+.heroPhone {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 36px 36px 0 0;
+  filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.16));
+}
+
+/* ── Phone-flanked scenes (Problem + Root) ───────────────────────────────── */
+
+/* Figma: 3 cols ~320px each, visual centered, 1080 content width.
+   Left text top-aligned, right text bottom-aligned (offset low). */
+.flankInner {
+  width: 100%;
+  max-width: var(--pageMax);
+  margin: 0 auto;
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 320px;
+  column-gap: 48px;
+  align-items: stretch;
+}
+
+.flankColLeft {
+  text-align: left;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+}
+
+.flankColRight {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-self: end;
+  min-width: 0;
+}
+
+/* Figma root-cause right col (114:1712): right-aligned, vertically centered */
+.flankColRightRoot {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-self: center;
+  min-width: 0;
+}
+
+.flankPhoneCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.flankPhone {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 40px 72px rgba(0, 0, 0, 0.5));
+}
+
+.releaseTag {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--fontStack);
+  font-size: 9px;
+  font-weight: var(--fontWeightBold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.navDiagram {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+/* Figma: Season Serif Medium 20px, lh1.5, ls0.08px (#FDFDFD on dark) */
+.animPara {
+  font-family: var(--serifFontStack);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  font-weight: var(--fontWeightMedium);
+  line-height: 1.5;
+  letter-spacing: var(--serifTrack);
+  margin: 0;
+  /* individual word colors set by framer */
+}
+
+/* Static flanking paragraph (right column) */
+.flankPara {
+  font-family: var(--serifFontStack);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  font-weight: var(--fontWeightMedium);
+  line-height: 1.5;
+  letter-spacing: var(--serifTrack);
+  margin: 0;
+  color: var(--textLight);
+}
+
+/* "declining" / "worsening" — Figma spec is Season Serif Regular Italic, but
+   SeasonSerif-TRIAL-RegularItalic.woff2 is not shipped, so 400+italic synthesises
+   a faux slant. Use Medium (500) italic — a real Season Serif italic face
+   (SeasonSerif-TRIAL-MediumItalic.woff2). Revert to fontWeightRegular once the
+   Regular Italic woff2 is added to public/fonts/. */
+.emWarn {
+  color: var(--accentWarn);
+  font-style: italic;
+  font-weight: var(--fontWeightMedium);
+}
+
+/* −10 stays inline body color in Figma (no red) */
+.inlineNps {
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* ── Scene 4: Final IA ───────────────────────────────────────────────────── */
+
+.finalIaInner {
+  width: 100%;
+  max-width: var(--pageMax);
+  margin: 0 auto;
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 320px;
+  column-gap: 48px;
+  align-items: stretch;
+}
+
+.finalIaText {
+  text-align: left;
+  align-self: start;
+  min-width: 0;
+}
+
+/* Figma 114:1716 — Season Serif Medium 20px, lh1.5, #0F0F0F, 320px col */
+.finalIaHeadline {
+  font-family: var(--serifFontStack);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  font-weight: var(--fontWeightMedium);
+  color: #0f0f0f;
+  line-height: 1.5;
+  letter-spacing: var(--serifTrack);
+  max-width: 320px;
+  margin: 0;
+}
+
+.finalIaPhoneCol {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.finalIaPhone {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.16));
+}
+
+/* Figma 114:1748 — label Season Sans Regular #4D4D4D, questions Season Serif Medium 20px #0F0F0F */
+.finalIaQuestions {
+  font-family: var(--fontStack);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  line-height: 1.5;
+  color: var(--textMuted2);
+  align-self: end;
+  text-align: left;
+  min-width: 0;
+  max-width: 320px;
+}
+
+.question {
+  display: block;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  letter-spacing: var(--serifTrack);
+  line-height: 1.5;
+  color: #0f0f0f;
+}
+
+/* ── Scene 5: The new Explore ────────────────────────────────────────────── */
+
+/* Figma 114:1749 — 72px gap between header group and body */
+.exploreHeader {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+/* Figma 114:1758 — Heading/H2: Season Serif Medium 48px, lh1.5, ls0.192px */
+.exploreHeadline {
+  font-family: var(--serifFontStack);
+  font-size: clamp(1.9rem, 4vw, 48px);
+  font-weight: var(--fontWeightMedium);
+  letter-spacing: var(--serifTrack);
+  color: #0f0f0f;
+  margin: var(--spaceS) 0 0;
+  line-height: 1.5;
+}
+
+/* Figma body 1080×1641: phone center (x400 w280), annotations staggered.
+   right: Mutual Funds y136, SKU y700 · left: FDs y387, preserve y976 */
+.exploreInner {
+  position: relative;
+  width: 100%;
+  max-width: var(--pageMax);
+  margin: 0 auto;
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 320px;
+  column-gap: 48px;
+  align-items: stretch;
+}
+
+.exploreColLeft,
+.exploreColRight {
+  position: relative;
+  min-width: 0;
+}
+
+.explorePhoneCol {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.explorePhone {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 24px 56px rgb(0 0 0 / 0.12));
+}
+
+/* Figma annotations — Season Serif Medium 20px, lh1.5, ls0.08px, #0F0F0F */
+.annotation {
+  position: absolute;
+  font-family: var(--serifFontStack);
+  font-size: clamp(1rem, 1.4vw, 20px);
+  font-weight: var(--fontWeightMedium);
+  line-height: 1.5;
+  letter-spacing: var(--serifTrack);
+  color: #0f0f0f;
+  margin: 0;
+  width: 100%;
+}
+
+/* staggered vertical positions as % of phone height */
+.annMFAnchor { top: 8%; }
+.annSKU { top: 43%; }
+.annUnified { top: 24%; }
+.annPreserve { top: 60%; }
+
+/* "unified Explore" / "primary anchor" / "SKU-based approach" — Figma spec is
+   Season Serif Regular Italic, but the Regular Italic woff2 is not shipped
+   (400+italic would synthesise a faux slant). Use Medium (500) italic — a real
+   Season Serif italic face. Revert to fontWeightRegular once the Regular Italic
+   woff2 is added to public/fonts/. */
+.annotAccent {
+  color: var(--accentBlue);
+  font-style: italic;
+  font-weight: var(--fontWeightMedium);
+}
+
+/* ── Pill badge with corner ticks ────────────────────────────────────────── */
+
+/* Figma badge — squared blue border + 4 corner registration ticks,
+   Season Sans SemiBold 22px, ls0.264px (#0065d8) */
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: clamp(1.1rem, 1.6vw, 22px);
+  letter-spacing: 0.012em;
+  line-height: 1.5;
+  color: var(--accentBlue);
+  padding: 4px 14px;
+  border: 1.5px solid var(--accentBlue);
+  border-radius: 0;
+}
+
+.badgeTick {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border: 1px solid var(--accentBlue);
+}
+
+.tickTL { top: -2px; left: -2px; }
+.tickTR { top: -2px; right: -2px; }
+.tickBL { bottom: -2px; left: -2px; }
+.tickBR { bottom: -2px; right: -2px; }
+
+/* ── Scene 6: Impact ─────────────────────────────────────────────────────── */
+
+.impactInner {
+  width: 100%;
+  max-width: var(--pageMax);
+  margin: 0 auto;
+  padding: 0 var(--pagePad);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.impactGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space3XL);
+  margin: var(--space2XL) 0;
+}
+
+.impactStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaceM);
+}
+
+.impactNumber {
+  font-family: var(--serifFontStack);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: var(--fontWeightBold);
+  line-height: 1;
+  color: rgb(var(--rgbText));
+  font-style: italic;
+}
+
+.impactMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.impactStatLabel {
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightSemiBold);
+  color: rgb(var(--rgbText));
+}
+
+.impactNote {
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyXS);
+  color: rgb(var(--rgbText) / 0.45);
+}
+
+.impactDivider {
+  width: 1px;
+  height: 72px;
+  background: rgb(var(--rgbText) / 0.12);
+}
+
+.impactContext {
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyM);
+  line-height: var(--lineHeightBody);
+  color: rgb(var(--rgbText) / 0.5);
+  max-width: 480px;
+  margin: var(--spaceXL) auto 0;
+}
+
+.fullStudyLink {
+  display: inline-block;
+  margin-top: var(--space2XL);
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightSemiBold);
+  color: var(--accentBlue);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accentBlue) 35%, transparent);
+  padding-bottom: 2px;
+  transition: border-color 200ms ease;
+}
+
+.fullStudyLink:hover {
+  border-color: var(--accentBlue);
+}
+
+/* ── Scene 7: Read next ──────────────────────────────────────────────────── */
+
+.nextCard {
+  width: 100%;
+  max-width: 880px;
+  display: block;
+  padding: var(--space2XL);
+  border: 1px solid rgb(var(--rgbText) / 0.12);
+  border-radius: 20px;
+  text-decoration: none;
+  background: rgb(var(--rgbText) / 0.02);
+  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+}
+
+.nextCard:hover {
+  transform: translateY(-4px);
+  border-color: rgb(var(--rgbText) / 0.2);
+  box-shadow: 0 24px 56px -20px rgb(0 0 0 / 0.18);
+}
+
+.nextText {
+  min-width: 0;
+}
+
+.nextLabel {
+  display: block;
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyXS);
+  font-weight: var(--fontWeightBold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accentBlue);
+  margin-bottom: var(--spaceM);
+}
+
+.nextTitle {
+  font-family: var(--serifFontStack);
+  font-size: clamp(1.5rem, 3vw, var(--fontSizeH3));
+  font-style: italic;
+  color: rgb(var(--rgbText));
+  margin: 0 0 var(--spaceM);
+  line-height: 1.15;
+}
+
+.nextTeaser {
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyS);
+  line-height: var(--lineHeightBody);
+  color: rgb(var(--rgbText) / 0.6);
+  margin: 0 0 var(--spaceL);
+}
+
+.nextCta {
+  font-family: var(--fontStack);
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightSemiBold);
+  color: rgb(var(--rgbText));
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (--mediaTablet) {
+  .scene2Wrap,
+  .scene3Wrap {
+    height: auto;
+  }
+
+  .scene2Wrap .sticky,
+  .scene3Wrap .sticky {
+    position: relative;
+    height: auto;
+    padding: var(--space4XL) 0;
+  }
+
+  .flankInner,
+  .finalIaInner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .flankColLeft,
+  .flankColRight,
+  .flankColRightRoot,
+  .finalIaText {
+    text-align: center;
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .finalIaQuestions {
+    text-align: center;
+    align-self: auto;
+    max-width: none;
+  }
+
+  .flankPhoneCol {
+    order: -1;
+  }
+
+  .exploreInner {
+    grid-template-columns: 1fr;
+  }
+
+  .exploreColLeft,
+  .exploreColRight {
+    text-align: center;
+  }
+
+  .explorePhoneCol {
+    order: -1;
+  }
+
+  .impactGrid {
+    flex-direction: column;
+    gap: var(--space2XL);
+  }
+
+  .impactDivider {
+    width: 64px;
+    height: 1px;
+  }
+
+  .nextCard {
+    text-align: center;
+  }
+}
+
+/* ── Reduced motion: freeze word colors in readable state ──────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .animPara span[style] {
+    color: #cccccc !important;
+    transition: none !important;
+  }
+}

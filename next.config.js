@@ -2,11 +2,16 @@ module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
   pageExtensions: ['page.js', 'api.js'],
-  webpack(config, { isServer }) {
+  webpack(config, { isServer, dev }) {
     // Run custom scripts
     if (isServer) {
       require('./scripts/generate-sitemap');
       require('./scripts/draco');
+    }
+
+    // Use in-memory cache in dev to avoid ENOENT .pack race on rapid edits
+    if (dev) {
+      config.cache = { type: 'memory' };
     }
 
     // Import `svg` files as React components

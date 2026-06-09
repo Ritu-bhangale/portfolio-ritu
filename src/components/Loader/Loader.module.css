@@ -1,61 +1,76 @@
 .loader {
+  position: fixed;
+  inset: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  width: var(--size);
-  height: var(--size);
+  z-index: 999;
+  background: linear-gradient(106deg, #DFF4FF -6.24%, #FFF 47.08%, #FBF8DD 109.28%);
 }
 
-.text {
-  color: inherit;
+@keyframes fillProgress {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 0%;
+  }
 }
 
 .content {
-  display: grid;
-  grid-template-columns: repeat(3, var(--spanSize));
-  gap: var(--gapSize);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transform: skewX(22deg);
+  gap: 16px;
 }
 
-@keyframes loaderSpan {
-  0% {
-    transform: scaleY(0);
-    opacity: 0.5;
-    transform-origin: top;
-  }
-
-  40% {
-    transform: scaleY(1);
-    opacity: 1;
-    transform-origin: top;
-  }
-
-  60% {
-    transform: scaleY(1);
-    opacity: 1;
-    transform-origin: bottom;
-  }
-
-  100% {
-    transform: scaleY(0);
-    opacity: 0.5;
-    transform-origin: bottom;
-  }
+/* Name — Ritu Bhangale */
+.name {
+  font-family: var(--serifFontStack);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 650;
+  line-height: 125%;
+  letter-spacing: 0.16px;
+  margin: 0;
 }
 
-.span {
-  height: 60%;
-  background: currentColor;
-  animation: loaderSpan 1s var(--bezierFastoutSlowin) infinite;
-  transform: scaleY(0);
-  transform-origin: top left;
+.nameGradient {
+  display: inline-block;
+  background: linear-gradient(to right, #999999 0%, #1a1a1a 100%);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #999999;
+  animation: fillProgress 2.4s ease-in-out forwards;
+}
 
-  &:nth-child(2) {
-    animation-delay: 0.1s;
-  }
+/* Loading text */
+.text {
+  font-family: var(--serifFontStack);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%;
+  letter-spacing: 0.24px;
+  color: #4D4D4D;
+  margin: 0;
+  text-align: center;
+}
 
-  &:nth-child(3) {
-    animation-delay: 0.2s;
+.season {
+  font-weight: 300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nameGradient {
+    animation: none;
+    background: #1a1a1a;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: #1a1a1a;
+    color: #1a1a1a;
   }
 }
