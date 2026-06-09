@@ -3,6 +3,7 @@ import { useReducedMotion } from 'framer-motion';
 import styles from './Hero.module.css';
 import { useAppContext } from 'hooks/useAppContext';
 import { getSeasonTheme } from 'utils/season';
+import { trackResumeDownload, trackContactInteraction, trackExternalLink } from 'utils/analytics';
 import etmoneyLogo from 'assets/home/logos_workplace/ETMoney.png';
 import jarLogo from 'assets/home/logos_workplace/Jar.png';
 import upstoxLogo from 'assets/home/logos_workplace/Upstox.png';
@@ -273,6 +274,7 @@ export const Hero = ({ id, sectionRef }) => {
               <a
                 className={styles.contactChip}
                 href="mailto:ritu.bhangales@gmail.com"
+                onClick={() => trackContactInteraction('email_click', 'ritu.bhangales@gmail.com')}
               >
                 <MailIcon />
                 ritu.bhangales@gmail.com
@@ -282,6 +284,7 @@ export const Hero = ({ id, sectionRef }) => {
                 href="https://www.linkedin.com/in/ritubhangale/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackExternalLink('linkedin', 'LinkedIn Profile')}
               >
                 <LinkedInIcon />
                 Linkedin
@@ -294,6 +297,7 @@ export const Hero = ({ id, sectionRef }) => {
               className={styles.attachment}
               href="/Ritu-Bhangale-Resume.pdf"
               download
+              onClick={trackResumeDownload}
             >
               <span className={styles.tileStack}>
                 {appTiles.map(t => (

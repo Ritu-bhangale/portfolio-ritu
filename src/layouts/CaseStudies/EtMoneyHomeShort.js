@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { m, useScroll, useTransform, useInView } from 'framer-motion';
 import { Meta } from 'components/Meta';
+import { trackCaseStudyOpen } from 'utils/analytics';
 import styles from './EtMoneyHomeShort.module.css';
 
 import HeroPhone from 'assets/etmoney/short/hero-phone.png';
@@ -100,6 +101,11 @@ export default function EtMoneyHomeShort() {
   const containerRef = useRef();
   const problemRef = useRef();
   const rootRef = useRef();
+
+  // Track case study open
+  useEffect(() => {
+    trackCaseStudyOpen('ET Money Home');
+  }, []);
 
   // Master progress (0→1 across full article) — drives background color
   const { scrollYProgress: masterProgress } = useScroll({

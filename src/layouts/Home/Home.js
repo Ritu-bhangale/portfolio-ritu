@@ -4,12 +4,18 @@ import { useRef } from 'react';
 import { CSE } from './CSE';
 import { Hero } from './Hero';
 import { Projects } from './Projects';
+import { useScrollTracking } from 'hooks/useScrollTracking';
 import styles from './Home.module.css';
 
 export const Home = () => {
   const introRef = useRef();
   const projectsRef = useRef();
   const cseRef = useRef();
+  const footerRef = useRef();
+
+  // Track when user scrolls to sections
+  useScrollTracking(cseRef, 'CSE Section');
+  useScrollTracking(footerRef, 'Footer');
 
   return (
     <>
@@ -25,7 +31,9 @@ export const Home = () => {
         <CSE id="cse" sectionRef={cseRef} />
       </div>
 
-      <Footer reveal />
+      <div ref={footerRef}>
+        <Footer reveal />
+      </div>
     </>
   );
 };

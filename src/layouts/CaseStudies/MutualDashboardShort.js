@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { m, useScroll, useTransform } from 'framer-motion';
 import { Meta } from 'components/Meta';
+import { trackCaseStudyOpen } from 'utils/analytics';
 import styles from './MutualDashboardShort.module.css';
 
 import HeroFrame from 'assets/home/MFdashboardWithFrame.png';
@@ -98,6 +99,11 @@ const SourceCard = ({ index, title, sublabel, children }) => (
 // ─── Main ──────────────────────────────────────────────────────────────────────
 
 export default function MutualDashboardShort() {
+  // Track case study open
+  useEffect(() => {
+    trackCaseStudyOpen('Mutual Dashboard');
+  }, []);
+
   // each reveal paragraph reveals as it travels up through the viewport
   const para1Ref = useRef();
   const rootIntroRef = useRef();
