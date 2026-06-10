@@ -3,8 +3,14 @@ import { useReducedMotion } from 'framer-motion';
 import styles from './Hero.module.css';
 import { useAppContext } from 'hooks/useAppContext';
 import { getSeasonTheme } from 'utils/season';
-import { trackResumeDownload, trackContactInteraction, trackExternalLink } from 'utils/analytics';
+import {
+  trackResumeDownload,
+  trackContactInteraction,
+  trackExternalLink,
+  trackEvent,
+} from 'utils/analytics';
 import etmoneyLogo from 'assets/home/logos_workplace/ETMoney.png';
+import deskImage from 'assets/home/Desk.png';
 import jarLogo from 'assets/home/logos_workplace/Jar.png';
 import upstoxLogo from 'assets/home/logos_workplace/Upstox.png';
 
@@ -66,6 +72,62 @@ const FigmaCursor = () => (
 );
 
 const logoSrc = img => img?.src || img;
+
+// ---- Easter egg: hover "ritu's desk" → particles assemble into a desk photo ----
+const DESK_PARTICLES = 64;
+
+// Particles spawn scattered around the popover, fly to random points across the
+// photo area, then fade as the image resolves underneath. Colors come from the
+// active season's gradient so the egg always matches the page.
+const makeDeskParticles = gradient => {
+  const stops = [gradient.from, gradient.mid, gradient.to];
+  return Array.from({ length: DESK_PARTICLES }, () => {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 60 + Math.random() * 90;
+    const c = stops[(Math.random() * stops.length) | 0];
+    return {
+      x: 4 + Math.random() * 92,
+      y: 4 + Math.random() * 92,
+      dx: Math.cos(angle) * dist,
+      dy: Math.sin(angle) * dist,
+      delay: Math.random() * 0.3,
+      color: `rgb(${c[0]} ${c[1]} ${c[2]})`,
+    };
+  });
+};
+
+const DeskReveal = ({ show, reduced, particles, burst }) => (
+  <span
+    className={styles.deskPopover}
+    data-show={show}
+    data-reduced={reduced}
+    aria-hidden
+  >
+    {/* key restarts the particle animation on every fresh hover */}
+    <span className={styles.deskParticles} key={burst}>
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className={styles.deskParticle}
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            background: p.color,
+            '--dx': `${p.dx}px`,
+            '--dy': `${p.dy}px`,
+            '--delay': `${p.delay}s`,
+          }}
+        />
+      ))}
+    </span>
+    <img
+      className={styles.deskImg}
+      src={logoSrc(deskImage)}
+      alt=""
+      draggable={false}
+    />
+  </span>
+);
 
 // Figma-style selection box: thin border + 4 corner handles around the children.
 const SelectionFrame = ({ variant = 'dark', className, children, ...rest }) => (
@@ -134,6 +196,23 @@ export const Hero = ({ id, sectionRef }) => {
 
   const { seasonIndex } = useAppContext();
   const season = getSeasonTheme(seasonIndex);
+
+  // desk easter egg — particles generated per hover (fresh scatter every time),
+  // lazily so SSR markup stays deterministic
+  const [deskOn, setDeskOn] = useState(false);
+  const [deskParticles, setDeskParticles] = useState([]);
+  const deskBurst = useRef(0);
+  const deskFound = useRef(false);
+
+  const showDesk = () => {
+    deskBurst.current += 1;
+    setDeskParticles(makeDeskParticles(season.gradient));
+    setDeskOn(true);
+    if (!deskFound.current) {
+      deskFound.current = true;
+      trackEvent('easter_egg_found', { egg: 'ritus_desk' });
+    }
+  };
 
   // scroll-typewriter refs
   const wrapRef = useRef();
@@ -250,10 +329,20 @@ export const Hero = ({ id, sectionRef }) => {
       <div className={styles.inner}>
         <header className={styles.head}>
           <Row label="From">
-            <span className={styles.fromRow}>
+            <span
+              className={styles.fromRow}
+              onMouseEnter={showDesk}
+              onMouseLeave={() => setDeskOn(false)}
+            >
               <ArrowCursor className={styles.fromCursor} />
               <span className={styles.fromText}>ritu&rsquo;s</span>
               <SelectionFrame variant="dark">desk</SelectionFrame>
+              <DeskReveal
+                show={deskOn}
+                reduced={!!reduceMotion}
+                particles={reduceMotion ? [] : deskParticles}
+                burst={deskBurst.current}
+              />
             </span>
           </Row>
 

@@ -93,6 +93,100 @@
   color: rgb(var(--rgbTextPrimary));
 }
 
+/* ---- Easter egg: hover "ritu's desk" → particles assemble into desk photo ---- */
+.deskPopover {
+  position: absolute;
+  left: calc(100% + 32px);
+  top: -48px;
+  width: 216px;
+  aspect-ratio: 1184 / 864;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+@media (--mediaTablet) {
+  .deskPopover {
+    display: none;
+  }
+}
+
+.deskPopover[data-show='true'] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.15s ease;
+}
+
+/* polaroid: blurred + shrunk until the particles "finish assembling" it */
+.deskImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 4px solid #fff;
+  box-shadow: 0 14px 36px rgb(0 0 0 / 0.2);
+  opacity: 0;
+  transform: rotate(-3deg) scale(0.88);
+  filter: blur(12px);
+  transition: opacity 0.45s ease, transform 0.55s var(--bezierFastoutSlowin),
+    filter 0.55s ease;
+}
+
+.deskPopover[data-show='true'] .deskImg {
+  opacity: 1;
+  transform: rotate(-3deg) scale(1);
+  filter: blur(0);
+  transition-delay: 0.38s;
+}
+
+/* reduced motion: plain crossfade, no convergence choreography */
+.deskPopover[data-reduced='true'] .deskImg {
+  transform: rotate(-3deg) scale(1);
+  filter: none;
+  transition: opacity 0.3s ease;
+  transition-delay: 0s;
+}
+
+.deskParticles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.deskParticle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.deskPopover[data-show='true'] .deskParticle {
+  animation: deskParticleIn 0.85s var(--delay) both
+    cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@keyframes deskParticleIn {
+  0% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.3);
+  }
+  25% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1.15);
+  }
+}
+
 /* ---- Figma selection frame (From "desk" + To "you") ---- */
 .selectionFrame {
   position: relative;
