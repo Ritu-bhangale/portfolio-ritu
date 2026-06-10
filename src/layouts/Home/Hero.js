@@ -18,19 +18,19 @@ import upstoxLogo from 'assets/home/logos_workplace/Upstox.png';
 // (extra.email style): a blinking caret leads the reveal, freshly-typed
 // characters carry the season's gradient trail, scrolling up un-types.
 const bodyText =
-  "I 🔍 explore, learn, think, build taste, and 🎨 design to shape experiences that help people make decisions faster — with a ✨ spark of delight.\n\nMy background in computer science 🎓 taught me to read a problem before reacting to it. To ask what's underneath before deciding what goes on top. I iterate, not to polish, but to 🧪 pressure-test. Somewhere in that process, the right answer usually shows up.";
+  "I 🔍 explore, learn, think, build taste, and 🎨 design to shape experiences that help people make decisions faster with a ✨ spark of delight.\n\nMy background in computer science 🎓 taught me to read a problem before reacting to it. To ask what's underneath before deciding what goes on top. I iterate, not to polish, but to 🧪 pressure-test. Somewhere in that process, the right answer usually shows up.";
 
 const chars = Array.from(bodyText); // index-stable list, includes spaces
 
 // ---- reveal tuning ----
-const TRAIL = 30;     // chars carrying the gradient behind the caret
+const TRAIL = 30; // chars carrying the gradient behind the caret
 // The reveal is centred on the viewport centre: it begins as the paragraph's
 // centre passes START_VH (lower half) and finishes as it reaches END_VH (upper
 // half). With these symmetric around 0.5, the typing is half-done exactly when
 // the paragraph sits at the centre of the page.
 const START_VH = 0.82; // begin when block centre is 82% down (entering from below)
-const END_VH = 0.18;   // finish when block centre is 18% down (centred on 0.5)
-const PRELOAD = 58;   // chars pre-typed on page load (mid-sentence arrival feel)
+const END_VH = 0.18; // finish when block centre is 18% down (centred on 0.5)
+const PRELOAD = 58; // chars pre-typed on page load (mid-sentence arrival feel)
 
 const clamp01 = v => (v < 0 ? 0 : v > 1 ? 1 : v);
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -49,8 +49,7 @@ const makeColorFor = g => d => {
     : mix(g.mid, g.to, (t - g.midStop) / (1 - g.midStop));
 };
 
-const useIsoLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const FigmaCursor = () => (
   <svg
@@ -120,19 +119,16 @@ const DeskReveal = ({ show, reduced, particles, burst }) => (
         />
       ))}
     </span>
-    <img
-      className={styles.deskImg}
-      src={logoSrc(deskImage)}
-      alt=""
-      draggable={false}
-    />
+    <img className={styles.deskImg} src={logoSrc(deskImage)} alt="" draggable={false} />
   </span>
 );
 
 // Figma-style selection box: thin border + 4 corner handles around the children.
 const SelectionFrame = ({ variant = 'dark', className, children, ...rest }) => (
   <span
-    className={`${styles.selectionFrame} ${styles[`frame_${variant}`]} ${className || ''}`}
+    className={`${styles.selectionFrame} ${styles[`frame_${variant}`]} ${
+      className || ''
+    }`}
     {...rest}
   >
     {children}
@@ -145,7 +141,14 @@ const SelectionFrame = ({ variant = 'dark', className, children, ...rest }) => (
 
 // Figma-native select cursor — solid black classic pointer, tip up-left.
 const ArrowCursor = ({ className }) => (
-  <svg className={className} width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden>
+  <svg
+    className={className}
+    width="22"
+    height="26"
+    viewBox="0 0 22 26"
+    fill="none"
+    aria-hidden
+  >
     <path
       d="M4 2 L4 21.5 L9.3 16.4 L12.7 24 L15.8 22.6 L12.4 15.1 L19.6 15 Z"
       fill="#0f0f0f"
@@ -164,17 +167,26 @@ const appTiles = [
   { src: etmoneyLogo, alt: 'ET Money', cls: 'tileEtmoney' },
 ];
 
-
 const LinkedInIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
 const MailIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <rect x="2" y="4" width="20" height="16" rx="2"/>
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
 
@@ -363,7 +375,9 @@ export const Hero = ({ id, sectionRef }) => {
               <a
                 className={styles.contactChip}
                 href="mailto:ritu.bhangales@gmail.com"
-                onClick={() => trackContactInteraction('email_click', 'ritu.bhangales@gmail.com')}
+                onClick={() =>
+                  trackContactInteraction('email_click', 'ritu.bhangales@gmail.com')
+                }
               >
                 <MailIcon />
                 ritu.bhangales@gmail.com
@@ -429,12 +443,7 @@ export const Hero = ({ id, sectionRef }) => {
       </div>
 
       {/* Figma-style multiplayer cursor for the "You" pill */}
-      <div
-        ref={cursorRef}
-        className={styles.figmaCursor}
-        data-on={cursorOn}
-        aria-hidden
-      >
+      <div ref={cursorRef} className={styles.figmaCursor} data-on={cursorOn} aria-hidden>
         <FigmaCursor />
         <span className={styles.figmaLabel}>you</span>
       </div>
