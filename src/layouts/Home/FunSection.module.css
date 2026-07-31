@@ -1,0 +1,361 @@
+/* ── Section shell ──────────────────────────────────────────────────────
+   One static board, drawn straight from Figma `559:15761`: ruled paper with
+   two loose fans of photographs on it, a hand-written note beside each, and a
+   filmstrip cut off by the bottom edge. The strip loops on its own clock;
+   nothing here reads scroll position at all. */
+
+/* The reference writes both notes in Caveat — the one informal hand on an
+   otherwise typeset page. Latin subset only, which is all the two labels
+   need. */
+@font-face {
+  font-family: Caveat;
+  src: url('/fonts/Caveat-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.fun {
+  /* The board is the site's own content column — the same 768px every other
+     section on this page caps to (Projects `.stage`, CSE `.cse`, Hero
+     `.content`), so it lines up edge-for-edge with "Selected works" above it
+     and "My computer science degree" below it. Its 3:2 ratio is the reference
+     frame's own (768 × 512), which is what lets every Figma coordinate be
+     written as a plain multiple of --unit.
+
+     Capping by 132vh keeps the *height* inside the viewport on short screens
+     without ever letting --unit drift. */
+  --stageW: min(768px, 100vw - 96px, 132vh);
+
+  /* One Figma pixel, in real pixels. The reference frame is 768 wide, so every
+     x/y/w/h read off node 559:15761 can be written as `calc(N * var(--unit))`
+     and land exactly where it was drawn, at whatever width the board resolves
+     to — including type sizes, which is why the two labels scale with the
+     board instead of being pinned to one size. */
+  --unit: calc(var(--stageW) / 768);
+
+  /* The board itself is only 512 tall, but the reel sits at y=457 and now
+     carries a perforation band on both edges of its photo window (16 top +
+     157 window + 16 bottom) — a 512-tall stage clips most of that off. 646
+     units gives the whole strip, both sprocket edges included, room to show
+     instead of being cut mid-frame. */
+  --stageH: calc(646 * var(--unit));
+
+  /* How long the strip takes to advance by one full set of five frames. */
+  --reelCycle: 32s;
+
+  position: relative;
+  width: 100%;
+  background: #fff;
+  padding: var(--space4XL) 0;
+}
+
+.intro {
+  width: 100%;
+  max-width: 768px;
+
+  /* Same heading-to-content step Projects' `.sectionTitle` uses, so the
+     transition reads identically down the page. */
+  margin: 0 auto var(--spaceXL);
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-style: normal;
+  font-weight: var(--fontWeightMedium);
+  font-size: clamp(1.5rem, 2.4vw, 24px);
+  line-height: 1.5;
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextMuted));
+}
+
+.range {
+  position: relative;
+}
+
+/* Deliberately *not* full-bleed. The section's own box is a centred, capped
+   board — the same containment every other section on this page has — and the
+   ruled paper is painted inside it, never out to the browser edges. */
+.pin {
+  width: var(--stageW);
+  margin: 0 auto;
+}
+
+/* The board *is* the Figma frame, so it clips like the Figma frame: the plant
+   and the baking fan run off the left edge, the crochet fan off the right,
+   and the filmstrip is cut square by the bottom. */
+.stage {
+  position: relative;
+  width: 100%;
+  height: var(--stageH);
+  overflow: hidden;
+}
+
+/* ── Ruled paper ────────────────────────────────────────────────────────
+   Graph paper, which is all node 563:15966 actually contains: 60 vertical and
+   40 horizontal 1px hairlines, first one 6.4 in from the edge and every 12.8
+   after it, over the frame's own #F9FCFF. Both colours are sampled from the
+   reference render — the page is faintly blue rather than white, and the
+   ruling is #F0F3FE, a shade *of* that blue rather than a neutral grey. */
+.paper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: #f9fcff;
+  background-image: linear-gradient(to right, #f0f3fe 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f3fe 1px, transparent 1px);
+  background-position: calc(6.4 * var(--unit)) calc(6.4 * var(--unit));
+  background-size: calc(12.8 * var(--unit)) calc(12.8 * var(--unit));
+  pointer-events: none;
+}
+
+/* ── The reel ───────────────────────────────────────────────────────────
+   One rigid object: a 16-tall perforated band with a 157-tall photo window
+   sitting flush under it, 786.825 long, rotated -4° about its own top-left
+   corner, which node 564:16043 puts at (-5, 457) on the 768 × 512 board. That
+   is low enough that the left end of the band has already dropped past the
+   board's bottom edge and only the top of the photo window survives the clip
+   — exactly the sliver the reference shows.
+
+   -4° is the reference's own angle, not a guess: node 564:16043 reports a
+   778.81 × 70.34 bounding box for a band that is really 779.6 × 16, and the
+   only rotation that reconciles those is 4°. Its sign is read off the render,
+   where the band's top edge crosses the left edge at y≈457 and the right one
+   at y≈403.
+
+   Nothing here reads scroll. The two animations below run on their own clock,
+   forever, and stop only under reduced motion. Left at the default stacking
+   level so it paints in DOM order — under both fans, as in Figma, which it
+   can afford now that it no longer collides with either of them. */
+.reel {
+  position: absolute;
+  top: calc(457 * var(--unit));
+  left: calc(-5 * var(--unit));
+  width: calc(786.825 * var(--unit));
+  transform: rotate(-4deg);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+/* Node 564:16043: a #060606 bar with 12 × 8 white sprocket holes, first one 4
+   in from the left, 6 down, repeating every 18. Drawn as a repeating gradient
+   rather than 43 elements so it can tile past the strip's own length and
+   scroll on `background-position-x` without any DOM churn. Rendered twice —
+   once above the photo window, once below — so the strip reads as real film
+   with sprocket holes on both edges rather than a single top rail. */
+.reelPerf {
+  height: calc(16 * var(--unit));
+  background-color: #060606;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(4 * var(--unit)),
+    #fff calc(4 * var(--unit)),
+    #fff calc(16 * var(--unit)),
+    transparent calc(16 * var(--unit)),
+    transparent calc(18 * var(--unit))
+  );
+  background-repeat: repeat-x;
+  background-position: 0 calc(6 * var(--unit));
+  background-size: calc(18 * var(--unit)) calc(8 * var(--unit));
+
+  /* Matched to the track's speed rather than its duration: the track covers
+     903.49 per cycle, the holes 18, so the same linear velocity needs a cycle
+     903.49/18 shorter. Keeps the perforations locked to the film they belong
+     to instead of drifting against it. */
+  animation: reelPerfScroll calc(var(--reelCycle) * 18 / 903.49) linear infinite;
+}
+
+.reelWindow {
+  height: calc(157 * var(--unit));
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Two passes of the same five frames. One cycle translates by exactly one
+   pass, so the frame that leaves the left edge is the frame arriving at the
+   same offset behind it and the loop has no seam. */
+.reelTrack {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: reelScroll var(--reelCycle) linear infinite;
+  will-change: transform;
+}
+
+.reelFrame {
+  flex: none;
+  width: calc(180.698 * var(--unit));
+  height: 100%;
+}
+
+/* 976 × 848 sources against a 180.698 × 157 frame is the same 1.1509 ratio, so
+   `cover` is doing no cropping here — it is only guarding against a source
+   being swapped for one that isn't already cut to the frame. */
+.reelFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+@keyframes reelScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-903.49 * var(--unit)), 0, 0);
+  }
+}
+
+@keyframes reelPerfScroll {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: calc(-18 * var(--unit));
+  }
+}
+
+/* ── Cluster ────────────────────────────────────────────────────────────
+   A zero-size anchor pinned at the Figma frame's own origin and turned by the
+   frame's own angle, so every child inside it can be written in the frame's
+   local coordinates and inherit the tilt for free. Only the crochet note and
+   its connector still need one, at that frame's +6.55°: the two photo fans
+   carry their tilt inside their own rasters. */
+.cluster {
+  position: absolute;
+  top: calc(var(--posY) * var(--unit));
+  left: calc(var(--posX) * var(--unit));
+  transform: rotate(calc(var(--rot) * 1deg));
+  transform-origin: 0 0;
+}
+
+/* ── Photo fan ──────────────────────────────────────────────────────────
+   One flat export per fan, laid on the paper at the board coordinates its
+   render box was measured at. Unrotated and unshadowed on purpose: the tilt
+   of every print, the solid backing card Figma draws behind the stack and the
+   flattened shadow blob it draws over the stack are all already in the
+   pixels. Adding a CSS shadow here would double the one that is painted in.
+
+   `contain` rather than `cover` so the alpha edges stay where Figma put them
+   if the box is ever rounded off by a fractional --unit. */
+.fan {
+  position: absolute;
+  top: calc(var(--posY) * var(--unit));
+  left: calc(var(--posX) * var(--unit));
+  width: calc(var(--boxW) * var(--unit));
+  height: calc(var(--boxH) * var(--unit));
+  object-fit: contain;
+  transform: translateY(calc(var(--lift, 0) * var(--unit)));
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+}
+
+/* The plant is the one object drawn over everything else, leaning in front of
+   the baking fan from off the left edge. Anchored by its corner, because
+   Figma leaves it unrotated. */
+.plant {
+  position: absolute;
+  top: calc(var(--posY) * var(--unit));
+  left: calc(var(--posX) * var(--unit));
+  width: calc(var(--boxW) * var(--unit));
+  height: calc(var(--boxH) * var(--unit));
+  object-fit: contain;
+  filter: drop-shadow(
+    0 calc(14 * var(--unit)) calc(18 * var(--unit)) rgb(15 15 15 / 0.16)
+  );
+  user-select: none;
+}
+
+/* ── Connector arrow ────────────────────────────────────────────────────
+   Figma stores the curve mirrored, so it is drawn flipped and then turned —
+   the flip is part of the shape, not a stylistic choice. Only the crochet
+   note's connector is drawn here; the baking one belongs to the baking frame
+   and rides along in that fan's export. */
+.arrow {
+  position: absolute;
+  top: calc(var(--cy) * var(--unit));
+  left: calc(var(--cx) * var(--unit));
+  width: calc(var(--boxW) * var(--unit));
+  height: calc(var(--boxH) * var(--unit));
+  overflow: visible;
+  transform: translate(-50%, -50%) scaleX(-1) rotate(calc(var(--rot) * 1deg));
+  pointer-events: none;
+}
+
+/* ── Labels ─────────────────────────────────────────────────────────────
+   Not pills. Two notes written onto the paper in the reference's own hand, at
+   the same #002BBA the arrows are drawn in. Sized in board units so they
+   shrink with the composition rather than swelling out of it on a phone. */
+.label {
+  position: absolute;
+  top: calc(var(--cy) * var(--unit));
+  left: calc(var(--cx) * var(--unit));
+  width: calc(var(--boxW) * var(--unit));
+  margin: 0;
+  font-family: Caveat, var(--fontStack);
+  font-weight: 400;
+  font-size: calc(var(--size) * var(--unit));
+  line-height: calc(20 * var(--unit));
+  letter-spacing: calc(var(--track) * var(--unit));
+  text-align: center;
+  white-space: nowrap;
+  color: #002bba;
+  transform: translate(-50%, -50%) rotate(calc(var(--rot) * 1deg));
+}
+
+/* ── Hover: the fan lifts off the paper ─────────────────────────────────
+   Pointer-only, and the only thing on this board that answers to the cursor.
+   Small, because the shadow under the stack is painted into the raster and so
+   cannot grow with the lift: past a few units the stack starts to look like
+   it has come unstuck from its own shadow. */
+
+@media (--mediaNoTouch) {
+  .fan:hover {
+    --lift: -5;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────
+   The reel is the only thing on this board that moves without being asked to,
+   so it is exactly the kind of animation this preference exists to switch
+   off. Stopped outright rather than slowed: the strip still reads as a strip
+   standing still. */
+
+@media (--mediaReduceMotion) {
+  .reelTrack,
+  .reelPerf {
+    animation: none;
+    will-change: auto;
+  }
+
+  .fan {
+    transition: none;
+  }
+}
+
+/* ── Tablet and below: the same board, not a different one ──────────────
+   Every coordinate on this board is a multiple of --unit, and --unit is
+   derived from --stageW, so narrowing the board scales the whole composition
+   as one piece and nothing below has to restate a single number. All that
+   changes is the gutter: 96px is a desktop allowance and eats the board on a
+   phone. */
+
+@media (--mediaTablet) {
+  .fun {
+    --stageW: min(768px, 100vw - 40px, 132vh);
+
+    padding: var(--space2XL) 0;
+  }
+
+  .intro {
+    max-width: none;
+    margin-bottom: var(--spaceXL);
+    padding: 0 var(--spaceOuter);
+  }
+}

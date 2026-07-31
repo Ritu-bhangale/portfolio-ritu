@@ -2,14 +2,21 @@ import { Icon } from 'components/Icon';
 import RouterLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
+import { playTap } from 'utils/sound';
 import styles from './Button.module.css';
 
 function isExternalLink(href) {
   return href?.includes('://');
 }
 
+// mailto:/tel: links aren't Next.js routes — treat them like external links so
+// they render as a plain anchor instead of getting wrapped in next/link.
+function isNonRoutableLink(href) {
+  return isExternalLink(href) || href?.startsWith('mailto:') || href?.startsWith('tel:');
+}
+
 export const Button = forwardRef(({ href, ...rest }, ref) => {
-  if (isExternalLink(href) || !href) {
+  if (isNonRoutableLink(href) || !href) {
     return <ButtonContent href={href} ref={ref} {...rest} />;
   }
 
@@ -39,6 +46,7 @@ const ButtonContent = forwardRef(
       target,
       href,
       disabled,
+      onClick,
       ...rest
     },
     ref
@@ -46,6 +54,11 @@ const ButtonContent = forwardRef(
     const isExternal = isExternalLink(href);
     const defaultComponent = href ? 'a' : 'button';
     const Component = as || defaultComponent;
+
+    const handleClick = event => {
+      playTap();
+      onClick?.(event);
+    };
 
     return (
       <Component
@@ -60,6 +73,7 @@ const ButtonContent = forwardRef(
         rel={!wip && (rel || isExternal) ? 'noopener noreferrer' : undefined}
         target={!wip && (target || isExternal) ? '_blank' : undefined}
         disabled={disabled || wip}
+        onClick={handleClick}
         ref={ref}
         {...rest}
       >

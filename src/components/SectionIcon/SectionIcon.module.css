@@ -1,0 +1,19 @@
+/* The mark is aligned to the *title's* left edge, not the page centre: every
+   home-page section title is left-aligned inside the shared 768px column, so a
+   page-centred icon would float free of the words it belongs to. Each photo is
+   cropped so its subject runs edge to edge in the square, so the frame itself
+   is the optical margin — no negative inset needed to line the ink up with the
+   first letter of the title below it. */
+.icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 0 14px;
+
+  /* The art is dithered at 128px and drawn at 64, so at this width the stipple
+     lands 1:1 on retina device pixels. `pixelated` keeps the browser from
+     resampling it anywhere else — a smoothed halftone turns to mush, which is
+     the one thing that would stop the subject reading through the texture.
+     Held at one size on every breakpoint for the same reason. */
+  image-rendering: pixelated;
+}

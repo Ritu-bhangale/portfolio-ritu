@@ -175,7 +175,7 @@
 }
 
 .lang {
-  font-family: var(--monoFontFamily);
+  font-family: var(--monoFontStack);
   position: absolute;
   top: 0;
   left: var(--padding);

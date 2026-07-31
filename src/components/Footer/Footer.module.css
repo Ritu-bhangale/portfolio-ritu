@@ -1,12 +1,15 @@
-/* Footer ≈ half the viewport. The cover image is cropped to this height — the
-   image does not dictate footer height. */
+/* Closing frame: a dithered snow range the page appears to stand in front of.
+   The message sits high and left-of-centre in the white "sky", with the peaks
+   filling the lower half. Unlike the previous dark treatment there is no scrim
+   and no mask — the art is alpha-cut along the ridgeline, so the sky is
+   literally the page background and the two meet with no seam to disguise. */
 .footer {
   position: relative;
   width: 100%;
-  min-height: 65vh;
+  min-height: 72vh;
   overflow: hidden;
-  background-color: #2f8fd8; /* sky fallback */
-  color: #fff;
+  background: rgb(var(--rgbBackground));
+  color: rgb(var(--rgbTextPrimary));
   z-index: var(--zIndex2);
   isolation: isolate;
 }
@@ -18,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 65vh;
+  height: 72vh;
   z-index: 0;
 }
 
@@ -26,130 +29,179 @@
   min-height: 100%;
 }
 
-/* lemon-tree image — pinned to the right, slightly below the top edge (Figma) */
+/* `object-fit: fill` rather than `cover`, matching the reference frame: `cover`
+   in a box this wide would throw the peaks away and leave only the bottom
+   snowfield, and the composition depends on the whole silhouette being in
+   frame. The art is already rendered at 1920x1080 — the dither grid is laid
+   down at that aspect precisely so the stipple lands as square dots here
+   rather than being stretched into rectangles. */
 .bg {
   position: absolute;
   inset: 0;
-  background-repeat: no-repeat;
-  background-position: right top;
-  background-size: cover;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  object-position: bottom;
   z-index: 0;
-}
-
-/* white → transparent fade at the top so the page blends into the sky (Figma) */
-.fade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 43%
-  );
-  z-index: 1;
   pointer-events: none;
+  user-select: none;
 }
 
-/* Two stacked sections in flow: contact block at top, wordmark at the bottom. */
-.inner {
-  position: relative;
-  z-index: 2;
-  max-width: 1440px;
-  margin: 0 auto;
-  min-height: 65vh;
-  padding: clamp(80px, 12vw, 140px) clamp(24px, 7vw, 100px) 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.top {
-  display: flex;
-  flex-direction: column;
-}
-
-.tagline {
-  font-family: var(--serifFontStack);
-  font-weight: var(--fontWeightLight);
-  font-style: normal;
-  font-size: clamp(18px, 2.2vw, 28px);
-  line-height: 1.5;
-  letter-spacing: 0.336px;
-  color: #fff;
-  margin: 0;
-}
-
-.cta {
-  font-family: var(--serifFontStack);
-  font-weight: var(--fontWeightBold);
-  font-style: normal;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1.5;
-  letter-spacing: 0.864px;
-  color: #ffc429; /* Summer yellow */
-  margin: 0;
-}
-
-.links {
-  display: flex;
-  gap: clamp(20px, 3vw, 34px);
-  margin-top: clamp(20px, 3vw, 44px);
-}
-
-.link {
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightRegular);
-  font-size: 20px;
-  letter-spacing: 0.4px;
-  color: #fff;
-  text-decoration: none;
-  transition: color var(--durationS) ease;
-}
-
-.link:hover {
-  color: #ffc429;
-}
-
-/* ---- Oversized seasonal wordmark — pinned to the footer bottom ----
-   Fixed 200px (per Figma). Always anchored to the footer's bottom edge and
-   pushed down 40% of its height so only the top ~60% shows; the lower 40% is
-   clipped by the footer's overflow. Aligned to the content margin; nowrap lets
-   the Devanagari run right past the tree. */
-.wordmark {
+/* Sitewide sound toggle. `position: fixed` keeps it viewport-anchored (and
+   therefore visible/reachable) regardless of scroll position or which page's
+   Footer instance rendered it — isolation/position on .footer don't create a
+   containing block that would break fixed positioning here. */
+.soundToggle {
   position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100vw;
-  transform: translateY(40%);
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.14em;
-  margin: 0;
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightBold);
-  font-size: clamp(120px, 18vw, 480px);
-  line-height: 1;
-  letter-spacing: 2.571px;
-  color: #f5f5f5;
-  cursor: default;
-  white-space: nowrap;
+  right: var(--spaceM);
+  bottom: var(--spaceM);
+  z-index: var(--zIndex5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(var(--rgbBackground) / 0.9);
+  color: rgb(var(--rgbTextPrimary) / 0.8);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.15);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition:
+    color var(--durationS) var(--bezierFastoutSlowin),
+    transform var(--durationS) var(--bezierFastoutSlowin);
 }
 
-.glyph {
-  font-weight: var(--fontWeightSemiBold);
-  letter-spacing: 0;
+.soundToggle:hover,
+.soundToggle:focus-visible {
+  color: rgb(var(--rgbTextPrimary) / 1);
+  transform: scale(1.08);
 }
 
 @media (--mediaMobile) {
-  .links {
-    flex-direction: column;
-    gap: var(--spaceM);
+  .soundToggle {
+    right: var(--spaceS);
+    bottom: var(--spaceS);
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  min-height: 72vh;
+
+  /* Reference puts the text block's top edge flush with the footer's own top.
+     A little breathing room is kept here so the headline can't collide with
+     whatever section ends immediately above it. */
+  padding-top: clamp(24px, 3vw, 48px);
+}
+
+/* Not centred and not full-width: the block starts 27.5% in from the left edge,
+   as in the reference. Type sizes below are expressed in vw at the same ratio
+   the reference uses (48/1728 = 2.78vw and so on) so the headline keeps
+   occupying the same 27.5%-wide measure at any viewport, rather than
+   outgrowing its column as a fixed size would. */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 2.55vw, 44px);
+  align-items: flex-start;
+  margin-top: 48px;
+  margin-left: 27.5%;
+}
+
+/* The two lines are a single heading with no gap between them — the serif
+   question and the answer read as one stacked statement. */
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.headlineSerif {
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightLight);
+  font-size: clamp(28px, 2.78vw, 48px);
+  line-height: 1.5;
+  color: #58595d;
+  white-space: nowrap;
+}
+
+.headlineAccent {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: clamp(19px, 1.85vw, 32px);
+  line-height: 1.5;
+  color: #002bba;
+}
+
+/* Same pill treatment as the "Read full case study" link on the case studies:
+   translucent cool-grey capsule, blue label, arrow that slides on hover. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radiusPill);
+  background: rgb(238 240 243 / 0.8);
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: clamp(16px, 1.16vw, 20px);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: #002bba;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--durationS) var(--bezierFastoutSlowin),
+    transform var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: rgb(238 240 243 / 1);
+  transform: translateY(-1px);
+}
+
+.ctaIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: transform var(--durationS) var(--bezierFastoutSlowin);
+}
+
+.cta:hover .ctaIcon,
+.cta:focus-visible .ctaIcon {
+  transform: translateX(3px);
+}
+
+/* Below the reference width the 27.5%/27.5% column stops being able to hold the
+   headline, so the block moves back to the page gutter and takes the full
+   measure. The photograph's own portrait proportions are close to a phone
+   viewport's, so the stretched fill reads almost undistorted there. */
+@media (--mediaTablet) {
+  .content {
+    margin-left: 0;
+    max-width: none;
+    padding: 0 clamp(24px, 6vw, 64px);
   }
 
-  /* Drop the 120px floor so the wordmark scales down to fit the phone width
-     instead of overflowing (it was clipping to "Summ"). */
-  .wordmark {
-    font-size: 19vw;
-    letter-spacing: 0;
-    transform: translateY(34%);
+  .headlineSerif {
+    white-space: normal;
+  }
+}
+
+/* A phone viewport is taller than it is wide, so stretching the 16:9 art to
+   fill it would squeeze every dither dot into a thin vertical sliver. `cover`
+   scales uniformly instead, keeping the stipple square, and anchoring to the
+   bottom keeps the ridgeline and the blue silhouette peak in view rather than
+   the empty sky. */
+@media (--mediaMobile) {
+  .bg {
+    object-fit: cover;
+    object-position: 50% 100%;
   }
 }

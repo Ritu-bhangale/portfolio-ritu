@@ -1,7 +1,7 @@
 .heading {
   margin: 0;
   color: var(--colorTextTitle);
-  letter-spacing: 0.0004em; /* 0.4% */
+  letter-spacing: var(--letterSpacingDefault);
 }
 
 /* ============================= */
@@ -14,7 +14,6 @@
   font-size: var(--fontSizeH0);
   font-weight: var(--fontWeightMedium);
   line-height: 1.25;
-  letter-spacing: 0.0005em;
 }
 
 /* H1 */
@@ -23,7 +22,6 @@
   font-size: var(--fontSizeH1);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: 0.0005em;
 }
 
 /* H2 */
@@ -32,7 +30,6 @@
   font-size: var(--fontSizeH2);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: 0.0004em;
 }
 
 /* H3 */
@@ -41,7 +38,6 @@
   font-size: var(--fontSizeH3);
   font-weight: var(--fontWeightMedium);
   line-height: 1.5;
-  letter-spacing: 0.0002em;
 }
 
 /* H4 (default = serif semibold) */
@@ -50,7 +46,6 @@
   font-size: var(--fontSizeH4);
   font-weight: var(--fontWeightBold);
   line-height: 1.5;
-  letter-spacing: 0.0001em;
 }
 
 /* H5 */

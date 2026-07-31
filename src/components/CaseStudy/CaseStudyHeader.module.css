@@ -1,0 +1,177 @@
+/* No bottom padding here. The gap to the hero image below is provided
+   entirely by the page's own .container flex gap (var(--space3XL)), so
+   this header's spacing to whatever follows it stays in lockstep with
+   every other gap between top-level blocks on the page. Stacking a
+   bottom padding here on top of that gap was doubling the header-to-hero
+   distance (108px) relative to every other inter-block gap (60px). */
+.header {
+  padding: 0;
+}
+
+/* 24px is the Figma gap from the title block down to the Role/Timeline row
+   (node 553:6166, title y+h=194 → meta y=218). The larger 64px gap between
+   the back pill and the title is added as a margin on .backLink below, so
+   this stays a single uniform gap. */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceL);
+}
+
+/* Figma node 553:6069: a filled #eef0f3 pill, 6px/12px padding, 50px radius,
+   18px Clash Grotesk Medium in accent blue. No stroke. The 40px margin plus
+   the 24px .content gap gives the 64px measured between the pill's bottom
+   edge (y=34) and the title block (y=98) on the mutual funds dashboard page.
+
+   The ET Money page (node 570:16340) sets that same distance to 52px, so the
+   margin is exposed as --caseStudyBackGap and overridden per page rather than
+   changed here. */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  margin-bottom: var(--caseStudyBackGap, 40px);
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: #eef0f3;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
+  text-decoration: none;
+  transition: background var(--durationS) var(--bezierFastoutSlowin);
+
+  &:hover {
+    background: rgb(var(--rgbAccent) / 0.12);
+  }
+}
+
+.eyebrow {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyS);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--rgbAccent));
+}
+
+/* Figma node 553:6076: Season Serif Regular, 64px / 96px line box,
+   0.32px tracking (= 0.005em), accent blue. 64px sits between --fontSizeH1
+   (72) and --fontSizeH2 (48) with no token in between, so it is a literal,
+   stepped down by hand at tablet and mobile. */
+.title {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 4rem;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+  color: rgb(var(--rgbAccent));
+}
+
+.tldr {
+  margin: 0;
+  max-width: 620px;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSizeBodyM);
+  line-height: var(--lineHeightBody);
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextSecondary));
+}
+
+/* Tag pills. Deliberately identical to the homepage project card tags
+   (src/layouts/Home/Projects.module.css) so a card and its case study read
+   as the same object. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceS);
+}
+
+.tag {
+  background: #eef1fc;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(var(--rgbAccent));
+}
+
+/* Figma node 553:6165: two meta columns 48px apart and no padding of its
+   own, so the 24px down from the title is the .content gap alone. */
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceXL) var(--space2XL);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceXS);
+}
+
+/* Figma node 553:6098: 14px Clash Grotesk Medium, 1.12px tracking
+   (= 0.08em), uppercase, in secondary grey. */
+.metaLabel {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyS);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--rgbTextSecondary));
+}
+
+/* Figma node 553:6101: 20px Clash Grotesk Medium, 24px line box,
+   0.2px tracking (= 0.01em), accent blue. */
+.metaValue {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyM);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
+}
+
+@media (--mediaTablet) {
+  .title {
+    font-size: var(--fontSizeH2);
+  }
+}
+
+@media (--mediaMobile) {
+  /* 64px desktop steps to 48px at tablet and 36px here, the same ~0.55x that
+     the home hero's name takes (72 → 40, src/layouts/Home/Hero.module.css).
+     This used to be var(--fontSizeH4), which resolves to 20px on mobile and
+     left the page title smaller than its own Role/Timeline values. The 1.5
+     line box is also far too airy once the title wraps to three lines at this
+     width, so it tightens with the size. */
+  .title {
+    font-size: 36px;
+    line-height: 1.25;
+  }
+
+  .backLink {
+    margin-bottom: var(--spaceL);
+    font-size: var(--fontSizeBodyS);
+  }
+
+  .tag {
+    font-size: 11px;
+  }
+
+  .metaRow {
+    gap: var(--spaceL) var(--spaceXL);
+  }
+}

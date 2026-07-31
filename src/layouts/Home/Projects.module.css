@@ -2,7 +2,9 @@
   position: relative;
   width: 100%;
   background: #fff;
-  padding: var(--space5XL) var(--spaceOuter) var(--space2XL);
+
+  /* Section rhythm: see the note on `.hero`. */
+  padding: var(--space4XL) 0;
 }
 
 @media (--mediaTablet) {
@@ -11,260 +13,179 @@
   }
 }
 
+/* Carries the column and the heading-to-content step the title used to own, so
+   the halftone mark and the words move as one block. */
+.sectionHead {
+  max-width: 768px;
+  margin: 0 auto var(--spaceXL);
+}
+
 .sectionTitle {
-  max-width: 1146px;
-  margin: 0 auto var(--space2XL);
-  font-style: italic;
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightLight);
+  font-size: 24px;
+  font-style: normal;
+  color: rgb(var(--rgbTextMuted));
+  letter-spacing: var(--letterSpacingDefault);
 }
 
 .stage {
   position: relative;
-  max-width: 1146px;
+  max-width: 768px;
   margin: 0 auto;
 }
 
+/* Card-to-card and thumb-to-text gaps come from Figma nodes 430:3781 (120px)
+   and 430:3782 / 458:1489 (64px). */
 .list {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 120px;
 }
 
-/* whole card is the link — wrapper carries shadow + radius, clip lives inside */
 .card {
-  display: block;
-  position: relative;
-  border-radius: 25px;
-  box-shadow: 0 40px 80px -56px rgb(20 10 30 / 0.28);
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  background: #fff;
   text-decoration: none;
   color: inherit;
-  /* NOTE: never put `transform` on .card or .cardClip — it would make the
-     position:fixed bevel phone resolve against this box instead of the
-     viewport, breaking the reveal. Hover feedback is shadow-only. */
-  transition: box-shadow var(--durationM) var(--bezierFastoutSlowin);
+  transition: transform var(--durationM) var(--bezierFastoutSlowin);
 }
 
 .card:hover {
-  box-shadow: 0 52px 92px -50px rgb(20 10 30 / 0.36);
+  transform: translateY(-2px);
 }
 
-/* the window: clip-path clips the fixed phone to this card's box, so the phone is
-   only visible where the card is (revealed through the card, never floating) */
-.cardClip {
+/* ── Thumbnail ────────────────────────────────────────────────────────── */
+
+.thumb {
   position: relative;
-  min-height: 640px;
-  display: flex;
-  align-items: stretch;
-  padding: 64px 80px;
-  border-radius: 25px;
-  clip-path: inset(0 round 25px);
+  height: 482px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
 }
 
-/* per-card radial gradient — Figma: cream → white → light-blue, angled per card */
-.warm .cardClip {
-  background: radial-gradient(
-    120% 130% at 90% 100%,
-    #fff9d0 9%,
-    #ffffff 44%,
-    #dff4ff 100%
-  );
+/* Both cards compose their thumbnail from a multi-layer Figma frame (gradient
+   plate, mockup phone(s), and other floating art — nodes 545:5425 for the
+   mutual-dashboard card, 570:16307 for the ET Money card). Reproducing those
+   stacks in CSS would be several assets plus rotate/skew/scale math that
+   drifts the moment the art changes, so each ships as one flat 2x export of
+   the exact plate and fills the thumb edge to edge. */
+.thumbFlat {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.cool .cardClip {
-  background: radial-gradient(
-    120% 130% at 96% -18%,
-    #fff9d0 9%,
-    #ffffff 44%,
-    #dff4ff 100%
-  );
-}
+/* ── Text content ─────────────────────────────────────────────────────── */
 
 .content {
-  position: relative;
-  z-index: 1;
-  width: 584px;
-  max-width: 60%;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  padding: 0;
 }
 
-.title {
+.tags {
+  display: flex;
+  gap: var(--spaceS);
+}
+
+.tag {
+  background: #eef1fc;
+  padding: 4px 12px;
+  border-radius: 100px;
   font-family: var(--fontStack);
   font-weight: var(--fontWeightMedium);
-  font-size: 40px;
-  line-height: 1.5;
-  letter-spacing: 0.96px;
-  color: #0f0f0f;
-  font-style: normal;
-}
-
-.title em {
-  font-family: var(--serifFontStack);
-  font-style: italic;
-  font-weight: var(--fontWeightMedium);
-}
-
-.hook {
-  margin-top: 12px;
-  max-width: 484px;
-  font-size: 20px;
-  line-height: 1.5;
-  letter-spacing: 0.24px;
-  color: #4d4d4d;
-}
-
-/* stats pinned near card bottom */
-.statRow {
-  display: flex;
-  gap: 45px;
-  margin-top: auto;
-  padding-top: 48px;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.statValue {
-  font-family: var(--serifFontStack);
-  font-style: normal;
-  font-weight: var(--fontWeightSemiBold);
-  font-size: 32px;
-  line-height: 1.5;
-  letter-spacing: 0.128px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: rgb(var(--rgbAccent));
 }
 
-.statLabel {
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceM);
+}
+
+/* Both card titles share one treatment in Figma (nodes 430:3784 and
+   458:1496): Season Serif SemiBold 24px in the accent blue, tracking
+   0.576px/24px = 0.024em. The earlier per-card Regular/near-black split is
+   gone from the design. */
+.title {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: 0.024em;
+  color: rgb(var(--rgbAccent));
+  font-style: normal;
+}
+
+.hook {
+  margin: 0;
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1.5;
-  letter-spacing: 0.24px;
-  color: #4d4d4d;
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextSecondary));
 }
 
-/* the phone holds one fixed viewport position; every card's phone is identical and
-   co-located, so revealing each through its card reads as one persistent device */
-.cardPhone {
-  position: fixed;
-  top: 50%;
-  right: max(calc((100vw - 1146px) / 2), var(--spaceOuter));
-  height: 88vh;
-  transform: translateY(-46%);
-  pointer-events: none;
-}
-
-.phoneImg {
-  height: 100%;
-  width: auto;
-  display: block;
-}
-
-/* ---- Responsive: no fixed/clip — phone sits statically inside each card ---- */
 @media (--mediaTablet) {
-  .cardClip {
-    clip-path: none;
-    min-height: 0;
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space3XL);
-    padding: var(--space3XL) var(--space2XL);
+  .list {
+    gap: 80px;
+  }
+
+  .card {
+    gap: 40px;
+  }
+
+  .thumb {
+    height: 380px;
   }
 
   .content {
-    width: 100%;
-    max-width: 560px;
-    margin: 0 auto;
-    order: 2;
-    align-items: center;
-  }
-
-  .hook {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cardPhone {
-    position: static;
-    transform: none;
-    height: auto;
-    order: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .phoneImg {
-    height: auto;
-    width: 264px;
-  }
-
-  .statRow {
-    justify-content: center;
-    margin-top: 0;
-    padding-top: 0;
+    padding: 0;
   }
 }
 
 @media (--mediaMobile) {
-  .card,
-  .cardClip {
-    border-radius: 22px;
+  .list {
+    gap: 56px;
   }
 
-  .cardClip {
-    padding: var(--space2XL) var(--spaceL);
+  .card {
+    gap: var(--spaceL);
+  }
+
+  .thumb {
+    height: 260px;
+    border-radius: 18px;
   }
 
   .title {
-    font-size: 28px;
+    font-size: 20px;
   }
 
-  .statRow {
-    gap: var(--space2XL);
+  .hook {
+    font-size: 17px;
   }
 
-  .phoneImg {
-    width: 230px;
-  }
-}
-
-/* reduced motion: static phone in each card, no fixed pinning */
-@media (--mediaReduceMotion) {
-  .cardClip {
-    clip-path: none;
-    min-height: 0;
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space3XL);
-    padding: var(--space3XL) var(--space2XL);
+  .tag {
+    font-size: 11px;
   }
 
   .content {
-    width: 100%;
-    max-width: 560px;
-    margin: 0 auto;
-    order: 2;
-    align-items: center;
-  }
-
-  .cardPhone {
-    position: static;
-    transform: none;
-    height: auto;
-    order: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .phoneImg {
-    height: auto;
-    width: 264px;
-  }
-
-  .statRow {
-    justify-content: center;
-    margin-top: 0;
-    padding-top: 0;
+    gap: var(--spaceS);
+    padding: 0;
   }
 }

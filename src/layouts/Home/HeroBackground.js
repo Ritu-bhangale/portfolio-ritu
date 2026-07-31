@@ -3,20 +3,48 @@ import { useReducedMotion } from 'framer-motion';
 import { useInViewport } from 'hooks';
 import { useEffect, useRef } from 'react';
 import {
+  AddEquation,
+  CustomBlending,
   Mesh,
+  OneFactor,
+  OneMinusSrcAlphaFactor,
   OrthographicCamera,
   PlaneGeometry,
   Scene,
   ShaderMaterial,
   Vector2,
+  Vector4,
   WebGLRenderer,
 } from 'three';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import styles from './HeroBackground.module.css';
 
-// A gentle, elegant light wash. White base with soft pink + purple tones that
-// drift organically, plus a warm glow that follows the cursor and fades.
-// Inspired by oevra.com and backgrounds.supply — barely there, but beautiful.
+// Faithful GLSL port of the Figma "Shader Fills" (Beta) Water caustic
+// preset applied to the hero frame in the Figma design
+// (fileKey cEgyhLlNbaIltuy4cZzWEt, node 430:3756). Ported from Figma's WGSL
+// shader-fill source (id 9cd7048d-3c21-4074-b883-e14725fdf05b) — the trig
+// and vector math are identical between WGSL and GLSL ES, so this is a
+// direct translation, not a re-interpretation.
+
+// Exact parameter values as set in the Figma file:
+const WATER_COLOR = new Vector4(0.863, 0.914, 0.957, 1.0); // #DCE9F4
+const HIGHLIGHT_COLOR = new Vector4(1.0, 1.0, 1.0, 1.0); // #FFFFFF
+const INTENSITY = 0.34;
+const CENTER = new Vector2(50.0, 50.0); // percent
+const DEFAULT_PLAYHEAD = 31.02; // Figma's default "Phase" value, used as the
+// frozen frame for prefers-reduced-motion.
+
+// Playhead units advanced per second of real time. The Figma "Phase" slider
+// runs 0-100 and maps to the shader's internal angle via
+// t_val = playhead * TAU/100 + 23, so this rate sets how fast the caustic
+// pattern drifts. 1.5/s means a full 0-100 cycle takes ~67s — a slow,
+// gentle shimmer rather than a strobe.
+const PLAYHEAD_RATE = 1.5;
+
+// Easing factor for the ripple's fade in/out (per animation frame, ~60fps) —
+// low enough that entering/leaving the hero feels like a soft dissolve
+// rather than a snap.
+const RIPPLE_EASE = 0.08;
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -30,60 +58,87 @@ const fragmentShader = /* glsl */ `
   precision highp float;
 
   varying vec2 vUv;
-  uniform float uTime;
-  uniform vec2 uMouse;        // smoothed, 0..1 (origin bottom-left)
-  uniform float uMouseStrength;
+
   uniform vec2 uResolution;
+  uniform vec4 uWaterColor;
+  uniform vec4 uHighlightColor;
+  uniform float uIntensity;
+  uniform float uPlayhead;
+  uniform vec2 uCenter;
+  uniform vec2 uMouse;
+  uniform float uRipple;
 
-  // soft radial falloff
-  float blob(vec2 p, vec2 c, float r) {
-    float d = length(p - c) / r;
-    return exp(-d * d);
-  }
-
-  // cheap hash for subtle film grain
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-  }
+  const float TAU = 6.28318530718;
+  const int MAX_ITER = 5;
 
   void main() {
-    float aspect = uResolution.x / uResolution.y;
-    vec2 p = vUv;
-    p.x *= aspect;
+    vec2 dims = uResolution;
+    vec2 uvRaw = vUv;
 
-    float t = uTime * 0.06;
+    float cx = uCenter.x / 100.0;
+    float cy = uCenter.y / 100.0;
+    vec2 uv = uvRaw + vec2(1.0 - 2.0 * cx, 1.0 - 2.0 * cy);
 
-    // a few large, soft pastel blobs that drift slowly — smooth, no splotches
-    vec2 c1 = vec2(aspect * (0.30 + 0.06 * sin(t * 0.7)),       0.72 + 0.05 * cos(t * 0.6));
-    vec2 c2 = vec2(aspect * (0.74 + 0.05 * cos(t * 0.5 + 1.5)), 0.66 + 0.06 * sin(t * 0.45 + 2.0));
-    vec2 c3 = vec2(aspect * (0.52 + 0.07 * sin(t * 0.4 + 3.0)), 0.30 + 0.05 * cos(t * 0.55 + 1.0));
-    vec2 c4 = vec2(aspect * (0.18 + 0.05 * cos(t * 0.6 + 4.0)), 0.34 + 0.06 * sin(t * 0.5 + 0.5));
+    float t_val = uPlayhead * TAU / 100.0 + 23.0;
 
-    vec3 pink   = vec3(1.000, 0.831, 0.902); // soft pink
-    vec3 purple = vec3(0.882, 0.851, 0.992); // soft purple
-    vec3 peach  = vec3(1.000, 0.886, 0.835); // warm peach
+    float minDim = min(dims.x, dims.y);
+    // Resolution-INDEPENDENT coordinates. p spans exactly one 0..TAU period
+    // across the frame, which is the whole point: the pattern's spatial
+    // frequency is a property of the shader, never of the canvas size or the
+    // display's pixel density.
+    //
+    // This is the bug that made the wash read as a fine crosshatch. The
+    // previous version multiplied uv by the canvas's literal pixel dimensions,
+    // so p spanned ~1400 radians across a desktop hero — roughly 220 full
+    // interference periods packed edge to edge, which resolves visually as a
+    // repeating grid of high-frequency noise rather than water. Figma's own
+    // preview of this fill (fileKey cEgyhLlNbaIltuy4cZzWEt, node 430:3756)
+    // shows a handful of large, soft, cloud-like swirls; that only happens
+    // when the frame covers a single period.
+    //
+    // Note on Figma's "Scale" parameter (3.7 in the design file): it is not a
+    // plain multiplier on this coordinate space. Feeding it in as one — in
+    // either direction — visibly diverges from Figma's own render: dividing by
+    // it flattens the frame to ~1.7 radians of mush, multiplying by it tiles
+    // the pattern ~4x across the width. One period per frame is what actually
+    // matches the reference, so that is what's encoded here directly.
+    vec2 p = mod(uv * TAU, TAU) - 250.0;
+    vec2 i = p;
+    float c = 1.0;
+    float inten = mix(0.002519, 0.01178, uIntensity);
 
-    vec3 col = vec3(1.0);
-    col = mix(col, pink,   blob(p, c1, 0.55 * aspect) * 0.55);
-    col = mix(col, purple, blob(p, c2, 0.50 * aspect) * 0.50);
-    col = mix(col, peach,  blob(p, c3, 0.45 * aspect) * 0.40);
-    col = mix(col, purple, blob(p, c4, 0.40 * aspect) * 0.35);
+    for (int n = 0; n < MAX_ITER; n++) {
+      float nt = t_val * float(n + 1);
+      i = p + vec2(cos(nt - i.x) + sin(nt + i.y), sin(nt - i.y) + cos(nt + i.x));
+      c += 1.0 / length(vec2(p.x / (sin(i.x + nt) / inten), p.y / (cos(i.y + nt) / inten)));
+    }
+    c /= float(MAX_ITER);
+    c = 1.17 - pow(c, 1.4);
+    float causticMask = clamp(pow(abs(c), 8.0), 0.0, 1.0);
 
-    // warm light that follows the cursor and fades
-    vec2 m = uMouse;
-    m.x *= aspect;
-    float glow = blob(p, m, 0.34 * aspect) * uMouseStrength;
-    vec3 warm = vec3(1.000, 0.792, 0.835);
-    col = mix(col, warm, clamp(glow, 0.0, 1.0) * 0.6);
+    // Subtle pointer-driven ripple: a ring that radiates outward from the
+    // cursor and decays with distance, blended additively into the caustic
+    // mask so it reads as the existing water pattern responding to a touch
+    // rather than a separate effect fighting it. uRipple eases 0→1 on
+    // enter/leave (see RIPPLE_EASE in JS) for a smooth fade, not a snap.
+    vec2 aspect = dims / minDim;
+    float mouseDist = length((uvRaw - uMouse) * aspect);
+    float ripple = sin(mouseDist * 26.0 - t_val * 3.0) * exp(-mouseDist * 4.5);
+    causticMask = clamp(causticMask + ripple * uRipple * 0.35, 0.0, 1.0);
 
-    // keep it airy on white — never overpowering
-    col = mix(vec3(1.0), col, 0.85);
+    // Cap how far the highlight can push toward pure white. Uncapped, the
+    // caustic's brightest peaks hit causticMask == 1.0 (solid white) at some
+    // point in every animation cycle, which is bright enough to wash out the
+    // text sitting on top of it. Capping the mix keeps the shader's brightest
+    // moment a soft, subtle highlight rather than a hard white flare —
+    // matching the uniformly gentle look in the Figma reference.
+    float highlightMix = causticMask * 0.5;
 
-    // very subtle grain to avoid banding and feel premium
-    float grain = (hash(vUv * uResolution.xy) - 0.5) * 0.018;
-    col += grain;
+    float alpha = mix(uWaterColor.a, uHighlightColor.a, causticMask);
+    vec3 colour = mix(uWaterColor.rgb, uHighlightColor.rgb, highlightMix);
 
-    gl_FragColor = vec4(col, 1.0);
+    // Premultiplied alpha output, matching the Figma shader-fill contract.
+    gl_FragColor = vec4(colour * alpha, alpha);
   }
 `;
 
@@ -97,11 +152,12 @@ export const HeroBackground = ({ className, ...rest }) => {
   const uniforms = useRef();
   const start = useRef(Date.now());
 
-  // mouse state (smoothed)
-  const mouse = useRef(new Vector2(0.5, 0.5));
-  const mouseTarget = useRef(new Vector2(0.5, 0.5));
-  const strength = useRef(0);
-  const strengthTarget = useRef(0);
+  // Pointer-driven ripple state — normalized UV coords (y flipped to match
+  // the shader's bottom-up vUv), whether the pointer is currently over the
+  // hero, and the eased 0→1 strength used to fade the effect in/out.
+  const mouse = useRef({ x: 0.5, y: 0.5 });
+  const mouseInside = useRef(false);
+  const rippleStrength = useRef(0);
 
   const reduceMotion = useReducedMotion();
   const isInViewport = useInViewport(canvasRef);
@@ -112,9 +168,11 @@ export const HeroBackground = ({ className, ...rest }) => {
     renderer.current = new WebGLRenderer({
       canvas,
       antialias: false,
-      alpha: false,
+      alpha: true,
+      premultipliedAlpha: true,
       powerPreference: 'high-performance',
     });
+    renderer.current.setClearColor(0x000000, 0);
 
     // Lower resolution on mobile for performance; cap pixel ratio overall.
     const isMobile = window.innerWidth <= 696;
@@ -125,18 +183,31 @@ export const HeroBackground = ({ className, ...rest }) => {
     scene.current = new Scene();
 
     uniforms.current = {
-      uTime: { value: 0 },
-      uMouse: { value: new Vector2(0.5, 0.5) },
-      uMouseStrength: { value: 0 },
       uResolution: { value: new Vector2(1, 1) },
+      uWaterColor: { value: WATER_COLOR },
+      uHighlightColor: { value: HIGHLIGHT_COLOR },
+      uIntensity: { value: INTENSITY },
+      uPlayhead: { value: reduceMotion ? DEFAULT_PLAYHEAD : 0 },
+      uCenter: { value: CENTER },
+      uMouse: { value: new Vector2(0.5, 0.5) },
+      uRipple: { value: 0 },
     };
 
     material.current = new ShaderMaterial({
       vertexShader,
       fragmentShader,
       uniforms: uniforms.current,
+      transparent: true,
       depthTest: false,
       depthWrite: false,
+      // Premultiplied-alpha-correct blending so the caustic composites
+      // cleanly onto the (transparent) canvas without dark fringing.
+      blending: CustomBlending,
+      blendEquation: AddEquation,
+      blendSrc: OneFactor,
+      blendDst: OneMinusSrcAlphaFactor,
+      blendSrcAlpha: OneFactor,
+      blendDstAlpha: OneMinusSrcAlphaFactor,
     });
 
     mesh.current = new Mesh(new PlaneGeometry(2, 2), material.current);
@@ -146,43 +217,76 @@ export const HeroBackground = ({ className, ...rest }) => {
       const { clientWidth, clientHeight } = canvas;
       renderer.current.setSize(clientWidth, clientHeight, false);
       uniforms.current.uResolution.value.set(clientWidth, clientHeight);
-      // single static frame so reduced-motion users still see the wash
+      // single static frame so reduced-motion users still see the caustic
       renderer.current.render(scene.current, camera.current);
     };
 
     resize();
     window.addEventListener('resize', resize);
 
+    // The canvas's rendered CSS size can change for reasons that don't fire
+    // a window `resize` event — e.g. the `.hero` section growing due to a
+    // min-height media query, or layout reflow from the plant <img> loading
+    // asynchronously. Without observing the canvas element itself, the
+    // WebGL drawing buffer and uResolution can go stale relative to the
+    // canvas's actual displayed size, which desyncs this shader's
+    // per-pixel math (dims/minDim/uvPx all depend on uResolution being
+    // correct) and shows up as a stretched/distorted pattern.
+    // `renderer.setSize(w, h, false)` uses updateStyle=false, so it never
+    // touches the canvas's CSS box itself — only its drawing-buffer
+    // resolution — so this observer cannot trigger a resize-of-itself loop.
+    let resizeObserver;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => resize());
+      resizeObserver.observe(canvas);
+    }
+
     return () => {
       window.removeEventListener('resize', resize);
+      if (resizeObserver) resizeObserver.disconnect();
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // pointer tracking — relative to the hero canvas, y flipped for GL uv
+  // pointer tracking for the ripple effect — hero-local only (enter/leave
+  // gated on the canvas itself, which is sized to exactly match the hero),
+  // and skipped entirely for reduced-motion users since it's a motion effect.
   useEffect(() => {
+    if (reduceMotion) return undefined;
+
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) return undefined;
 
-    const onMove = event => {
+    const setFromEvent = event => {
       const rect = canvas.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = 1 - (event.clientY - rect.top) / rect.height;
-      mouseTarget.current.set(x, y);
-      strengthTarget.current = 1;
-    };
-    const onLeave = () => {
-      strengthTarget.current = 0;
+      if (!rect.width || !rect.height) return;
+      mouse.current.x = (event.clientX - rect.left) / rect.width;
+      // Flip Y: DOM coords are top-down, shader vUv is bottom-up.
+      mouse.current.y = 1 - (event.clientY - rect.top) / rect.height;
     };
 
-    if (!reduceMotion) {
-      canvas.addEventListener('mousemove', onMove);
-      canvas.addEventListener('mouseleave', onLeave);
-    }
+    const handlePointerEnter = event => {
+      mouseInside.current = true;
+      setFromEvent(event);
+    };
+    const handlePointerMove = event => {
+      setFromEvent(event);
+    };
+    const handlePointerLeave = () => {
+      mouseInside.current = false;
+    };
+
+    canvas.addEventListener('pointerenter', handlePointerEnter);
+    canvas.addEventListener('pointermove', handlePointerMove);
+    canvas.addEventListener('pointerleave', handlePointerLeave);
+
     return () => {
-      canvas.removeEventListener('mousemove', onMove);
-      canvas.removeEventListener('mouseleave', onLeave);
+      canvas.removeEventListener('pointerenter', handlePointerEnter);
+      canvas.removeEventListener('pointermove', handlePointerMove);
+      canvas.removeEventListener('pointerleave', handlePointerLeave);
+      mouseInside.current = false;
     };
   }, [reduceMotion]);
 
@@ -193,15 +297,15 @@ export const HeroBackground = ({ className, ...rest }) => {
     const animate = () => {
       animation = requestAnimationFrame(animate);
 
-      // smooth the pointer + glow strength
-      mouse.current.lerp(mouseTarget.current, 0.06);
-      strength.current += (strengthTarget.current - strength.current) * 0.05;
-      // glow gently fades when the pointer stops moving
-      strengthTarget.current *= 0.96;
+      const elapsedSeconds = 0.001 * (Date.now() - start.current);
+      uniforms.current.uPlayhead.value = (elapsedSeconds * PLAYHEAD_RATE) % 100.0;
 
-      uniforms.current.uTime.value = 0.001 * (Date.now() - start.current);
-      uniforms.current.uMouse.value.copy(mouse.current);
-      uniforms.current.uMouseStrength.value = strength.current;
+      // Ease the ripple strength toward 0/1 so it fades in/out smoothly
+      // instead of snapping on enter/leave.
+      const target = mouseInside.current ? 1 : 0;
+      rippleStrength.current += (target - rippleStrength.current) * RIPPLE_EASE;
+      uniforms.current.uMouse.value.set(mouse.current.x, mouse.current.y);
+      uniforms.current.uRipple.value = rippleStrength.current;
 
       renderer.current.render(scene.current, camera.current);
     };
@@ -209,6 +313,8 @@ export const HeroBackground = ({ className, ...rest }) => {
     if (!reduceMotion && isInViewport) {
       animate();
     } else if (renderer.current) {
+      // Frozen frame at the Figma default phase for reduced-motion users.
+      uniforms.current.uPlayhead.value = DEFAULT_PLAYHEAD;
       renderer.current.render(scene.current, camera.current);
     }
 
@@ -216,16 +322,22 @@ export const HeroBackground = ({ className, ...rest }) => {
   }, [isInViewport, reduceMotion]);
 
   return (
-    <Transition in timeout={2000}>
-      {visible => (
-        <canvas
-          aria-hidden
-          ref={canvasRef}
-          className={`${styles.canvas} ${className || ''}`}
-          data-visible={visible}
-          {...rest}
-        />
-      )}
-    </Transition>
+    <>
+      <Transition in timeout={2000}>
+        {visible => (
+          <canvas
+            aria-hidden
+            ref={canvasRef}
+            className={`${styles.canvas} ${className || ''}`}
+            data-visible={visible}
+            {...rest}
+          />
+        )}
+      </Transition>
+      {/* Soft gradient fade so the caustic wash dissolves into the page's
+          white background at the bottom of the hero instead of cutting off
+          in a hard rectangular edge. */}
+      <div className={styles.fade} aria-hidden />
+    </>
   );
 };

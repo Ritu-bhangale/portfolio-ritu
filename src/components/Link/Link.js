@@ -1,6 +1,7 @@
 import RouterLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
+import { playTap } from 'utils/sound';
 import styles from './Link.module.css';
 
 // File extensions that can be linked to
@@ -24,10 +25,15 @@ export const Link = forwardRef(({ href, ...rest }, ref) => {
 });
 
 export const LinkContent = forwardRef(
-  ({ rel, target, children, secondary, className, href, ...rest }, ref) => {
+  ({ rel, target, children, secondary, className, href, onClick, ...rest }, ref) => {
     const isExternal = href?.includes('://');
     const relValue = rel || (isExternal ? 'noreferrer noopener' : undefined);
     const targetValue = target || (isExternal ? '_blank' : undefined);
+
+    const handleClick = event => {
+      playTap();
+      onClick?.(event);
+    };
 
     return (
       <a
@@ -36,6 +42,7 @@ export const LinkContent = forwardRef(
         rel={relValue}
         href={href}
         target={targetValue}
+        onClick={handleClick}
         ref={ref}
         {...rest}
       >

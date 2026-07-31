@@ -3,6 +3,7 @@ import { useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { playTap } from 'utils/sound';
 import styles from './Navbar.module.css';
 import { navLinks, socialLinks } from './navData';
 
@@ -38,6 +39,7 @@ export const Navbar = () => {
 
   // Store the current hash to scroll to
   const handleNavItemClick = event => {
+    playTap();
     const hash = event.currentTarget.href.split('#')[1];
     setTarget(null);
 
@@ -106,6 +108,7 @@ const NavbarIcons = ({ desktop }) => (
         href={url}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={playTap}
       >
         <Icon className={styles.navIcon} icon={icon} />
       </a>

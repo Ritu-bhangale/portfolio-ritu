@@ -38,7 +38,7 @@
   }
   &[data-jarimg='true'] {
     &::before {
-      background-color: rgb(var(--rgbJar));
+      background-color: rgb(var(--rgbAccent));
     }
   }
 }

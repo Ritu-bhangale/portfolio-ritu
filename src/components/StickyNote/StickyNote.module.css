@@ -59,7 +59,7 @@
   margin: 0;
   color: var(--colors-dark-grey, #333);
   text-align: center;
-  font-family: 'Season Serif-TRIAL', var(--serifFontStack);
+  font-family: var(--serifFontStack);
 }
 
 .flipBody {
@@ -132,7 +132,7 @@
 .note[data-size='large'] .text {
   font-size: 1.25rem;
   font-style: normal;
-  font-weight: 720;
+  font-weight: var(--fontWeightBold);
   line-height: 150%;
   letter-spacing: 0.005rem;
 }
@@ -140,7 +140,7 @@
 .note[data-size='small'] .text {
   font-size: 1rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: var(--fontWeightBold);
   line-height: 145%;
   letter-spacing: 0.003rem;
 }

@@ -1,0 +1,103 @@
+/* 64px is the Figma gap from a section's text row down to its supporting
+   visual (e.g. node 555:9660 text ends at y=370, thumbnail starts at y=434).
+   It is not an existing token; space3XL is 60 and space4XL is 120. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  width: 100%;
+}
+
+/* Figma node 553:5940: a 295px headline column and a 453px description
+   column, 20px apart, summing to the 768px content width exactly. */
+.row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.headline {
+  flex: 0 0 295px;
+  max-width: 295px;
+  margin: 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+
+  /* 18px. No token sits between --fontSizeBodyS (14px) and --fontSizeBodyM
+     (20px), so this is a literal, matched exactly by .description below.
+     Line height is Figma's 22px line box on 18px text, and the tracking is
+     its 0.18px. */
+  font-size: 1.125rem;
+  line-height: 1.2222;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
+}
+
+/* 22px gap reproduces the empty paragraph Figma uses between the two
+   lead-in paragraphs of node 555:9659, one blank 22px line box. */
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+
+  /* Matched to .headline, see note above. */
+  font-size: 1.125rem;
+  line-height: 1.2222;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbTextSecondary));
+}
+
+.description p {
+  margin: 0;
+}
+
+/* Optional supporting visual, always full column width beneath the text. */
+.media {
+  width: 100%;
+}
+
+@media (--mediaTablet) {
+  .section {
+    gap: var(--spaceXL);
+  }
+
+  .row {
+    flex-direction: column;
+    gap: var(--spaceM);
+  }
+
+  .headline,
+  .description {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+}
+
+@media (--mediaMobile) {
+  .section {
+    gap: var(--spaceL);
+  }
+
+  .row {
+    gap: var(--spaceS);
+  }
+
+  .description {
+    gap: var(--spaceM);
+  }
+
+  /* Both columns previously kept their desktop 18px/1.2222, which is a tight
+     line box for a full-width paragraph on a 390px screen. 17px matches the
+     home page's project card hook (src/layouts/Home/Projects.module.css) and
+     the looser leading gives multi-line copy room to breathe. */
+  .headline,
+  .description {
+    font-size: 1.0625rem;
+    line-height: 1.4;
+  }
+}

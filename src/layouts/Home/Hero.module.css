@@ -1,302 +1,275 @@
+/* ── Home page section rhythm ───────────────────────────────────────────
+   Every section on the home page owns the SAME top and bottom padding —
+   --space4XL on desktop, --space2XL on tablet/mobile — so the gap at each
+   boundary is that value doubled and no section depends on what its
+   neighbour happens to declare. The one exception is this section's *top*:
+   it's the top of the page, not a section boundary, so it takes the 160px
+   top offset the Figma frame gives the text column (node 559:15758 starts at
+   y=160 inside frame 430:3752). There is no fixed nav on the home page. */
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  overflow: hidden;
   background: #fff;
-  padding: 88px var(--spaceOuter) var(--space5XL);
+  padding: 160px 0 var(--space4XL);
+}
+
+/* .plantImage (below) pins itself to the viewport's first fold via
+   `top: calc(100vh - height)`, independent of .hero's own content-driven
+   height. That positioning math is correct in viewport space, but paint
+   order defeats it whenever the bio text is short enough that .hero's own
+   box ends above 100vh: the plant, as an absolutely-positioned child,
+   still *visually* overflows past .hero's bottom edge, but the next
+   section (a later DOM sibling with its own opaque background) paints on
+   top of that overflow, hiding the bottom of the plant — including the pot
+   base the fold-pin exists to reveal. Forcing .hero to be at least
+   viewport-tall on the same breakpoint the plant appears on (1280px+)
+   keeps .hero's own box underneath the full plant, so nothing paints over
+   it. Scoped to this breakpoint only — mobile/tablet keep the
+   deliberately content-sized hero from earlier in this project. */
+@media (min-width: 1280px) {
+  /* 100vh + the section's own bottom padding, not a bare 100vh. The plant is
+     pinned to the fold (100vh) regardless of this box's height, so a flat
+     100vh made the hero end exactly at the plant's base and swallowed the
+     --space4XL bottom padding whole — Hero → Projects came out at half the
+     gap every other boundary has. Adding the padding onto the min-height puts
+     that gap *below* the fold-pinned artwork, which is where it belongs. */
+  .hero {
+    min-height: calc(100vh + var(--space4XL));
+  }
 }
 
 @media (--mediaTablet) {
   .hero {
-    min-height: auto;
-    padding: 72px var(--spaceOuter) var(--space4XL);
+    padding: 72px var(--spaceOuter) var(--space2XL);
   }
 }
 
 @media (--mediaMobile) {
   .hero {
-    padding: 56px var(--spaceOuter) var(--space3XL);
+    padding: 56px var(--spaceOuter) var(--space2XL);
   }
 }
 
+/* pointer-events: none here (re-enabled below on the actual interactive
+   bits) — .inner is width: 100% and paints above .plantImage since it comes
+   later in the DOM, so without this its empty margin area (everywhere that
+   isn't the centered 768px text column) would sit in front of the plant
+   photo and swallow the hover meant for it, even though nothing is visibly
+   there. */
 .inner {
   position: relative;
-  z-index: 1;
   width: 100%;
-  max-width: var(--maxWidthL);
+  pointer-events: none;
+}
+
+/* Centered 768px text column, matching every other section on the page */
+.content {
+  position: relative;
+  z-index: 0;
+  max-width: 768px;
   margin: 0 auto;
 }
 
-/* ---- Email header rows ---- */
-.head {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: var(--space2XL);
-  max-width: 760px;
-  border-bottom: 1px solid rgb(var(--rgbStroke));
-  padding-bottom: var(--space2XL);
+/* Decorative plant photo — a free-floating element anchored to the
+   bottom-right corner of the viewport's first fold, sitting behind the
+   text column. It's not part of the content flow and never affects the
+   centered 768px column's layout. Hidden below a width where it would
+   crowd the text.
+
+   Box geometry matches the Figma spec (fileKey cEgyhLlNbaIltuy4cZzWEt,
+   node 430:3780, "Hero section plant"): a 523.33×785 box (≈2:3), rendered
+   with object-fit: cover — confirmed by Figma's own generated markup
+   (`object-cover`, `size-full`). The image asset itself
+   (hero-plant-cover.png, pulled directly from Figma's fill) is already an
+   exact 768×1152 (2:3) crop, so cover never actually has to crop anything —
+   it's a clean scale-to-fit, matching Figma pixel-for-pixel instead of the
+   old native-photo-aspect (1528×3140 ≈ 0.487) asset, which was a much
+   narrower/taller crop and rendered as a thin sliver next to the text.
+
+   Positioning: the pot's base is pinned to the bottom of the viewport's
+   first fold (100vh from the top on initial load), not to .hero's own
+   bottom edge. Since Hero is the first element on the page (no fixed
+   header offsetting it), .hero's top === the viewport's top at load, so
+   `top: calc(100vh - height)` pins the box's bottom to 100vh directly —
+   this also needs the `.hero { min-height: 100vh }` rule above so .hero's
+   own box actually reaches that point (see the comment there for why).
+
+   .plantImage is now the positioning wrapper for a two-layer cross-fade:
+   .plantPhoto (the real photo) and .plantDither (a pre-baked ordered/Bayer
+   dither of the same crop, quantized to the site's accent blue + white —
+   the same technique as the footer mountains and section icons) are
+   stacked absolutely on top of each other at identical size. The dither
+   layer sits at opacity 0 and fades to 1 on wrapper :hover, so hovering the
+   plant swaps it to its halftone twin and mousing out fades it back — a
+   plain CSS opacity transition, no JS. The wrapper needs real pointer
+   events (unlike the old single <img>, which was pointer-events: none) so
+   it can actually receive the :hover in the first place; the box doesn't
+   overlap the text column at any width this breakpoint block applies to,
+   so there's nothing behind it for pointer-events to conflict with. */
+.plantImage {
+  display: none;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 78px 1fr;
-  align-items: center;
-  gap: 32px;
-  min-height: 48px;
-}
+@media (min-width: 1280px) {
+  .plantImage {
+    display: block;
+    position: absolute;
+    right: -180px;
+    top: calc(100vh - 785px);
+    height: 785px;
+    width: auto;
+    aspect-ratio: 2 / 3;
 
-@media (--mediaMobile) {
-  .row {
-    grid-template-columns: 72px 1fr;
-    gap: var(--spaceL);
+    /* Even Figma's tightly-cropped asset still carries ~9.9% transparent
+       padding below the pot's saucer baked into its canvas (a real photo,
+       not a hand-trimmed crop). translateY(9.9%) — resolved against this
+       element's own height — shifts the pot's true base down to the box's
+       nominal bottom (100vh) instead of leaving that margin as a gap above
+       it; the transparent overflow it pushes past the box's edges is
+       invisible either way. */
+    transform: translateY(9.9%);
+    pointer-events: auto;
   }
 }
 
-.rowLabel {
-  font-family: var(--fontStack);
-  font-size: 14px;
-  font-weight: var(--fontWeightSemiBold);
-  letter-spacing: 0.336px;
-  text-transform: uppercase;
-  color: #8c8c8c;
-}
-
-.rowValue {
-  min-width: 0;
-}
-
-/* ---- FROM: ritu's [desk] with a select-arrow ---- */
-.fromRow {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Figma cursor floats just above-left of the "r", tip pointing into the word */
-.fromCursor {
+.plantPhoto,
+.plantDither {
   position: absolute;
-  left: -6px;
-  top: -22px;
-  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.28));
-}
-
-.fromText {
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightSemiBold);
-  font-size: 24px;
-  letter-spacing: 0.288px;
-  color: rgb(var(--rgbTextPrimary));
-}
-
-/* ---- Easter egg: hover "ritu's desk" → particles assemble into desk photo ---- */
-.deskPopover {
-  position: absolute;
-  left: calc(100% + 32px);
-  top: -48px;
-  width: 216px;
-  aspect-ratio: 1184 / 864;
-  pointer-events: none;
-  z-index: 8;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0s 0.3s;
-}
-
-@media (--mediaTablet) {
-  .deskPopover {
-    display: none;
-  }
-}
-
-.deskPopover[data-show='true'] {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.15s ease;
-}
-
-/* polaroid: blurred + shrunk until the particles "finish assembling" it */
-.deskImg {
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
-  border: 4px solid #fff;
-  box-shadow: 0 14px 36px rgb(0 0 0 / 0.2);
-  opacity: 0;
-  transform: rotate(-3deg) scale(0.88);
-  filter: blur(12px);
-  transition: opacity 0.45s ease, transform 0.55s var(--bezierFastoutSlowin),
-    filter 0.55s ease;
+  pointer-events: none;
 }
 
-.deskPopover[data-show='true'] .deskImg {
+.plantDither {
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.plantImage:hover .plantDither {
   opacity: 1;
-  transform: rotate(-3deg) scale(1);
-  filter: blur(0);
-  transition-delay: 0.38s;
 }
 
-/* reduced motion: plain crossfade, no convergence choreography */
-.deskPopover[data-reduced='true'] .deskImg {
-  transform: rotate(-3deg) scale(1);
-  filter: none;
-  transition: opacity 0.3s ease;
-  transition-delay: 0s;
-}
-
-.deskParticles {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.deskParticle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.deskPopover[data-show='true'] .deskParticle {
-  animation: deskParticleIn 0.85s var(--delay) both
-    cubic-bezier(0.2, 0.7, 0.3, 1);
-}
-
-@keyframes deskParticleIn {
-  0% {
-    opacity: 0;
-    transform: translate(var(--dx), var(--dy)) scale(0.3);
-  }
-  25% {
-    opacity: 1;
-  }
-  62% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, 0) scale(1.15);
+@media (--mediaReduceMotion) {
+  .plantDither {
+    transition: none;
   }
 }
 
-/* ---- Figma selection frame (From "desk" + To "you") ---- */
-.selectionFrame {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 0px 6px;
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightSemiBold);
+/* Between 1280-1600px the box can crowd close to the text column's right
+   edge (both the plant and .content's 768px column compete for a viewport
+   that isn't much wider than their combined width) — scale it down a bit
+   so it reads as a corner accent rather than overlapping the paragraph. */
+@media (min-width: 1280px) and (max-width: 1600px) {
+  .plantImage {
+    height: 620px;
+    top: calc(100vh - 620px);
+  }
+}
+
+/* Type specs below are read straight off Figma node 559:15741. Tracking is
+   expressed in em so it survives the responsive font-size steps: Figma quotes
+   it in px against the desktop size (0.288px/24px, 0.36px/72px, 0.224px/28px,
+   0.48px/20px). */
+.eyebrow {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightLight);
   font-size: 24px;
-  letter-spacing: 0.288px;
-  border: 1.5px solid var(--frameColor);
   line-height: 1.5;
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextMuted));
 }
 
-/* dark frame: grey border/handles, near-black text (Figma) */
-.frame_dark {
-  --frameColor: #4d4d4d;
-  color: #0f0f0f;
+/* #002BBA is a one-off in the design — deliberately a touch brighter than the
+   site accent (#2944A6), which Figma keeps for the project-card titles. */
+.name {
+  margin: 0 0 96px;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 72px;
+  line-height: 1.3333;
+  letter-spacing: 0.005em;
+  color: #002bba;
 }
 
-.frame_blue {
-  --frameColor: rgb(var(--rgbAccent));
-  color: rgb(var(--rgbAccent));
-  cursor: none;
-  transition: transform var(--durationS) var(--bezierFastoutSlowin);
-}
-
-.youFrame:hover {
-  transform: translateY(-1px);
-}
-
-.youText {
-  font-weight: var(--fontWeightSemiBold);
-  color: rgb(var(--rgbAccent));
-}
-
-/* corner handles — hollow squares (white fill + thin border) like Figma */
-.handle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border: 1px solid var(--frameColor);
-}
-
-.handleTL { top: -2px; left: -2px; }
-.handleTR { top: -2px; right: -2px; }
-.handleBL { bottom: -2px; left: -2px; }
-.handleBR { bottom: -2px; right: -2px; }
-
-/* ---- Contact row — plain icon + text, no pills ---- */
-.contactRow {
-  display: inline-flex;
-  align-items: center;
+.body {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  flex-wrap: wrap;
+  max-width: 768px;
+  margin: 0 0 52px;
 }
 
-.contactChip {
+.bodyPara {
+  margin: 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 28px;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: rgb(var(--rgbTextPrimary));
+}
+
+@media (--mediaTablet) {
+  .bodyPara {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .name {
+    font-size: 48px;
+  }
+}
+
+@media (--mediaMobile) {
+  .bodyPara {
+    font-size: 1.125rem; /* 18px */
+  }
+
+  .body {
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .name {
+    font-size: 40px;
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    font-size: 18px;
+  }
+}
+
+.resumeRow {
+  margin: 0 0 24px;
+}
+
+.resumeButton {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightRegular);
-  font-size: 20px;
-  letter-spacing: 0.48px;
-  color: #4d4d4d;
-  text-decoration: none;
-  transition: color var(--durationS) ease;
-}
-
-.contactChip svg {
-  width: 24px;
-  height: 24px;
-  color: rgb(var(--rgbTextSecondary));
-}
-
-.contactChip:hover {
-  color: rgb(var(--rgbAccent));
-}
-
-.contactChip:hover svg {
-  color: rgb(var(--rgbAccent));
-}
-
-/* ---- Resume attachment ---- */
-.attachment {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 16px;
+  padding: 4px 20px 4px 4px;
   border: 1px solid rgb(var(--rgbStroke));
   border-radius: 100px;
-  background: #fff;
   text-decoration: none;
   color: rgb(var(--rgbTextPrimary));
-  overflow: visible;
-  transition: border-color var(--durationS) var(--bezierFastoutSlowin);
+
+  /* .inner disables pointer-events on itself so its empty margin doesn't
+     block the plant photo's hover (see .inner) — reinstate them here since
+     this is an actual interactive element. */
+  pointer-events: auto;
+  transition: border-color var(--durationS) ease, color var(--durationS) ease;
 }
 
-.attachment:hover {
+.resumeButton:hover {
   border-color: rgb(var(--rgbAccent));
-}
-
-.attachment:hover .attachmentLabel {
   color: rgb(var(--rgbAccent));
 }
 
-/* app-icon tile stack — three rounded square tiles, offset + tilt (Figma).
-   Each image is a complete app icon, so it fills the tile edge-to-edge. */
+/* Three logo tiles (Jar, Upstox, ET Money), fanned/overlapping at rest,
+   that spread apart on hover — a nod to the apps built at each workplace. */
 .tileStack {
   position: relative;
   flex-shrink: 0;
@@ -328,252 +301,142 @@
 }
 
 /* resting positions/tilts, back→front */
-.tileJar { left: 26px; top: 2px; transform: rotate(6deg); z-index: 1; }
-.tileUpstox { left: 14px; top: 5px; transform: rotate(-3deg); z-index: 2; }
-.tileEtmoney { left: 0; top: -2px; transform: rotate(-2deg); z-index: 3; }
+.tileJar {
+  left: 26px;
+  top: 2px;
+  transform: rotate(6deg);
+  z-index: 1;
+}
 
-/* fan out on hover — ET Money up-left, Jar right+up, Upstox down (per Figma) */
-.attachment:hover .tileEtmoney { transform: translate(-7px, -16px) rotate(-9deg); }
-.attachment:hover .tileJar { transform: translate(17px, -12px) rotate(12deg); }
-.attachment:hover .tileUpstox { transform: translate(2px, 16px) rotate(-12deg); }
+.tileUpstox {
+  left: 14px;
+  top: 5px;
+  transform: rotate(-3deg);
+  z-index: 2;
+}
 
-.attachmentLabel {
+.tileEtmoney {
+  left: 0;
+  top: -2px;
+  transform: rotate(-2deg);
+  z-index: 3;
+}
+
+/* fan out on hover — ET Money up-left, Jar right+up, Upstox down */
+.resumeButton:hover .tileEtmoney {
+  transform: translate(-7px, -16px) rotate(-9deg);
+}
+
+.resumeButton:hover .tileJar {
+  transform: translate(17px, -12px) rotate(12deg);
+}
+
+.resumeButton:hover .tileUpstox {
+  transform: translate(2px, 16px) rotate(-12deg);
+}
+
+@media (--mediaReduceMotion) {
+  .tile {
+    transition: none;
+  }
+}
+
+.resumeLabel {
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
-  font-size: 20px;
-  letter-spacing: 0.48px;
-  color: #4d4d4d;
+  font-size: 18px;
+  letter-spacing: var(--letterSpacingDefault);
 }
 
-.attachmentDownload {
-  display: inline-flex;
-  color: rgb(var(--rgbAccent));
-}
-
-.attachmentDownload svg {
-  width: 24px;
-  height: 24px;
-}
-
-.attachment:hover .attachmentDownload {
-  color: rgb(var(--rgbAccent));
-}
-
-/* ---- Letter body — scroll-scrubbed typewriter (extra.email style) ---- */
-.body {
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightMedium);
-  font-size: 48px;
-  line-height: 1.5;
-  letter-spacing: 0.384px;
-  color: rgb(var(--rgbTextPrimary));
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-@media (--mediaTablet) {
-  .body {
-    font-size: 2.5rem; /* 40px */
-  }
+.resumeDownloadIcon {
+  display: flex;
+  align-items: center;
 }
 
 @media (--mediaMobile) {
-  .body {
-    font-size: 1.75rem; /* 28px */
-  }
-}
-
-/* ---- Hero header: phone-screen scaling ---- */
-@media (--mediaMobile) {
-  .head {
-    gap: 18px;
-  }
-
-  .row {
-    grid-template-columns: 64px 1fr;
-    gap: 16px;
-    min-height: 0;
-  }
-
-  .rowLabel {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-  }
-
-  /* ritu's / desk / you */
-  .fromText,
-  .selectionFrame {
-    font-size: 19px;
-  }
-
-  .fromRow {
-    gap: 8px;
-  }
-
-  .fromCursor {
-    width: 18px;
-    height: auto;
-    left: -2px;
-    top: -16px;
-  }
-
-  /* contact stacks; email shrinks + wraps so it never overflows */
-  .contactRow {
-    flex-direction: column;
-    align-items: flex-start;
+  .resumeButton {
+    padding: 3px 16px 3px 3px;
     gap: 10px;
   }
 
+  .tileStack {
+    width: 64px;
+    height: 38px;
+  }
+
+  .tile {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .tileJar {
+    left: 21px;
+    top: 2px;
+  }
+
+  .tileUpstox {
+    left: 11px;
+    top: 4px;
+  }
+
+  .tileEtmoney {
+    left: 0;
+    top: -1px;
+  }
+
+  .resumeLabel {
+    font-size: 16px;
+  }
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.contactChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 20px;
+  letter-spacing: 0.024em;
+  color: rgb(var(--rgbTextSecondary));
+  text-decoration: none;
+
+  /* see .inner — reinstate pointer events for this interactive element */
+  pointer-events: auto;
+  transition: color var(--durationS) ease;
+}
+
+.contactChip svg {
+  width: 24px;
+  height: 24px;
+  color: rgb(var(--rgbTextSecondary));
+}
+
+.contactChip:hover,
+.contactChip:hover svg {
+  color: rgb(var(--rgbAccent));
+}
+
+@media (--mediaMobile) {
+  .contactRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
   .contactChip {
-    font-size: 15px;
-    letter-spacing: 0;
-    gap: 6px;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
+    font-size: 16px;
   }
 
   .contactChip svg {
     width: 20px;
     height: 20px;
-    flex-shrink: 0;
-  }
-
-  /* Hide email on mobile, keep LinkedIn */
-  .contactChip:first-child {
-    display: none;
-  }
-
-  .attachmentLabel {
-    font-size: 16px;
-  }
-
-  .attachment {
-    padding: 4px 14px;
-    gap: 8px;
-  }
-
-  /* Reduce tile stack sizes on mobile */
-  .tileStack {
-    width: 60px;
-    height: 35px;
-  }
-
-  .tile {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-  }
-
-  .tileJar { left: 20px; top: 1px; }
-  .tileUpstox { left: 11px; top: 4px; }
-  .tileEtmoney { left: 0; top: -2px; }
-
-  .attachment:hover .tileEtmoney { transform: translate(-5px, -12px) rotate(-9deg); }
-  .attachment:hover .tileJar { transform: translate(13px, -10px) rotate(12deg); }
-  .attachment:hover .tileUpstox { transform: translate(1px, 12px) rotate(-12deg); }
-}
-
-/* The wrap reserves the full text height (via the ghost copy) so the page
-   layout stays stable while the animated copy types in over the top of it. */
-.revealWrap {
-  position: relative;
-}
-
-/* readable, layout-sizing copy — fades out once the typewriter takes over */
-.ghost {
-  opacity: 1;
-}
-
-.active .ghost {
-  opacity: 0;
-}
-
-/* animated copy, overlaid on the ghost; hidden until the script is live */
-.bodyAnim {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-.active .bodyAnim {
-  opacity: 1;
-}
-
-.char {
-  display: inline;
-}
-
-/* blinking accent caret that leads the reveal */
-.caret {
-  display: inline-block;
-  width: 0.055em;
-  min-width: 2px;
-  height: 0.92em;
-  margin: 0 0.04em -0.12em 0.06em;
-  border-radius: 1px;
-  background: rgb(var(--rgbAccent));
-  vertical-align: baseline;
-  animation: caretBlink 1.06s steps(1, end) infinite;
-}
-
-@keyframes caretBlink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-/* ---- Figma multiplayer cursor for "You" ---- */
-.figmaCursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--zIndex5);
-  display: flex;
-  align-items: flex-start;
-  gap: 2px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--durationXS) ease;
-  will-change: transform;
-}
-
-.figmaCursor[data-on='true'] {
-  opacity: 1;
-}
-
-.figmaCursorIcon {
-  color: rgb(var(--rgbAccent));
-  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
-}
-
-.figmaLabel {
-  margin-top: 12px;
-  margin-left: -2px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgb(var(--rgbAccent));
-  color: #fff;
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightSemiBold);
-  font-size: 11px;
-  line-height: 1.4;
-  box-shadow: 0 4px 10px -3px rgb(var(--rgbAccent) / 0.5);
-}
-
-/* ---- Reduced motion ---- */
-@media (--mediaReduceMotion) {
-  /* no typewriter — the static ghost copy stays visible (script bails early) */
-  .caret {
-    animation: none;
-  }
-  .youFrame:hover,
-  .attachment:hover {
-    transition: none;
   }
 }

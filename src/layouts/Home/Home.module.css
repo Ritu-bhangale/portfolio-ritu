@@ -1,15 +1,9 @@
-/* top layer — sits above the fixed footer (z-index) with a rounded bottom edge.
-   Its bottom margin opens a viewport-tall gap so, as you scroll to the end, the
-   layer slides up and reveals the footer pinned underneath (popcorn.space style). */
 .pageLayer {
   position: relative;
   z-index: 1;
   width: 100%;
   background: #fff;
   overflow: clip;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-  margin-bottom: 65vh;
 }
 
 @media (--mediaMobile) {

@@ -12,8 +12,9 @@ const baseTokens = {
   durationXL: '800ms',
   systemFontStack:
     'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
-  fontStack: `'Season Sans', var(--systemFontStack)`,
+  fontStack: `'Clash Grotesk', var(--systemFontStack)`,
   serifFontStack: `'Season Serif', Georgia, serif`,
+  letterSpacingDefault: '0.012em',
   monoFontStack:
     'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
   japaneseFontStack:
@@ -52,6 +53,8 @@ const baseTokens = {
   space3XL: '60px',
   space4XL: '120px',
   space5XL: '240px',
+  radiusM: '24px',
+  radiusPill: '9999px',
   zIndex0: 0,
   zIndex1: 4,
   zIndex2: 8,
@@ -117,12 +120,13 @@ const tokensMobileSmall = {
 
 const theme = {
   /* Backgrounds */
-  rgbBackground: '255 255 254', // #FFFFFE (bg-1)
+  rgbBackground: '255 255 255', // #FFFFFF (bg-1)
   rgbBackgroundAlt: '245 245 245', // #F5F5F5 (bg-2)
 
   /* Text */
   rgbTextPrimary: '15 15 15', // #0F0F0F
   rgbTextSecondary: '77 77 77', // #4D4D4D
+  rgbTextMuted: '99 99 99', // #636363 (serif labels/eyebrows)
   rgbTextTertiary: '253 253 253', // #FDFDFD (only if needed)
 
   /* Stroke */
@@ -130,7 +134,6 @@ const theme = {
 
   /* Primary & Accent */
   rgbPrimary: '15 15 15', // #0f0f0f (black for buttons)
-  rgbJar: '83 10 192',
   rgbError: '255 0 60',
 
   /* Derived CSS vars */
@@ -138,11 +141,12 @@ const theme = {
   colorTextBody: 'rgb(var(--rgbTextPrimary) / 1)',
   colorTextMuted: 'rgb(var(--rgbTextSecondary) / 1)',
   colorTextLight: 'rgb(var(--rgbTextSecondary) / 1)',
+  colorTextLabel: 'rgb(var(--rgbTextMuted) / 1)',
   colorStroke: 'rgb(var(--rgbStroke) / 1)',
   rgbText: '15 15 15',
   rgbBackgroundLight: '245 245 245',
 
-  rgbAccent: '222 0 104', // #DE0068
+  rgbAccent: '41 68 166', // #2944A6
   colorAccent: 'rgb(var(--rgbAccent) / 1)',
 };
 

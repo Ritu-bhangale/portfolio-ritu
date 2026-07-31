@@ -1,0 +1,62 @@
+.teaser {
+  position: relative;
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+
+  /* Section rhythm: see the note on `.hero`. */
+  padding: var(--space4XL) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space2XL);
+}
+
+@media (--mediaTablet) {
+  .teaser {
+    padding: var(--space2XL) var(--spaceOuter);
+  }
+}
+
+/* Same heading pattern as Projects' `.sectionHead` / `.sectionTitle` — the
+   dithered mark sits directly above an h2 in the shared muted title
+   treatment, so this section reads as a peer of "Selected works" rather than
+   a stray paragraph. */
+.sectionHead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 24px;
+  font-style: normal;
+  color: rgb(var(--rgbTextMuted));
+  letter-spacing: var(--letterSpacingDefault);
+}
+
+.sectionSubtext {
+  margin: var(--spaceS) 0 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 16px;
+  color: rgb(var(--rgbTextSecondary));
+  letter-spacing: var(--letterSpacingDefault);
+}
+
+.videoPlaceholder {
+  width: 100%;
+  max-width: 480px;
+  height: 400px;
+  background: rgb(var(--rgbBackgroundAlt));
+  border-radius: var(--radiusM);
+}
+
+@media (--mediaMobile) {
+  .videoPlaceholder {
+    max-width: 100%;
+    height: 260px;
+  }
+}

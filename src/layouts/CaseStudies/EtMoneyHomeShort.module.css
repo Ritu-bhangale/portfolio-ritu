@@ -1,693 +1,448 @@
-/* ── Base ─────────────────────────────────────────────────────────────────── */
+/* Every measurement in this file is taken off Figma node 570-16337 (file
+   cEgyhLlNbaIltuy4cZzWEt), the full ET Money case study page, whose "Main"
+   frame is 768 wide. Node ids are noted per rule. */
 
-.article {
-  width: 100%;
-  position: relative;
-  /* Figma Summer palette */
-  --accentBlue: #0065d8; /* Summer/blue/1 */
-  --accentCyan: #6cc8ef; /* Summer/blue/2 */
-  --accentWarn: #ff4c4c;
-  --textLight: #fdfdfd; /* Text/3 — on dark */
-  --textMuted2: #4d4d4d; /* Text/2 */
-  /* Figma serif tracking ≈ 0.004em (0.08px @ 20px, 0.256px @ 64px) */
-  --serifTrack: 0.004em;
-  /* Figma content frame = 1080px wide (180px margins on a 1440 canvas) */
-  --pageMax: 1080px;
-  --pagePad: 24px;
-  /* backgroundColor animated by framer-motion */
-}
+/* ── Page ─────────────────────────────────────────────────────────────────── */
 
-/* Shared page container — matches Figma 1080px content width */
 .page {
   width: 100%;
-  max-width: var(--pageMax);
+  background: rgb(var(--rgbBackground));
+
+  /* Top padding is deliberately identical to the home hero's
+     (src/layouts/Home/Hero.module.css .hero) at every breakpoint — 88/72/56 —
+     so the first line of content sits at the same height whether you are on
+     the landing page or a case study. Figma leaves 136px above the back pill
+     here, but matching the home hero and the mutual funds dashboard page
+     matters more than that 48px. */
+  padding: 88px 0 var(--space4XL);
+}
+
+@media (--mediaTablet) {
+  .page {
+    padding: 72px var(--spaceOuter) var(--space3XL);
+  }
+}
+
+@media (--mediaMobile) {
+  .page {
+    padding: 56px var(--spaceOuter) var(--space2XL);
+  }
+}
+
+/* Same 768px centered column used everywhere else on this site, and the exact
+   width of the "Main" frame in Figma (node 570:16338). The gaps between the
+   top-level blocks are not uniform on this page, so every child carries its
+   own margin instead of a single flex gap. */
+.container {
+  position: relative;
+  max-width: 768px;
   margin: 0 auto;
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
-}
-
-/* ── Shared sticky container ──────────────────────────────────────────────── */
-
-.sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-/* ── Scene wrappers — height = how long you spend scrolling each scene ─────── */
-
-.scene1Wrap { height: 120vh; }
-/* Figma stacks Problem directly above Root (240px gap) with no full-screen
-   dwell between them. Heights kept just above 100vh so each scene pins for one
-   viewport with a short reveal scrub — the reveal now runs to ~0.85 of each
-   scene (see rangeEnd values) so there is almost no static pinned scroll left
-   over, which is what read as excess empty space before. */
-.scene2Wrap { height: 130vh; }
-.scene3Wrap { height: 125vh; }
-
-/* scenes 4–7 are regular flow — solid white so the dark→light boundary is a
-   clean hard cut (no fade): each paints over the black article background. */
-.scene4Wrap {
-  position: relative;
-  background: #fffffe;
-  display: flex;
-  align-items: center;
-  padding: var(--space4XL) 0;
-}
-.scene5Wrap {
-  position: relative;
-  background: #fffffe;
-  min-height: 150vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space4XL) 0;
-}
-.scene6Wrap {
-  position: relative;
-  background: #fffffe;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space4XL) 0 var(--space2XL);
-}
-.scene7Wrap {
-  position: relative;
-  background: #fffffe;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space2XL) var(--spaceOuter) var(--space4XL);
 }
 
-/* ── Scene 1: Hero ───────────────────────────────────────────────────────── */
+/* ── Header ───────────────────────────────────────────────────────────────── */
 
-/* Figma atmosphere: cool blue dominates the upper area, cream glow stays
-   concentrated around the phone (lower-center) — no broad cream spread. */
-.heroGradient {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(46% 34% at 50% 82%, rgba(255, 245, 205, 0.9) 0%, rgba(255, 245, 205, 0) 70%),
-    linear-gradient(180deg, #d8f0ff 0%, #ecf7ff 34%, #ffffff 72%, #fffdf6 100%);
-  pointer-events: none;
+/* Figma node 570:16340 spaces the back pill 52px above the title block, where
+   the mutual funds dashboard page uses 64px. CaseStudyHeader's .content gap is
+   24px, so the pill's own margin has to make up the remaining 28px. */
+.header {
+  --caseStudyBackGap: 28px;
 }
 
-/* Figma comp (hero frame 1440×836): headline upper-center, phone emerges from
-   lower portion anchored to the hero bottom edge and cropped by it. Both meet
-   near center — phone top (y411 ≈ 49%) overlaps headline lower line. */
-.heroInner {
-  position: relative;
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+
+/* Node 572:20473: 768 x 421.538, 7.385px radius, sitting 52px under the
+   Role/Timeline row. The 2x export already carries its own dark cover, so this
+   is a plain full-width image. */
+.hero {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin-top: 52px;
+  border-radius: 7.385px;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────────── */
+
+/* Every text block in Figma opens and closes with 80px of padding, so the
+   distance from one section's closing visual to the next section's headline
+   measures 160px (node 570:16385 ends at y=2888.5 with 80px of its own bottom
+   padding, and node 570:16450's text starts 80px in). The 160px above the
+   first headline is the same pair of paddings around the hero. */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+  margin-top: 160px;
+}
+
+/* Node 570:17921 sits 64px under the section text (CaseStudySection's own
+   gap), and node 572:19422 a further 64px under that, with its centred caption
+   32px above the approach mockups (node 570:17960 at y=54 under a 22px line). */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.approaches {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Node 572:19419: 18px Clash Grotesk Medium, 0.18px tracking, accent blue,
+   centred over the 768px column. */
+.approachesCaption {
+  margin: 0;
   text-align: center;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 1.125rem;
+  line-height: 1.2222;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
 }
 
-/* Figma: headline x182 y291 w1076 — Season Serif Regular 64px, lh1.5, ls0.256px.
-   Sits in upper-center (top ≈ 35% of hero), full content width, centered. */
-.heroHeadline {
-  position: absolute;
-  top: 34%;
-  left: 50%;
-  transform: translateX(-50%);
+/* Node 572:20476 is a full-bleed image block with no padding of its own, so
+   the only space above it is the previous section's 80px bottom padding. */
+.exploreScroll {
+  margin-top: 80px;
+}
+
+/* Every supporting visual on this page is a flat 2x export of a Figma image
+   frame that already contains its own tinted card, rounded corners and any
+   annotations, so it needs no wrapper, background or radius here. */
+.figure {
+  display: block;
   width: 100%;
-  max-width: var(--pageMax);
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
+  height: auto;
+}
+
+/* ── Impact ───────────────────────────────────────────────────────────────── */
+
+/* Node 570:17106: 120px vertical padding, 32px from the "Impact" label to the
+   stack of results, and 48px between each item in that stack. */
+.impact {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 120px;
+}
+
+/* Node 572:20541: Season Serif Light 32px, 24px line box, 0.64px tracking,
+   in secondary grey. */
+.impactHeading {
+  margin: 0;
   font-family: var(--serifFontStack);
-  font-size: clamp(2rem, 4.6vw, 64px);
-  line-height: 1.5;
-  letter-spacing: var(--serifTrack);
-  color: #0f0f0f;
+  font-weight: var(--fontWeightLight);
+  font-size: var(--fontSizeH4);
+  line-height: 0.75;
+  letter-spacing: 0.02em;
+  color: rgb(var(--rgbTextSecondary));
+}
+
+.impactBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space2XL);
+}
+
+/* ── Outcome stats ────────────────────────────────────────────────────────── */
+
+/* Nodes 570:17107, 572:20537 and 572:20538: value and label 16px apart, and
+   the two trailing stats share a row as equal columns 16px apart. */
+.statRow {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Season Serif Medium 64px, 0.64px tracking. Figma's literal fill is #002bba;
+   this uses the site's own accent token (#2944A6) so the page stays in one
+   palette with the rest of the site. */
+.statValue {
+  font-family: var(--serifFontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 4rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
+  font-variant-numeric: tabular-nums;
+}
+
+/* Clash Grotesk Regular 24px, 0.336px tracking, in primary text. */
+.statLabel {
+  font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
-  margin: 0;
+  font-size: var(--fontSizeH5);
+  line-height: 1.25;
+  letter-spacing: 0.014em;
+  color: rgb(var(--rgbTextPrimary));
 }
 
-/* "10M+" — Season Serif Bold, Summer/blue/2 */
-.accentCyan {
-  color: var(--accentCyan);
-  font-weight: var(--fontWeightBold);
-}
+/* ── Read full case study ─────────────────────────────────────────────────── */
 
-/* "discover" — Season Serif Bold Italic, Summer/blue/1 */
-.accentBlue {
-  color: var(--accentBlue);
-  font-style: italic;
-  font-weight: var(--fontWeightBold);
-}
-
-/* Device emerges from below the fold: its top edge sits just under the headline
-   (top ≈ 57%, right below the headline's lower line — no empty gap) and the
-   majority of the phone runs past the hero boundary, cropped by the sticky.
-   Only the upper portion (status bar / search / first cards) stays visible —
-   immediate connection to the headline, curiosity about what's below. */
-.heroPhoneWrap {
-  position: absolute;
-  left: 50%;
-  top: 57%;
-  transform: translateX(-50%);
-  width: min(430px, 64vw);
-  pointer-events: none;
-}
-
-.heroPhone {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 36px 36px 0 0;
-  filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.16));
-}
-
-/* ── Phone-flanked scenes (Problem + Root) ───────────────────────────────── */
-
-/* Figma: 3 cols ~320px each, visual centered, 1080 content width.
-   Left text top-aligned, right text bottom-aligned (offset low). */
-.flankInner {
-  width: 100%;
-  max-width: var(--pageMax);
-  margin: 0 auto;
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 320px;
-  column-gap: 48px;
-  align-items: stretch;
-}
-
-.flankColLeft {
-  text-align: left;
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  min-width: 0;
-}
-
-.flankColRight {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  align-self: end;
-  min-width: 0;
-}
-
-/* Figma root-cause right col (114:1712): right-aligned, vertically centered */
-.flankColRightRoot {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  align-self: center;
-  min-width: 0;
-}
-
-.flankPhoneCol {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  min-width: 0;
-}
-
-.flankPhone {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 40px 72px rgba(0, 0, 0, 0.5));
-}
-
-.releaseTag {
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: var(--fontStack);
-  font-size: 9px;
-  font-weight: var(--fontWeightBold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 3px 8px;
-  border-radius: 3px;
-}
-
-.navDiagram {
-  width: 100%;
-  max-width: 360px;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-}
-
-/* Figma: Season Serif Medium 20px, lh1.5, ls0.08px (#FDFDFD on dark) */
-.animPara {
-  font-family: var(--serifFontStack);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  font-weight: var(--fontWeightMedium);
-  line-height: 1.5;
-  letter-spacing: var(--serifTrack);
-  margin: 0;
-  /* individual word colors set by framer */
-}
-
-/* Static flanking paragraph (right column) */
-.flankPara {
-  font-family: var(--serifFontStack);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  font-weight: var(--fontWeightMedium);
-  line-height: 1.5;
-  letter-spacing: var(--serifTrack);
-  margin: 0;
-  color: var(--textLight);
-}
-
-/* "declining" / "worsening" — Figma spec is Season Serif Regular Italic, but
-   SeasonSerif-TRIAL-RegularItalic.woff2 is not shipped, so 400+italic synthesises
-   a faux slant. Use Medium (500) italic — a real Season Serif italic face
-   (SeasonSerif-TRIAL-MediumItalic.woff2). Revert to fontWeightRegular once the
-   Regular Italic woff2 is added to public/fonts/. */
-.emWarn {
-  color: var(--accentWarn);
-  font-style: italic;
-  font-weight: var(--fontWeightMedium);
-}
-
-/* −10 stays inline body color in Figma (no red) */
-.inlineNps {
-  color: inherit;
-  font-weight: inherit;
-}
-
-/* ── Scene 4: Final IA ───────────────────────────────────────────────────── */
-
-.finalIaInner {
-  width: 100%;
-  max-width: var(--pageMax);
-  margin: 0 auto;
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 320px;
-  column-gap: 48px;
-  align-items: stretch;
-}
-
-.finalIaText {
-  text-align: left;
-  align-self: start;
-  min-width: 0;
-}
-
-/* Figma 114:1716 — Season Serif Medium 20px, lh1.5, #0F0F0F, 320px col */
-.finalIaHeadline {
-  font-family: var(--serifFontStack);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  font-weight: var(--fontWeightMedium);
-  color: #0f0f0f;
-  line-height: 1.5;
-  letter-spacing: var(--serifTrack);
-  max-width: 320px;
-  margin: 0;
-}
-
-.finalIaPhoneCol {
-  display: flex;
-  justify-content: center;
-  min-width: 0;
-}
-
-.finalIaPhone {
-  width: 100%;
-  max-width: 280px;
-  height: auto;
-  display: block;
-  border-radius: 12px;
-  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.16));
-}
-
-/* Figma 114:1748 — label Season Sans Regular #4D4D4D, questions Season Serif Medium 20px #0F0F0F */
-.finalIaQuestions {
-  font-family: var(--fontStack);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  line-height: 1.5;
-  color: var(--textMuted2);
-  align-self: end;
-  text-align: left;
-  min-width: 0;
-  max-width: 320px;
-}
-
-.question {
-  display: block;
-  font-family: var(--serifFontStack);
-  font-weight: var(--fontWeightMedium);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  letter-spacing: var(--serifTrack);
-  line-height: 1.5;
-  color: #0f0f0f;
-}
-
-/* ── Scene 5: The new Explore ────────────────────────────────────────────── */
-
-/* Figma 114:1749 — 72px gap between header group and body */
-.exploreHeader {
-  text-align: center;
-  margin-bottom: 72px;
-}
-
-/* Figma 114:1758 — Heading/H2: Season Serif Medium 48px, lh1.5, ls0.192px */
-.exploreHeadline {
-  font-family: var(--serifFontStack);
-  font-size: clamp(1.9rem, 4vw, 48px);
-  font-weight: var(--fontWeightMedium);
-  letter-spacing: var(--serifTrack);
-  color: #0f0f0f;
-  margin: var(--spaceS) 0 0;
-  line-height: 1.5;
-}
-
-/* Figma body 1080×1641: phone center (x400 w280), annotations staggered.
-   right: Mutual Funds y136, SKU y700 · left: FDs y387, preserve y976 */
-.exploreInner {
-  position: relative;
-  width: 100%;
-  max-width: var(--pageMax);
-  margin: 0 auto;
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 320px;
-  column-gap: 48px;
-  align-items: stretch;
-}
-
-.exploreColLeft,
-.exploreColRight {
-  position: relative;
-  min-width: 0;
-}
-
-.explorePhoneCol {
-  display: flex;
-  justify-content: center;
-  min-width: 0;
-}
-
-.explorePhone {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 24px 56px rgb(0 0 0 / 0.12));
-}
-
-/* Figma annotations — Season Serif Medium 20px, lh1.5, ls0.08px, #0F0F0F */
-.annotation {
-  position: absolute;
-  font-family: var(--serifFontStack);
-  font-size: clamp(1rem, 1.4vw, 20px);
-  font-weight: var(--fontWeightMedium);
-  line-height: 1.5;
-  letter-spacing: var(--serifTrack);
-  color: #0f0f0f;
-  margin: 0;
-  width: 100%;
-}
-
-/* staggered vertical positions as % of phone height */
-.annMFAnchor { top: 8%; }
-.annSKU { top: 43%; }
-.annUnified { top: 24%; }
-.annPreserve { top: 60%; }
-
-/* "unified Explore" / "primary anchor" / "SKU-based approach" — Figma spec is
-   Season Serif Regular Italic, but the Regular Italic woff2 is not shipped
-   (400+italic would synthesise a faux slant). Use Medium (500) italic — a real
-   Season Serif italic face. Revert to fontWeightRegular once the Regular Italic
-   woff2 is added to public/fonts/. */
-.annotAccent {
-  color: var(--accentBlue);
-  font-style: italic;
-  font-weight: var(--fontWeightMedium);
-}
-
-/* ── Pill badge with corner ticks ────────────────────────────────────────── */
-
-/* Figma badge — squared blue border + 4 corner registration ticks,
-   Season Sans SemiBold 22px, ls0.264px (#0065d8) */
-.badge {
-  position: relative;
+/* Node 570:17117: an #eef0f3 pill at 80% opacity, 12px/24px padding, 50px
+   radius, 20px Clash Grotesk Medium in accent blue, 8px from a 24px arrow.
+   The 80% is applied to the fill rather than the whole pill so the label keeps
+   full contrast; over the white page the resulting swatch is identical. */
+.fullStudyLink {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radiusPill);
+  background: rgb(238 240 243 / 0.8);
   font-family: var(--fontStack);
-  font-weight: var(--fontWeightSemiBold);
-  font-size: clamp(1.1rem, 1.6vw, 22px);
-  letter-spacing: 0.012em;
-  line-height: 1.5;
-  color: var(--accentBlue);
-  padding: 4px 14px;
-  border: 1.5px solid var(--accentBlue);
-  border-radius: 0;
-}
-
-.badgeTick {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #ffffff;
-  border: 1px solid var(--accentBlue);
-}
-
-.tickTL { top: -2px; left: -2px; }
-.tickTR { top: -2px; right: -2px; }
-.tickBL { bottom: -2px; left: -2px; }
-.tickBR { bottom: -2px; right: -2px; }
-
-/* ── Scene 6: Impact ─────────────────────────────────────────────────────── */
-
-.impactInner {
-  width: 100%;
-  max-width: var(--pageMax);
-  margin: 0 auto;
-  padding: 0 var(--pagePad);
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.impactGrid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space3XL);
-  margin: var(--space2XL) 0;
-}
-
-.impactStat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spaceM);
-}
-
-.impactNumber {
-  font-family: var(--serifFontStack);
-  font-size: clamp(3.5rem, 9vw, 7rem);
-  font-weight: var(--fontWeightBold);
-  line-height: 1;
-  color: rgb(var(--rgbText));
-  font-style: italic;
-}
-
-.impactMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.impactStatLabel {
-  font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyS);
-  font-weight: var(--fontWeightSemiBold);
-  color: rgb(var(--rgbText));
-}
-
-.impactNote {
-  font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyXS);
-  color: rgb(var(--rgbText) / 0.45);
-}
-
-.impactDivider {
-  width: 1px;
-  height: 72px;
-  background: rgb(var(--rgbText) / 0.12);
-}
-
-.impactContext {
-  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeBodyM);
-  line-height: var(--lineHeightBody);
-  color: rgb(var(--rgbText) / 0.5);
-  max-width: 480px;
-  margin: var(--spaceXL) auto 0;
-}
-
-.fullStudyLink {
-  display: inline-block;
-  margin-top: var(--space2XL);
-  font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyS);
-  font-weight: var(--fontWeightSemiBold);
-  color: var(--accentBlue);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbAccent));
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--accentBlue) 35%, transparent);
-  padding-bottom: 2px;
-  transition: border-color 200ms ease;
+  transition: background var(--durationS) var(--bezierFastoutSlowin);
 }
 
 .fullStudyLink:hover {
-  border-color: var(--accentBlue);
+  background: rgb(var(--rgbAccent) / 0.12);
 }
 
-/* ── Scene 7: Read next ──────────────────────────────────────────────────── */
+.fullStudyIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: transform var(--durationS) var(--bezierFastoutSlowin);
+}
 
+.fullStudyLink:hover .fullStudyIcon {
+  transform: translate3d(var(--spaceXS), 0, 0);
+}
+
+/* ── Next case study ──────────────────────────────────────────────────────── */
+
+/* Node 570:17121: a 768 x 234 card, 8px radius, over the blue gradient export
+   of node 570:17122, with its text block inset 44px from the left and 36.8px
+   from the top. */
 .nextCard {
-  width: 100%;
-  max-width: 880px;
-  display: block;
-  padding: var(--space2XL);
-  border: 1px solid rgb(var(--rgbText) / 0.12);
-  border-radius: 20px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 234px;
+  margin-top: 120px;
+  padding: 36px 44px;
+  border-radius: 8px;
+  overflow: hidden;
   text-decoration: none;
-  background: rgb(var(--rgbText) / 0.02);
-  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+  transition: transform var(--durationM) var(--bezierFastoutSlowin);
 }
 
 .nextCard:hover {
-  transform: translateY(-4px);
-  border-color: rgb(var(--rgbText) / 0.2);
-  box-shadow: 0 24px 56px -20px rgb(0 0 0 / 0.18);
+  transform: translateY(-2px);
 }
 
+.nextCardBg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Node 570:17125: a 398px text column, its heading pair 14px apart and the
+   Read pill 32px below them. */
 .nextText {
-  min-width: 0;
+  position: relative;
+  width: 398px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
+.nextHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Node 570:17127: Season Serif Light 24px, 0.24px tracking, in the design
+   system's disabled grey (#c8cad8), which has no token on this site. */
 .nextLabel {
-  display: block;
-  font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyXS);
-  font-weight: var(--fontWeightBold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accentBlue);
-  margin-bottom: var(--spaceM);
-}
-
-.nextTitle {
   font-family: var(--serifFontStack);
-  font-size: clamp(1.5rem, 3vw, var(--fontSizeH3));
-  font-style: italic;
-  color: rgb(var(--rgbText));
-  margin: 0 0 var(--spaceM);
-  line-height: 1.15;
+  font-weight: var(--fontWeightLight);
+  font-size: var(--fontSizeH5);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #c8cad8;
 }
 
-.nextTeaser {
+/* Node 570:17128: Clash Grotesk Medium 24px, 0.336px tracking, white. */
+.nextTitle {
+  margin: 0;
   font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyS);
-  line-height: var(--lineHeightBody);
-  color: rgb(var(--rgbText) / 0.6);
-  margin: 0 0 var(--spaceL);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeH5);
+  line-height: 1.25;
+  letter-spacing: 0.014em;
+  color: rgb(var(--rgbWhite));
 }
 
+/* Node 570:17129: a #647aba pill, 4px/12px padding, 50px radius, 12px Clash
+   Grotesk Medium white text 8px from a 16px arrow. */
 .nextCta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: var(--radiusPill);
+  background: #647aba;
   font-family: var(--fontStack);
-  font-size: var(--fontSizeBodyS);
-  font-weight: var(--fontWeightSemiBold);
-  color: rgb(var(--rgbText));
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyXS);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: rgb(var(--rgbWhite));
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
+.nextCtaIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--durationS) var(--bezierFastoutSlowin);
+}
 
+.nextCard:hover .nextCtaIcon {
+  transform: translate3d(var(--spaceXS), 0, 0);
+}
+
+/* Node 570:17133 puts a 256.5 x 459 phone against the right edge, its bottom
+   half clipped by the card. */
+.nextCardPhone {
+  position: absolute;
+  top: 23px;
+  right: 50px;
+  width: 257px;
+  height: auto;
+}
+
+/* ── Narrower viewports ───────────────────────────────────────────────────── */
+
+/* The 52/64/80/120/160 rhythm above is measured off Figma's 768px desktop
+   frame; it is scaled back once the column itself narrows. */
 @media (--mediaTablet) {
-  .scene2Wrap,
-  .scene3Wrap {
-    height: auto;
+  .hero {
+    margin-top: var(--spaceXL);
   }
 
-  .scene2Wrap .sticky,
-  .scene3Wrap .sticky {
-    position: relative;
-    height: auto;
-    padding: var(--space4XL) 0;
+  .sections {
+    gap: var(--space4XL);
+    margin-top: var(--space4XL);
   }
 
-  .flankInner,
-  .finalIaInner {
-    grid-template-columns: 1fr;
-    text-align: center;
+  .stack {
+    gap: var(--spaceXL);
   }
 
-  .flankColLeft,
-  .flankColRight,
-  .flankColRightRoot,
-  .finalIaText {
-    text-align: center;
-    align-self: auto;
-    padding-bottom: 0;
+  .exploreScroll {
+    margin-top: var(--space3XL);
   }
 
-  .finalIaQuestions {
-    text-align: center;
-    align-self: auto;
-    max-width: none;
+  .impact,
+  .nextCard {
+    margin-top: var(--space3XL);
   }
 
-  .flankPhoneCol {
-    order: -1;
+  /* 64px steps the same way the page title does: 48 at tablet, 36 on mobile. */
+  .statValue {
+    font-size: 48px;
   }
 
-  .exploreInner {
-    grid-template-columns: 1fr;
+  .nextCardPhone {
+    right: 24px;
+    width: 200px;
+  }
+}
+
+@media (--mediaMobile) {
+  .hero {
+    margin-top: var(--spaceL);
   }
 
-  .exploreColLeft,
-  .exploreColRight {
-    text-align: center;
+  .sections {
+    gap: var(--space3XL);
+    margin-top: var(--space3XL);
   }
 
-  .explorePhoneCol {
-    order: -1;
+  .stack {
+    gap: var(--spaceL);
   }
 
-  .impactGrid {
+  .approaches {
+    gap: var(--spaceL);
+  }
+
+  .exploreScroll,
+  .impact,
+  .nextCard {
+    margin-top: var(--space2XL);
+  }
+
+  .impactBody {
+    gap: var(--spaceXL);
+  }
+
+  .statRow {
     flex-direction: column;
-    gap: var(--space2XL);
+    gap: var(--spaceXL);
   }
 
-  .impactDivider {
-    width: 64px;
-    height: 1px;
+  .stat {
+    gap: var(--spaceS);
+  }
+
+  .statValue {
+    font-size: 36px;
+  }
+
+  .statLabel {
+    font-size: var(--fontSizeBodyM);
+  }
+
+  .approachesCaption {
+    font-size: 1.0625rem;
+    line-height: 1.4;
+  }
+
+  .fullStudyLink {
+    padding: var(--spaceM) var(--spaceL);
+    font-size: var(--fontSizeBodyS);
   }
 
   .nextCard {
-    text-align: center;
+    min-height: 0;
+    padding: var(--spaceL);
   }
-}
 
-/* ── Reduced motion: freeze word colors in readable state ──────────────────── */
+  .nextText {
+    width: 100%;
+    gap: var(--spaceL);
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .animPara span[style] {
-    color: #cccccc !important;
-    transition: none !important;
+  .nextCardPhone {
+    display: none;
   }
 }

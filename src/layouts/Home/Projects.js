@@ -1,92 +1,76 @@
-import { Heading } from 'components/Heading';
-import { Text } from 'components/Text';
+import { SectionIcon } from 'components/SectionIcon';
+import etMoneyThumb from 'assets/home/EtMoneyThumb.jpg';
+import mfThumb from 'assets/home/MFDashboardThumb.png';
+import { playTap } from 'utils/sound';
 import styles from './Projects.module.css';
 
-import mfFramed from 'assets/home/MFdashboardWithFrame.png';
-import homeFramed from 'assets/home/HomepageWithFrame.png';
-
-const src = image => image?.src || image;
+const logoSrc = img => img?.src || img;
 
 const projects = [
   {
-    title: (
-      <>
-        Re-architecting how 10M+ investors <em>discover</em> wealth products
-      </>
-    ),
-    hook:
-      "A subscription-first model tanked user sentiment. I rebuilt the app's information architecture and explore experience.",
-    stats: [
-      { value: '+73', label: 'NPS points' },
-      { value: '~15%', label: 'Product discoverability' },
-    ],
-    href: '/projects/etmoney-home',
-    image: homeFramed,
-    tone: 'cool',
-  },
-  {
-    title: (
-      <>
-        Fixing portfolio <em>trust</em> for millions of mutual fund investors
-      </>
-    ),
+    title: 'Fixing portfolio trust for millions of mutual fund investors',
     hook:
       "2–3% of users saw incorrect portfolio data. Backend couldn't fix it. I redesigned the architecture.",
-    stats: [
-      { value: '99.9%', label: 'Accuracy' },
-      { value: 'Drop', label: 'in consumer queries' },
-    ],
     href: '/projects/mutual-dashboard',
-    image: mfFramed,
-    tone: 'warm',
+    tags: ['Inaccuracy', 'Redesign'],
+    thumbnail: (
+      <div className={styles.thumb}>
+        <img
+          className={styles.thumbFlat}
+          src={logoSrc(mfThumb)}
+          alt=""
+          draggable={false}
+        />
+      </div>
+    ),
+  },
+  {
+    title: 'Re-architecting how 10M+ investors discover wealth products',
+    hook:
+      "A subscription-first model tanked user sentiment. I rebuilt the app's information architecture and explore experience.",
+    href: '/projects/etmoney-home',
+    tags: null,
+    thumbnail: (
+      <div className={styles.thumb}>
+        <img
+          className={styles.thumbFlat}
+          src={logoSrc(etMoneyThumb)}
+          alt=""
+          draggable={false}
+        />
+      </div>
+    ),
   },
 ];
 
-// Bevel mechanism: each card owns its own phone (position: fixed, all at the same
-// viewport spot). The card has clip-path, so it acts as a window that reveals its
-// phone only where the card is. As cards scroll, the fixed phone reads as one
-// persistent device whose screen changes per project — no JS, no crossfade.
 export const Projects = ({ id, sectionRef }) => (
   <section className={styles.showcase} id={id} ref={sectionRef}>
-    <Heading level={2} as="h2" className={styles.sectionTitle}>
-      Selected works
-    </Heading>
+    <div className={styles.sectionHead}>
+      <SectionIcon name="works" />
+      <h2 className={styles.sectionTitle}>Selected works</h2>
+    </div>
 
     <div className={styles.stage}>
       <div className={styles.list}>
         {projects.map((project, i) => (
-          <a
-            key={i}
-            href={project.href}
-            className={`${styles.card} ${styles[project.tone]}`}
-          >
-            <div className={styles.cardClip}>
-              <div className={styles.content}>
-                <Heading level={3} as="h3" className={styles.title}>
-                  {project.title}
-                </Heading>
+          <a key={i} href={project.href} className={styles.card} onClick={playTap}>
+            {project.thumbnail}
 
-                <Text size="m" tone="secondary" as="p" className={styles.hook}>
-                  {project.hook}
-                </Text>
-
-                <div className={styles.statRow}>
-                  {project.stats.map(stat => (
-                    <div key={stat.label} className={styles.stat}>
-                      <span className={styles.statValue}>{stat.value}</span>
-                      <span className={styles.statLabel}>{stat.label}</span>
-                    </div>
+            <div className={styles.content}>
+              {project.tags && (
+                <div className={styles.tags}>
+                  {project.tags.map(tag => (
+                    <span key={tag} className={styles.tag}>
+                      {tag}
+                    </span>
                   ))}
                 </div>
-              </div>
+              )}
 
-              <div className={styles.cardPhone} aria-hidden>
-                <img
-                  className={styles.phoneImg}
-                  src={src(project.image)}
-                  alt=""
-                  draggable="false"
-                />
+              <div className={styles.textBlock}>
+                <h3 className={styles.title}>{project.title}</h3>
+
+                <p className={styles.hook}>{project.hook}</p>
               </div>
             </div>
           </a>

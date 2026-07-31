@@ -1,294 +1,316 @@
 .cse {
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   background: #fff;
-  padding: var(--space5XL) var(--spaceOuter);
-  overflow: hidden;
+
+  /* Section rhythm: see the note on `.hero`. */
+  padding: var(--space4XL) 0;
 }
 
 @media (--mediaTablet) {
   .cse {
-    padding: var(--space4XL) var(--spaceOuter);
-  }
-}
-
-@media (--mediaMobile) {
-  .cse {
-    padding: var(--space3XL) var(--spaceOuter);
+    padding: var(--space2XL) var(--spaceOuter);
   }
 }
 
 /* ── Intro ──────────────────────────────────────── */
 
+/* Figma node 559:15749 stacks the mark straight onto the line and leaves 56px
+   before the cards; 48px is the nearest step on the spacing scale. */
 .intro {
-  max-width: var(--maxWidthM);
-  margin: 0 auto var(--space3XL);
-  text-align: center;
+  margin-bottom: var(--space2XL);
 }
 
+/* Season Serif Light, #636363, 24/1.5, tracking 0.288px/24px = 0.012em
+   (node 559:15751) — the same treatment "Selected works" carries. */
 .heading {
+  margin: 0;
   font-family: var(--serifFontStack);
   font-style: normal;
-  font-weight: var(--fontWeightMedium);
-  font-size: clamp(1.7rem, 3.2vw, 40px);
-  line-height: 1.25;
-  letter-spacing: 0.32px;
-  color: #0f0f0f;
+  font-weight: var(--fontWeightLight);
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextMuted));
 }
 
-.sub {
-  margin-top: var(--spaceM);
-}
+/* ── Gallery ────────────────────────────────────── */
 
-/* ── Gallery + shelf ────────────────────────────────
-   Framed prints lean back against the (unchanged) page and rest on a single
-   ledge. No grouping container, no panel — only the shelf carries tone. */
-
-.shelfWrap {
-  max-width: var(--maxWidthL);
-  margin: 0 auto;
-}
-
+/* Two 424px columns with a 56px gutter in Figma (node 567:16226). The page
+   column is 768 rather than 904, so the pair scales down as one block and the
+   gutter is the only fixed number. */
 .gallery {
-  position: relative;
-  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+}
+
+.card {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: clamp(20px, 3vw, 52px);
+  flex-direction: column;
+  gap: var(--spaceL);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--durationM) var(--bezierFastoutSlowin);
+}
+
+a.card:hover {
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid rgb(var(--rgbAccent));
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+/* ── Thumbnail plate ────────────────────────────── */
+
+/* 424×482 with a 24px radius (nodes 567:16151 / 567:16191). Both cards now
+   paint their own full-bleed plate — card 1 a flat export, card 2 the gradient
+   inside its SVG — so this gradient is only the colour behind them while the
+   image decodes. Cool blue tones instead of Figma's warm pink. */
+.thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 424 / 482;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(
+    138.82deg,
+    rgb(221 228 245) 38.46%,
+    rgb(248 249 251) 56.107%,
+    rgb(217 226 242) 166.43%
+  );
+}
+
+/* The Scratch-globe plate is a stack of a phone mockup, its screen photo and
+   three cut-out stamps, all transformed (node 567:16150). Rebuilding that in
+   CSS would be five assets plus transform maths that drifts the moment the art
+   changes, so it ships as one flat 2× export of that frame — the same call
+   `.thumbFlat` makes in Projects.module.css. */
+.thumbImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.graph {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Node-graph illustration ────────────────────── */
+
+/* Colours live here rather than as SVG attributes so the accent tracks
+   `--rgbAccent` instead of hard-coding Figma's #1F46AC a dozen times. The
+   supporting tones are not derivable from the accent, so those stay literal. */
+
+.plateStopTop {
+  stop-color: #dde4f8;
+}
+
+.plateStopMid {
+  stop-color: #fff;
+}
+
+.plateStopBottom {
+  stop-color: #ebf1f9;
+}
+
+.gridDot {
+  fill: #c1cdee;
+}
+
+.wire {
+  fill: none;
+  stroke: #b2bee7;
+  stroke-width: 1.2767;
+}
+
+/* One soft shadow for the whole node stack, so the cards read as lifted paper
+   without six separate filters. */
+.plate {
+  filter: drop-shadow(0 6px 16px rgb(var(--rgbAccent) / 0.12));
+}
+
+.nodeBox {
+  fill: #fff;
+  stroke: #b2bee7;
+  stroke-width: 1.277;
+}
+
+.port {
+  fill: #fff;
+  stroke: rgb(var(--rgbAccent));
+  stroke-width: 1.2767;
+}
+
+.glyphStroke {
+  fill: none;
+  stroke: rgb(var(--rgbAccent));
+  stroke-width: 1.2767;
+}
+
+.glyphFill {
+  fill: rgb(var(--rgbAccent));
+}
+
+.bar {
+  fill: #e0e0e0;
+}
+
+.barSoft {
+  fill: #eee;
+}
+
+.outTitle {
+  fill: #b2bee4;
+}
+
+.outChip {
+  fill: #e6e8f5;
+}
+
+.artboard {
+  fill: #f4f5fc;
+  stroke: #c7ceea;
+  stroke-width: 1.277;
+  stroke-dasharray: 4 4;
+}
+
+/* ── The generated vector, mid-edit ─────────────── */
+
+.artLeaf {
+  fill: #e1f6e4;
+  stroke: rgb(var(--rgbAccent));
+  stroke-width: 1.2767;
+}
+
+.artVein {
+  fill: none;
+  stroke: #8b9dd5;
+  stroke-width: 1.2767;
+}
+
+.artHandle {
+  stroke: #8b9dd5;
+  stroke-width: 1.2767;
+  stroke-dasharray: 2.55 2.55;
+}
+
+.artHandleDot {
+  fill: rgb(var(--rgbAccent));
+}
+
+.artAnchor {
+  fill: #fff;
+  stroke: rgb(var(--rgbAccent));
+  stroke-width: 1.2767;
+}
+
+/* Hover pushes a dash along the cables and walks the artboard's marching ants,
+   so the graph looks like it is evaluating. */
+.card:hover .wire {
+  stroke-dasharray: 9 11;
+  animation: flow 900ms linear infinite;
+}
+
+.card:hover .artboard {
+  animation: march 2s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* ── Text ───────────────────────────────────────── */
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceM);
+}
+
+/* Season Serif SemiBold in accent blue, tracking 0.576px/24px = 0.024em
+   (node 567:16224) — same treatment as the Selected Works titles. Both title
+   and hook step down from Figma's 24px by the same ratio the 424px card does
+   when it lands in a 768px two-up. */
+.cardTitle {
+  margin: 0;
+  font-family: var(--serifFontStack);
+  font-style: normal;
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 0.024em;
+  color: rgb(var(--rgbAccent));
+}
+
+.cardHook {
+  margin: 0;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: var(--letterSpacingDefault);
+  color: rgb(var(--rgbTextSecondary));
+}
+
+@media (--mediaTablet) {
+  .gallery {
+    gap: 40px;
+  }
+
+  .card {
+    gap: var(--spaceL);
+  }
+
+  .cardHook {
+    font-size: 18px;
+  }
 }
 
 @media (--mediaMobile) {
   .gallery {
-    justify-content: flex-start;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-inline: var(--spaceL);
-    gap: var(--spaceL);
+    grid-template-columns: 1fr;
+    gap: var(--space2XL);
   }
 
-  .gallery::-webkit-scrollbar {
-    display: none;
+  .thumb {
+    border-radius: 18px;
   }
-}
 
-/* ── Frame (holds the print + its contact shadow on the shelf) ── */
-
-.frame {
-  position: relative;
-  flex: 0 0 auto;
-  width: clamp(240px, 26vw, 300px);
-}
-
-@media (--mediaMobile) {
-  .frame {
-    width: 232px;
+  .cardHook {
+    font-size: 17px;
   }
-}
-
-/* Quiet grounding shadow where the poster base meets the shelf — just enough to
-   seat the print, never a feature in itself. */
-.frame::after {
-  content: '';
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  bottom: -1px;
-  height: 10px;
-  background: radial-gradient(56% 100% at 50% 0%, rgb(0 0 0 / 0.2) 0%, rgb(0 0 0 / 0) 72%);
-  filter: blur(2px);
-  z-index: 0;
-  transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ── Print (the art poster — title is the artwork) ── */
-
-.poster {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  padding: clamp(20px, 2vw, 26px);
-  box-sizing: border-box;
-  border-radius: 4px;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--ink);
-  overflow: hidden;
-  /* Flat editorial print standing on the shelf — thin print edge + a soft
-     grounded drop. No 3D lean; the poster, not the shelf, is the subject. */
-  box-shadow:
-    0 0 0 1px rgb(0 0 0 / 0.06),
-    0 6px 14px -10px rgb(0 0 0 / 0.3);
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-/* faint print sheen — top-lit, like light falling on a leaning surface */
-.poster::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgb(255 255 255 / 0.14) 0%, rgb(255 255 255 / 0) 38%);
-  pointer-events: none;
-}
-
-/* hover: a small editorial lift — no theatrics */
-.frame:hover {
-  z-index: 6;
-}
-
-.poster:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 1px rgb(0 0 0 / 0.06),
-    0 12px 22px -12px rgb(0 0 0 / 0.32);
-}
-
-.poster:focus-visible {
-  outline: 2px solid rgb(var(--rgbAccent));
-  outline-offset: 4px;
-}
-
-/* ── Poster content — title dominates; metadata frames it ── */
-
-/* inner mat frame — gives each print the feel of a matted, curated artifact */
-.poster::after {
-  content: '';
-  position: absolute;
-  inset: 11px;
-  border: 1px solid var(--mat);
-  border-radius: 2px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* top row: edition index + tag, divided from the title by a hairline rule */
-.posterTop {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 12px;
-  padding-bottom: clamp(10px, 1.3vw, 14px);
-  border-bottom: 1px solid var(--rule);
-}
-
-.posterTag {
-  font-family: var(--fontStack);
-  font-size: 10px;
-  font-weight: var(--fontWeightBold);
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  text-align: right;
-  color: var(--meta);
-}
-
-.posterTitle {
-  position: relative;
-  z-index: 2;
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-family: var(--serifFontStack);
-  font-weight: var(--fontWeightBold);
-  font-size: clamp(1.7rem, 2.7vw, 2.15rem);
-  line-height: 1.06;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  padding: clamp(12px, 1.6vw, 18px) 0;
-}
-
-.posterBottom {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.posterTech {
-  font-family: var(--fontStack);
-  font-size: 11px;
-  font-weight: var(--fontWeightSemiBold);
-  letter-spacing: 0.05em;
-  color: var(--meta);
-}
-
-.posterArrow {
-  flex: 0 0 auto;
-  color: var(--meta);
-  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.poster:hover .posterArrow {
-  transform: translate(2px, -2px);
-}
-
-/* ── Collection palettes — restrained, consistent, legible ──
-   Dark prints use a softened off-white ink (never harsh pure white) at high
-   contrast; metadata is lifted to a comfortably readable tone. */
-
-.paper {
-  background: #efe7d6;
-  --ink: #181510;
-  --meta: #595042;
-  --mat: rgb(24 21 16 / 0.16);
-  --rule: rgb(24 21 16 / 0.18);
-}
-
-.night {
-  background: #10142e;
-  --ink: #f3f5ff;
-  --meta: #aab2e2;
-  --mat: rgb(255 255 255 / 0.16);
-  --rule: rgb(255 255 255 / 0.16);
-}
-
-.noir {
-  background: #16171b;
-  --ink: #f4f2ee;
-  --meta: #cdb288;
-  --mat: rgb(255 255 255 / 0.14);
-  --rule: rgb(255 255 255 / 0.14);
-}
-
-/* ── Shelf ledge — darker than the wall, premium, with depth ── */
-
-/* Supporting ledge — a thin shelf a step darker than the page so it reads,
-   sitting just under the prints. Quiet; it holds the composition, isn't it. */
-.plank {
-  position: relative;
-  z-index: 1;
-  height: 12px;
-  margin-top: -3px;
-  border-radius: 2px 2px 3px 3px;
-  background: linear-gradient(180deg, #ededf0 0%, #dfdfe4 55%, #d2d2d8 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.85),
-    0 12px 20px -16px rgb(0 0 0 / 0.22);
-}
-
-/* shelf underside — the cast shadow on the wall below the ledge */
-.plank::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 100%;
-  height: 10px;
-  background: linear-gradient(to bottom, rgb(0 0 0 / 0.08), rgb(0 0 0 / 0));
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .poster,
-  .frame::after {
+  .card {
     transition: none;
+  }
+
+  .card:hover .wire,
+  .card:hover .artboard {
+    animation: none;
+  }
+
+  .card:hover .wire {
+    stroke-dasharray: none;
   }
 }

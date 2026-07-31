@@ -3,7 +3,7 @@
   font-family: var(--fontStack);
   color: var(--colorTextBody);
   line-height: var(--lineHeightBody);
-  letter-spacing: 0.012em;
+  letter-spacing: var(--letterSpacingDefault);
 }
 
 /* ============================= */
