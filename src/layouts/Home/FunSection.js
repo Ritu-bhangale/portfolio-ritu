@@ -187,18 +187,13 @@ const Arrow = ({ arrow }) => (
    above it. Stopped by reduced motion, and held still while the cursor is on
    the strip so a frame can be read rather than chased.
 
-   PLACEHOLDER LOCATIONS. The five names below are read off what is in each
-   photograph and are guesses, not records: the files carry no location data,
-   and no date beyond `travel 5`'s original filename. `travel 4` is put in the
-   Dhauladhar foothills because the same snowline stands behind the
-   crocheted-cardigan photograph in the crochet fan. Correct any of them
-   freely: nothing but the caption text and the alt text depends on them. */
+   Locations confirmed. */
 const REEL_FRAMES = [
   { src: travel5, place: 'Alibaug' },
   { src: travel4, place: 'Kothi village' },
   { src: travel3, place: 'Dhanaulti' },
   { src: travel2, place: 'Lahaul valley' },
-  { src: travel1, place: 'My terrace' },
+  { src: travel1, place: 'Terrace' },
 ];
 
 export const FunSection = ({ id, sectionRef }) => (
