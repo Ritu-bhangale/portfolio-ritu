@@ -53,7 +53,9 @@ export default function MutualDashboard() {
         <div className={styles.topSections} ref={topSectionsRef}>
           <Section>
             <div className={`${styles.container} ${styles.hero}`}>
-              <Heading level={2} align="start" className={styles.heroTitle}>
+              {/* `as="h1"` so the deck has a page level heading. `level` still
+                  drives the visual size, so nothing changes on screen. */}
+              <Heading level={2} as="h1" align="start" className={styles.heroTitle}>
                 Improved portfolio data reliability by redesigning holdings architecture
                 to reduce preprocessing dependency, enabling
                 <span className={styles.heroEmphasis}> ~99.9%</span> portfolio accuracy.
@@ -107,7 +109,7 @@ export default function MutualDashboard() {
                     loading="lazy"
                   />
                 </div>
-                <Heading level={5}>
+                <Heading level={5} as="h3">
                   No unified view of total mutual funds — Genius, DIY, and External
                   products
                 </Heading>
@@ -134,7 +136,9 @@ export default function MutualDashboard() {
                     loading="lazy"
                   />
                 </div>
-                <Heading level={5}>Buried workflows</Heading>
+                <Heading level={5} as="h3">
+                  Buried workflows
+                </Heading>
                 <Text size="m">
                   Core investment workflows (locating SIPs, tracking external funds) were
                   difficult to access, leading to increased user support queries
@@ -150,7 +154,7 @@ export default function MutualDashboard() {
                     loading="lazy"
                   />
                 </div>
-                <Heading level={5}>
+                <Heading level={5} as="h3">
                   2 – 3% users saw incorrect portfolio values — due to core architecture
                   issue
                 </Heading>
@@ -245,7 +249,7 @@ export default function MutualDashboard() {
           >
             <div className={styles.snapshotStack}>
               <div className={styles.snapshotBlock}>
-                <Heading level={4} className={styles.snapshotBlockLabel}>
+                <Heading level={4} as="h3" className={styles.snapshotBlockLabel}>
                   Initially we had this
                 </Heading>
                 <div className={styles.snapshotFrame}>
@@ -254,7 +258,7 @@ export default function MutualDashboard() {
               </div>
 
               <div className={styles.snapshotBlock}>
-                <Heading level={4} className={styles.snapshotBlockLabel}>
+                <Heading level={4} as="h3" className={styles.snapshotBlockLabel}>
                   Final designs after all the stakeholder alignment
                 </Heading>
                 <div className={styles.snapshotFrame}>
@@ -310,7 +314,9 @@ export default function MutualDashboard() {
                 </span>
 
                 <div className={styles.archStep}>
-                  <Heading level={5}>Show bifurcated views</Heading>
+                  <Heading level={5} as="h3">
+                    Show bifurcated views
+                  </Heading>
                   <Text size="s" className={styles.archStepSub}>
                     for external &amp; internal funds &amp; strategy funds (Funds invested
                     via goal &amp; ultimate sip)

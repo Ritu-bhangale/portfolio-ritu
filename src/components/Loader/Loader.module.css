@@ -24,8 +24,25 @@
   gap: 16px;
 }
 
+/* Intro fade for the splash text. This lives in CSS rather than in framer's
+   `initial`/`animate` so it does not depend on hydration: a framer `initial`
+   of opacity 0 ships in the static HTML as an inline `opacity:0`, which holds
+   First Contentful Paint hostage until the JS bundle has downloaded and run.
+   No `forwards` fill, so once the fade ends the element returns to its inline
+   style and framer can drive the exit. */
+@keyframes loaderFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* Name — Ritu Bhangale */
 .name {
+  animation: loaderFadeIn 0.4s ease 0.1s backwards;
   font-family: var(--serifFontStack);
   font-size: 40px;
   font-style: normal;
@@ -49,6 +66,7 @@
 
 /* Loading text */
 .text {
+  animation: loaderFadeIn 0.4s ease 0.3s backwards;
   font-family: var(--serifFontStack);
   font-size: 20px;
   font-style: normal;

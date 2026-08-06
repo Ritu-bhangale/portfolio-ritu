@@ -52,11 +52,6 @@
   gap: var(--spaceL);
   text-decoration: none;
   color: inherit;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin);
-}
-
-a.card:hover {
-  transform: translateY(-2px);
 }
 
 .card:focus-visible {
@@ -67,10 +62,10 @@ a.card:hover {
 
 /* ── Thumbnail plate ────────────────────────────── */
 
-/* 424×482 with a 24px radius (nodes 567:16151 / 567:16191). Both cards now
-   paint their own full-bleed plate — card 1 a flat export, card 2 the gradient
-   inside its SVG — so this gradient is only the colour behind them while the
-   image decodes. Cool blue tones instead of Figma's warm pink. */
+/* 424×482 with a 24px radius (nodes 567:16151 / 567:16191). Both cards paint
+   a full-bleed flat image over this plate, so the gradient is only the colour
+   behind them while the image decodes. Cool blue tones instead of Figma's
+   warm pink. */
 .thumb {
   position: relative;
   width: 100%;
@@ -96,146 +91,6 @@ a.card:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.graph {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* ── Node-graph illustration ────────────────────── */
-
-/* Colours live here rather than as SVG attributes so the accent tracks
-   `--rgbAccent` instead of hard-coding Figma's #1F46AC a dozen times. The
-   supporting tones are not derivable from the accent, so those stay literal. */
-
-.plateStopTop {
-  stop-color: #dde4f8;
-}
-
-.plateStopMid {
-  stop-color: #fff;
-}
-
-.plateStopBottom {
-  stop-color: #ebf1f9;
-}
-
-.gridDot {
-  fill: #c1cdee;
-}
-
-.wire {
-  fill: none;
-  stroke: #b2bee7;
-  stroke-width: 1.2767;
-}
-
-/* One soft shadow for the whole node stack, so the cards read as lifted paper
-   without six separate filters. */
-.plate {
-  filter: drop-shadow(0 6px 16px rgb(var(--rgbAccent) / 0.12));
-}
-
-.nodeBox {
-  fill: #fff;
-  stroke: #b2bee7;
-  stroke-width: 1.277;
-}
-
-.port {
-  fill: #fff;
-  stroke: rgb(var(--rgbAccent));
-  stroke-width: 1.2767;
-}
-
-.glyphStroke {
-  fill: none;
-  stroke: rgb(var(--rgbAccent));
-  stroke-width: 1.2767;
-}
-
-.glyphFill {
-  fill: rgb(var(--rgbAccent));
-}
-
-.bar {
-  fill: #e0e0e0;
-}
-
-.barSoft {
-  fill: #eee;
-}
-
-.outTitle {
-  fill: #b2bee4;
-}
-
-.outChip {
-  fill: #e6e8f5;
-}
-
-.artboard {
-  fill: #f4f5fc;
-  stroke: #c7ceea;
-  stroke-width: 1.277;
-  stroke-dasharray: 4 4;
-}
-
-/* ── The generated vector, mid-edit ─────────────── */
-
-.artLeaf {
-  fill: #e1f6e4;
-  stroke: rgb(var(--rgbAccent));
-  stroke-width: 1.2767;
-}
-
-.artVein {
-  fill: none;
-  stroke: #8b9dd5;
-  stroke-width: 1.2767;
-}
-
-.artHandle {
-  stroke: #8b9dd5;
-  stroke-width: 1.2767;
-  stroke-dasharray: 2.55 2.55;
-}
-
-.artHandleDot {
-  fill: rgb(var(--rgbAccent));
-}
-
-.artAnchor {
-  fill: #fff;
-  stroke: rgb(var(--rgbAccent));
-  stroke-width: 1.2767;
-}
-
-/* Hover pushes a dash along the cables and walks the artboard's marching ants,
-   so the graph looks like it is evaluating. */
-.card:hover .wire {
-  stroke-dasharray: 9 11;
-  animation: flow 900ms linear infinite;
-}
-
-.card:hover .artboard {
-  animation: march 2s linear infinite;
-}
-
-@keyframes flow {
-  to {
-    stroke-dashoffset: -20;
-  }
-}
-
-@keyframes march {
-  to {
-    stroke-dashoffset: -16;
-  }
 }
 
 /* ── Text ───────────────────────────────────────── */
@@ -297,20 +152,5 @@ a.card:hover {
 
   .cardHook {
     font-size: 17px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    transition: none;
-  }
-
-  .card:hover .wire,
-  .card:hover .artboard {
-    animation: none;
-  }
-
-  .card:hover .wire {
-    stroke-dasharray: none;
   }
 }

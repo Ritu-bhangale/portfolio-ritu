@@ -3,7 +3,7 @@ import { Meta } from 'components/Meta';
 import { Icon } from 'components/Icon';
 import { CaseStudyHeader, CaseStudySection } from 'components/CaseStudy';
 import { trackCaseStudyOpen, trackExternalLink } from 'utils/analytics';
-import { playTap } from 'utils/sound';
+import { playHush, playTap } from 'utils/sound';
 import styles from './MutualDashboardShort.module.css';
 
 // Flat 2x exports of the four image frames in the Figma case study
@@ -162,7 +162,12 @@ export default function MutualDashboardShort() {
           </a>
         </div>
 
-        <a href="/projects/etmoney-home/" className={styles.nextCard} onClick={playTap}>
+        <a
+          href="/projects/etmoney-home/"
+          className={styles.nextCard}
+          onMouseEnter={playHush}
+          onClick={playTap}
+        >
           <img
             className={styles.nextCardBg}
             src={nextCardBg?.src || nextCardBg}

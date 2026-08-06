@@ -69,3 +69,6 @@ public/og
 .netlify
 
 .vercel
+
+# macOS
+.DS_Store

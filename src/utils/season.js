@@ -35,7 +35,7 @@ const summer = {
   footerImage: summerFooter,
   footerTagline: 'Something felt interesting?',
   footerCta: 'Get in touch',
-  label: 'Summer',
+  label: 'Monsoon',
   glyph: 'ऋतु',
 };
 

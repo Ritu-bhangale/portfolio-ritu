@@ -63,8 +63,8 @@
   margin: 0;
   font-family: var(--serifFontStack);
   font-style: normal;
-  font-weight: var(--fontWeightMedium);
-  font-size: clamp(1.5rem, 2.4vw, 24px);
+  font-weight: var(--fontWeightLight);
+  font-size: 24px;
   line-height: 1.5;
   letter-spacing: var(--letterSpacingDefault);
   color: rgb(var(--rgbTextMuted));
@@ -135,7 +135,6 @@
   width: calc(786.825 * var(--unit));
   transform: rotate(-4deg);
   transform-origin: 0 0;
-  pointer-events: none;
 }
 
 /* Node 564:16043: a #060606 bar with 12 × 8 white sprocket holes, first one 4
@@ -185,9 +184,11 @@
 }
 
 .reelFrame {
+  position: relative;
   flex: none;
   width: calc(180.698 * var(--unit));
   height: 100%;
+  overflow: hidden;
 }
 
 /* 976 × 848 sources against a 180.698 × 157 frame is the same 1.1509 ratio, so
@@ -199,6 +200,74 @@
   height: 100%;
   object-fit: cover;
   user-select: none;
+}
+
+/* ── Reading a frame ────────────────────────────────────────────────────
+   Not a tooltip and not attached to the cursor: the place is written ONTO
+   the print, in the same hand and the same blue as the two notes pinned to
+   the paper above, and it stays with its frame rather than following the
+   pointer. The strip is a filmstrip, so the caption behaves like something
+   marked on a contact sheet in pencil.
+
+   The scrim is a wash rather than a panel: a light gradient rising off the
+   bottom edge, enough to hold the blue against a dark photograph without
+   drawing an edge anywhere. */
+.reelFrame::after {
+  content: '';
+  position: absolute;
+  inset: 55% 0 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0),
+    rgb(255 255 255 / 0.74)
+  );
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+/* Rises off the bottom edge of its own frame as it fades in, the way a
+   caption slid under a print would. */
+.reelCaption {
+  position: absolute;
+  right: calc(10 * var(--unit));
+  bottom: calc(8 * var(--unit));
+  left: calc(10 * var(--unit));
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(calc(7 * var(--unit)));
+  transition: opacity 220ms ease,
+    transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.reelInk {
+  position: relative;
+  display: inline-block;
+  font-family: Caveat, var(--fontStack);
+  font-weight: 400;
+  font-size: calc(19 * var(--unit));
+  line-height: 1.1;
+  letter-spacing: calc(-0.2 * var(--unit));
+  color: #002bba;
+  white-space: nowrap;
+}
+
+/* The underline is a separate stroke that draws itself left to right once
+   the name has arrived, so the two read as two movements of the same hand
+   rather than one block appearing. */
+.reelInk::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: calc(-2 * var(--unit));
+  left: 0;
+  height: calc(1.2 * var(--unit));
+  background: #002bba;
+  border-radius: calc(1 * var(--unit));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes reelScroll {
@@ -309,15 +378,42 @@
   transform: translate(-50%, -50%) rotate(calc(var(--rot) * 1deg));
 }
 
-/* ── Hover: the fan lifts off the paper ─────────────────────────────────
-   Pointer-only, and the only thing on this board that answers to the cursor.
-   Small, because the shadow under the stack is painted into the raster and so
-   cannot grow with the lift: past a few units the stack starts to look like
-   it has come unstuck from its own shadow. */
+/* ── Hover: the fan lifts, the reel gets read ────────────────────────────
+   Pointer-only. Two things answer to the cursor on this board:
+
+   A fan LIFTS off the paper. Small, because the shadow under the stack is
+   painted into the raster and so cannot grow with the lift: past a few units
+   the stack starts to look like it has come unstuck from its own shadow.
+
+   A reel frame is READ. The strip stops turning under the cursor, and the
+   place in the frame is written onto the print. */
 
 @media (--mediaNoTouch) {
   .fan:hover {
     --lift: -5;
+  }
+
+  /* Held, not slowed: a caption on a frame that is still sliding is a
+     caption you have to chase. */
+  .reel:hover .reelTrack,
+  .reel:hover .reelPerf {
+    animation-play-state: paused;
+  }
+
+  .reelFrame:hover .reelCaption {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reelFrame:hover::after {
+    opacity: 1;
+  }
+
+  /* Drawn rather than revealed, and after the word has landed, so it reads
+     as a line put under a name by hand. */
+  .reelFrame:hover .reelInk::after {
+    transform: scaleX(1);
+    transition-delay: 160ms;
   }
 }
 
@@ -335,6 +431,14 @@
   }
 
   .fan {
+    transition: none;
+  }
+
+  /* The hover states still happen, they just stop travelling to get there:
+     the caption is there or it is not. */
+  .reelCaption,
+  .reelInk::after,
+  .reelFrame::after {
     transition: none;
   }
 }

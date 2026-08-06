@@ -13,13 +13,3 @@
   }
 }
 
-/* illusion-art section divider — Figma: 647×200, centered */
-.divider {
-  display: block;
-  width: 647px;
-  max-width: 90%;
-  height: auto;
-  margin: var(--space2XL) auto;
-  pointer-events: none;
-  user-select: none;
-}

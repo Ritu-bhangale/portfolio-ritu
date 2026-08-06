@@ -3,7 +3,7 @@ import { Meta } from 'components/Meta';
 import { Icon } from 'components/Icon';
 import { CaseStudyHeader, CaseStudySection } from 'components/CaseStudy';
 import { trackCaseStudyOpen } from 'utils/analytics';
-import { playTap } from 'utils/sound';
+import { playHush, playTap } from 'utils/sound';
 import styles from './EtMoneyHomeShort.module.css';
 
 // Flat 2x exports of the image frames in the Figma case study
@@ -183,7 +183,12 @@ export default function EtMoneyHomeShort() {
         {/* Figma node 570:17121 styles this card but fills it with this page's
             own title, which would point the reader back here, so the copy,
             link and phone are the mutual funds dashboard's. */}
-        <a href="/projects/mutual-dashboard/" className={styles.nextCard} onClick={playTap}>
+        <a
+          href="/projects/mutual-dashboard/"
+          className={styles.nextCard}
+          onMouseEnter={playHush}
+          onClick={playTap}
+        >
           <img
             className={styles.nextCardBg}
             src={nextCardBg?.src || nextCardBg}

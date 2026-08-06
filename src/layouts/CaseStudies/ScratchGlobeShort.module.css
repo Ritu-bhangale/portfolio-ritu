@@ -1,0 +1,39 @@
+/* Basic first pass, deliberately trimmed down from the other case-study
+   layouts (EtMoneyHomeShort, MutualDashboardShort): no hero image, no
+   impact stats, no next-case-study card yet. This project is still being
+   built, so this page says so rather than pretending it's finished. Reuses
+   their exact page shell (.page/.container/.sections) so it drops into the
+   same rhythm once those pieces are added later. */
+
+.page {
+  width: 100%;
+  background: rgb(var(--rgbBackground));
+  padding: 88px 0 var(--space4XL);
+}
+
+@media (--mediaTablet) {
+  .page {
+    padding: 72px var(--spaceOuter) var(--space3XL);
+  }
+}
+
+@media (--mediaMobile) {
+  .page {
+    padding: 56px var(--spaceOuter) var(--space2XL);
+  }
+}
+
+.container {
+  position: relative;
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}

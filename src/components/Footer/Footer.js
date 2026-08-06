@@ -86,7 +86,15 @@ export const Footer = ({ className, reveal }) => (
         Hero plant hover-swap. The art keeps its alpha sky: everything above
         the ridgeline is cut out, so the page background shows through as sky
         and the range rises out of it with no seam to blend. */}
-    <img className={styles.bg} src={bg} alt="" aria-hidden draggable={false} />
+    <img
+      className={styles.bg}
+      src={bg}
+      alt=""
+      aria-hidden
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+    />
     <SoundToggle />
 
     <div className={styles.inner}>

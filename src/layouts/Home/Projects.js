@@ -1,7 +1,8 @@
+import { CursorTooltip } from 'components/CursorTooltip';
 import { SectionIcon } from 'components/SectionIcon';
 import etMoneyThumb from 'assets/home/EtMoneyThumb.jpg';
-import mfThumb from 'assets/home/MFDashboardThumb.png';
-import { playTap } from 'utils/sound';
+import mfThumb from 'assets/home/MFDashboardThumb.jpg';
+import { playPop, playTap } from 'utils/sound';
 import styles from './Projects.module.css';
 
 const logoSrc = img => img?.src || img;
@@ -19,6 +20,8 @@ const projects = [
           className={styles.thumbFlat}
           src={logoSrc(mfThumb)}
           alt=""
+          loading="lazy"
+          decoding="async"
           draggable={false}
         />
       </div>
@@ -36,6 +39,8 @@ const projects = [
           className={styles.thumbFlat}
           src={logoSrc(etMoneyThumb)}
           alt=""
+          loading="lazy"
+          decoding="async"
           draggable={false}
         />
       </div>
@@ -51,9 +56,20 @@ export const Projects = ({ id, sectionRef }) => (
     </div>
 
     <div className={styles.stage}>
-      <div className={styles.list}>
+      {/* Cards opt into the cursor-following pill via `data-cursor-tooltip`;
+          CursorTooltip renders the list container itself so its listeners stay
+          scoped to this section. */}
+      <CursorTooltip as="div" className={styles.list}>
         {projects.map((project, i) => (
-          <a key={i} href={project.href} className={styles.card} onClick={playTap}>
+          <a
+            key={i}
+            href={project.href}
+            className={styles.card}
+            data-cursor-tooltip="Read more"
+            data-cursor-tooltip-tone="blue"
+            onMouseEnter={playPop}
+            onClick={playTap}
+          >
             {project.thumbnail}
 
             <div className={styles.content}>
@@ -75,7 +91,7 @@ export const Projects = ({ id, sectionRef }) => (
             </div>
           </a>
         ))}
-      </div>
+      </CursorTooltip>
     </div>
   </section>
 );

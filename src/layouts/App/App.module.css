@@ -5,9 +5,25 @@
   grid-template: 100% / 100%;
 }
 
+/* Route-enter fade, mirroring the framer transition it replaced (linear,
+   durationS, 0.1s delay). Done in CSS so the server-rendered page paints
+   without waiting on hydration. `backwards` only fills the delay window and
+   there is no `forwards` fill, so framer's inline opacity takes over cleanly
+   for the exit animation. */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .page {
   grid-area: 1 / 1;
   min-height: 100lvh;
+  animation: pageFadeIn var(--durationS) linear 0.1s backwards;
 }
 
 .skip {

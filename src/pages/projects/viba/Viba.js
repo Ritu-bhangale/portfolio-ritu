@@ -1,15 +1,6 @@
-import backgroundVibaLarge from 'assets/viba/viba-cover.jpeg';
-import backgroundVibaPlaceholder from 'assets/viba/viba-cover.jpeg';
-import backgroundViba from 'assets/viba/viba-cover.jpeg';
 import imageVibaCoverLarge from 'assets/viba/viba-cover.jpg';
 import imageVibaCover from 'assets/viba/viba-cover.jpg';
 import imageVibaCoverPlaceholder from 'assets/viba/viba-cover.jpg';
-import imageVibaJar from 'assets/viba/Viba-Jar.jpg';
-import imageVibaJarLarge from 'assets/viba/Viba-Jar-Large.jpg';
-import imageVibaJarPlaceholder from 'assets/viba/Viba-Jar.jpg';
-import imageVibaGoldDelivery from 'assets/viba/Viba-Gold-Delivery.jpg';
-import imageVibaGoldDeliveryLarge from 'assets/viba/Viba-Gold-Delivery-Large.jpg';
-import imageVibaGoldDeliveryPlaceholder from 'assets/viba/Viba-Gold-Delivery.jpg';
 import videoVibaJar from 'assets/viba/VibaJar.mp4';
 import imageVibaPostorder from 'assets/viba/Viba-postorder.jpg';
 import imageVibaPostOrderLarge from 'assets/viba/Viba-postorder-large.jpg';
@@ -18,7 +9,6 @@ import { Button } from 'components/Button';
 import { Image } from 'components/Image';
 import { Meta } from 'components/Meta';
 import {
-  ProjectBackground,
   ProjectContainer,
   ProjectHeader,
   ProjectImage,
@@ -37,18 +27,18 @@ const title = 'Designing the Ecommerce site - Viba by Jar';
 const description =
   'As a part of my internship at Jar, I embarked on a journey to design an e-commerce platform for pure gold jewellery from the ground up. My role extended to seamlessly integrating Viba with Jar.';
 
+// Shorter, search friendly versions of the on page copy above. The full title
+// would push the <title> tag past what search results actually show.
+const metaTitle = 'Viba by Jar, ecommerce design';
+const metaDescription =
+  'Designing an ecommerce platform for pure gold jewellery from the ground up during an internship at Jar, and integrating Viba with the main Jar app.';
+
 export const Viba = () => {
   return (
     <>
       <Fragment>
         <ProjectContainer className="spr">
-          <Meta title={title} prefix="Projects" description={description} />
-          {/* <ProjectBackground
-            opacity={isDark ? 0.8 : 0.6}
-            src={backgroundViba}
-            srcSet={`${backgroundViba.src} 1080w, ${backgroundVibaLarge.src} 2160w`}
-            placeholder={backgroundVibaPlaceholder}
-          /> */}
+          <Meta title={metaTitle} description={metaDescription} type="article" />
           <ProjectHeader title={title} description={description} />
           <ProjectSection>
             <ProjectSectionContent>
@@ -95,44 +85,7 @@ export const Viba = () => {
                   sizes="(max-width: 480px) 90vw, (max-width: 768px) 80vw, 360px"
                 />
               </div>
-              <div className={styles.video}>
-                {/* <Image
-                  className={styles.sidebarImage}
-                  srcSet={
-                    isDark
-                      ? [imageVibaGoldDelivery, imageVibaGoldDeliveryLarge]
-                      : [imageVibaGoldDelivery, imageVibaGoldDeliveryLarge]
-                  }
-                  placeholder={
-                    isDark
-                      ? imageVibaGoldDeliveryPlaceholder
-                      : imageVibaGoldDeliveryPlaceholder
-                  }
-                  alt="Configuration options for text."
-                  sizes={`(max-width: ${media.mobile}px) 40vw, 20vw`}
-                />
-                <Image
-                  className={styles.sidebarImage}
-                  srcSet={
-                    isDark
-                      ? [imageVibaJar, imageVibaJarLarge]
-                      : [imageVibaJar, imageVibaJarLarge]
-                  }
-                  placeholder={isDark ? imageVibaJarPlaceholder : imageVibaJarPlaceholder}
-                  alt="Configuration options for a component."
-                  sizes={`(max-width: ${media.mobile}px) 40vw, 20vw`}
-                /> */}
-                {/* <Image
-                  raised
-                  className={styles.video}
-                  srcSet={`${videoVibaJar} 1280w, ${videoVibaJar} 2560w`}
-                  width={360}
-                  height={800}
-                  placeholder={videoVibaJar}
-                  alt="A working prototpe."
-                  sizes={`(max-width: ${media.mobile}px) 90vw, 20vw`}
-                /> */}
-              </div>
+              <div className={styles.video} />
             </ProjectSectionColumns>
           </ProjectSection>
           <ProjectSection>

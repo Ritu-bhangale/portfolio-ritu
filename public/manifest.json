@@ -1,25 +1,38 @@
 {
+  "id": "/",
   "short_name": "Ritu Bhangale",
-  "name": "Design Portfolio of Ritu Bhangale",
+  "name": "Ritu Bhangale, Product Designer",
+  "description": "Product design portfolio of Ritu Bhangale. Case studies on portfolio dashboards, investment flows, and product discovery in Indian fintech.",
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64",
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "icon-256.png",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-256.png",
       "sizes": "256x256",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#111111",
-  "background_color": "#111111"
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF"
 }

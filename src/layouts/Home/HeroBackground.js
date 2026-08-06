@@ -27,7 +27,10 @@ import styles from './HeroBackground.module.css';
 // direct translation, not a re-interpretation.
 
 // Exact parameter values as set in the Figma file:
-const WATER_COLOR = new Vector4(0.863, 0.914, 0.957, 1.0); // #DCE9F4
+// Water tint is #DBE4F3 = rgb(219, 228, 243), normalised to 0-1 floats for the
+// vec4 uniform. Only the colour changed here; motion, resolution handling and
+// spatial frequency are untouched.
+const WATER_COLOR = new Vector4(0.859, 0.894, 0.953, 1.0); // #DBE4F3
 const HIGHLIGHT_COLOR = new Vector4(1.0, 1.0, 1.0, 1.0); // #FFFFFF
 const INTENSITY = 0.34;
 const CENTER = new Vector2(50.0, 50.0); // percent

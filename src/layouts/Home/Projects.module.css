@@ -51,11 +51,6 @@
   background: #fff;
   text-decoration: none;
   color: inherit;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin);
-}
-
-.card:hover {
-  transform: translateY(-2px);
 }
 
 /* ── Thumbnail ────────────────────────────────────────────────────────── */

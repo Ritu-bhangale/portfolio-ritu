@@ -48,51 +48,6 @@
   max-width: 1248px;
 }
 
-.badgeGroup {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-}
-
-.badge {
-  min-height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  padding: 4px 12px;
-}
-
-.badgeIconWrap {
-  background: rgb(17 17 17);
-}
-
-.badgeIcon {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid rgb(var(--rgbTextTertiary));
-}
-
-.badgeEt {
-  background: rgb(38 138 93);
-}
-
-.badgeFintech {
-  background: rgb(107 70 193);
-}
-
-.badgeExplore {
-  background: rgb(43 108 176);
-}
-
-.badgeText {
-  color: rgb(var(--rgbTextTertiary));
-  font-weight: var(--fontWeightMedium);
-}
-
 .roleImpactGrid {
   width: 100%;
   display: grid;
@@ -358,17 +313,7 @@
   color: var(--colorTextMuted);
 }
 
-.structuralHeadingNegative {
-  color: rgb(210 37 37);
-  font-style: italic;
-  font-weight: var(--fontWeightBold);
-}
-
 .structuralHeadingStrong {
-  color: var(--colorTextTitle);
-}
-
-.greenCallout {
   color: var(--colorTextTitle);
 }
 
@@ -379,12 +324,6 @@
 
 .redCallout {
   color: rgb(210 37 37);
-}
-
-.subtitleEmphasisRed {
-  color: rgb(210 37 37);
-  font-style: italic;
-  font-weight: var(--fontWeightMedium);
 }
 
 .impactSection {
@@ -433,17 +372,6 @@
   transform: scale(1.04) translateY(-6px);
 }
 
-.impactLaunchEmpty .impactLaunchImage {
-  display: none;
-}
-
-.impactLaunchEmpty {
-  min-height: 380px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
 .impactMetricStack {
   width: 100%;
   display: flex;
@@ -472,122 +400,6 @@
 .impactMetricSubtitle {
   margin-top: 4px;
   color: var(--colorTextMuted);
-}
-
-.reviewScroller {
-  --reviewGap: var(--spaceL);
-  --reviewFrameWidth: 672px;
-  --reviewFrameHeight: 228px;
-  width: 100%;
-  max-width: 1248px;
-  display: block;
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--colorStroke);
-  background: rgb(var(--rgbBackgroundAlt));
-  margin: 0 auto;
-}
-
-.reviewTrack {
-  display: flex;
-  flex: 0 0 auto;
-  gap: var(--reviewGap);
-  padding: var(--spaceM);
-  animation: reviewScroll 38s linear infinite;
-}
-
-.reviewCard {
-  position: relative;
-  margin: 0;
-  flex: 0 0 auto;
-  width: var(--reviewFrameWidth);
-  height: var(--reviewFrameHeight);
-  border-radius: 6px;
-  overflow: hidden;
-  background: rgb(var(--rgbBackground));
-  border: 1px solid var(--colorStroke);
-}
-
-.reviewImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-
-.reviewPlaceholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--colorTextMuted);
-  background: rgb(var(--rgbBackground));
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 12px;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.reviewImage:not([src]),
-.reviewImage[src=''] {
-  display: none;
-}
-
-.reviewCardEmpty .reviewImage {
-  display: none;
-}
-
-.reviewCardEmpty .reviewPlaceholder {
-  opacity: 1;
-}
-
-@keyframes reviewScroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(calc(-100% - var(--reviewGap)));
-  }
-}
-
-.callMeta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spaceS);
-}
-
-.callMetaIcon {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  background: rgb(199 232 187);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.callMetaIconGlyph {
-  color: rgb(44 166 0);
-  font-size: 12px;
-  line-height: 1;
-}
-
-.callMetaDots {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.callMetaDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgb(44 166 0);
 }
 
 .heroEmphasis {
@@ -679,17 +491,6 @@
 
   .exploreBodyText {
     max-width: 100%;
-  }
-
-  .reviewTrack {
-    gap: var(--spaceM);
-    padding: var(--spaceM);
-  }
-
-  .reviewScroller {
-    --reviewFrameWidth: 560px;
-    --reviewFrameHeight: 190px;
-    --reviewGap: var(--spaceM);
   }
 
   .impactSection {
@@ -799,12 +600,6 @@
     padding: var(--spaceL) var(--spaceM);
   }
 
-  .reviewScroller {
-    --reviewFrameWidth: min(86vw, 480px);
-    --reviewFrameHeight: min(32vw, 180px);
-    width: 100%;
-  }
-
   .exploreThumbnailCard {
     margin-top: var(--spaceXL);
     border-radius: 12px;
@@ -853,12 +648,6 @@
 
   .exploreNotePink {
     right: 10px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reviewTrack {
-    animation: none;
   }
 }
 

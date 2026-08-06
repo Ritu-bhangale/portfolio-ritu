@@ -1,0 +1,133 @@
+/* Figma's own "quick chat" live cursor: a solid arrow sitting exactly at the
+   pointer tip, with a dark rounded label pill attached just off its bottom
+   edge, both moving as one rigid group. Portalled to <body> and
+   fixed-positioned, so no ancestor transform or overflow can clip or
+   re-anchor it. */
+.group {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Above every page layer; the site tops out at --zIndex4. */
+  z-index: var(--zIndex5);
+
+  /* Off by default, switched on only for fine pointers below. */
+  display: none;
+  transform: translate3d(var(--cursorX, 0), var(--cursorY, 0), 0);
+
+  /* Never eat a click meant for the card underneath. */
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+/* The arrow's own top-left corner is the group's origin, so its tip lands
+   exactly on the real cursor position. */
+.arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.25));
+}
+
+/* Offset from the arrow, not from the raw cursor: this is what used to be
+   baked into the JS-side position math, moved here so the arrow itself can
+   sit at the true pointer tip.
+
+   Shape/color match Figma node 621:3145 ("Comment") exactly: a chat-bubble
+   pill with one sharp corner (top-left) where it meets the arrow, as if
+   torn from it, rather than a fully-rounded capsule. */
+.tooltip {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  padding: 8px 20px 8px 16px;
+  border-radius: 2px 24px 24px 24px;
+  color: #fff;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightMedium);
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+/* Tone = what the label is telling you. Green: shipped/building (Figma node
+   621:3145, exact colors). Blue: takes you to a case study. Grey: takes you
+   off-site (GitHub). Blue/grey are eyeballed from a reference moodboard, not
+   pulled from a Figma node — swap for exact hex if/when one exists. */
+.tooltip[data-tone='green'] {
+  background: #51ac65;
+  border: 2px solid #418a51;
+  box-shadow: 4px 4px 5px rgb(81 172 101 / 0.16);
+}
+
+.tooltip[data-tone='blue'] {
+  background: #3e5fe0;
+  border: 2px solid #2c46ad;
+  box-shadow: 4px 4px 5px rgb(62 95 224 / 0.16);
+}
+
+.tooltip[data-tone='grey'] {
+  background: #6b7280;
+  border: 2px solid #4b5563;
+  box-shadow: 4px 4px 5px rgb(107 114 128 / 0.16);
+}
+
+/* Blinking text caret, as if the label is being typed live. */
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: -3px;
+  background: currentColor;
+  animation: caretBlink 1s step-end infinite;
+}
+
+/* Opacity only. A transform here would fight `transition: transform` below,
+   since a filling animation outranks the transitioned value. */
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caretBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Hover-only interaction: a cursor follower is meaningless on touch, where
+   there is no persistent pointer to follow. Same gate FunSection uses. */
+@media (--mediaNoTouch) {
+  .group {
+    display: block;
+
+    /* A touch of lag so the group feels alive rather than welded to the pixel. */
+    transition: transform 130ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: tooltipIn 140ms ease-out both;
+  }
+}
+
+/* Snap instantly instead of easing, but keep the label itself. */
+@media (--mediaReduceMotion) {
+  .group {
+    transition: none;
+    animation: none;
+  }
+
+  .caret {
+    animation: none;
+  }
+}

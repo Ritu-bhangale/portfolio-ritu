@@ -184,8 +184,22 @@ const Arrow = ({ arrow }) => (
    Rendered twice, back to back: the track scrolls by exactly one set width and
    restarts, so the seam is the first frame arriving where it started. Runs on
    its own CSS clock, forever, independent of scroll and of the two fans
-   above it — stops only under reduced motion. */
-const REEL_FRAMES = [travel5, travel4, travel3, travel2, travel1];
+   above it. Stopped by reduced motion, and held still while the cursor is on
+   the strip so a frame can be read rather than chased.
+
+   PLACEHOLDER LOCATIONS. The five names below are read off what is in each
+   photograph and are guesses, not records: the files carry no location data,
+   and no date beyond `travel 5`'s original filename. `travel 4` is put in the
+   Dhauladhar foothills because the same snowline stands behind the
+   crocheted-cardigan photograph in the crochet fan. Correct any of them
+   freely: nothing but the caption text and the alt text depends on them. */
+const REEL_FRAMES = [
+  { src: travel5, place: 'Alibaug' },
+  { src: travel4, place: 'Kothi village' },
+  { src: travel3, place: 'Dhanaulti' },
+  { src: travel2, place: 'Lahaul valley' },
+  { src: travel1, place: 'My terrace' },
+];
 
 export const FunSection = ({ id, sectionRef }) => (
   <section className={styles.fun} id={id} ref={sectionRef}>
@@ -199,20 +213,32 @@ export const FunSection = ({ id, sectionRef }) => (
         <div className={styles.stage}>
           <div className={styles.paper} aria-hidden />
 
-          <div className={styles.reel} aria-hidden>
-            <div className={styles.reelPerf} />
+          <div className={styles.reel}>
+            <div className={styles.reelPerf} aria-hidden />
             <div className={styles.reelWindow}>
               <div className={styles.reelTrack}>
                 {[0, 1].map(pass =>
-                  REEL_FRAMES.map((src, index) => (
-                    <div className={styles.reelFrame} key={`${pass}-${index}`}>
-                      <img src={imgSrc(src)} alt="" loading="lazy" draggable={false} />
+                  REEL_FRAMES.map(({ src, place }, index) => (
+                    <div
+                      className={styles.reelFrame}
+                      key={`${pass}-${index}`}
+                      aria-hidden={pass === 1 || undefined}
+                    >
+                      <img
+                        src={imgSrc(src)}
+                        alt={pass === 0 ? `A photograph from ${place}` : ''}
+                        loading="lazy"
+                        draggable={false}
+                      />
+                      <span className={styles.reelCaption} aria-hidden>
+                        <span className={styles.reelInk}>{place}</span>
+                      </span>
                     </div>
                   ))
                 )}
               </div>
             </div>
-            <div className={styles.reelPerf} />
+            <div className={styles.reelPerf} aria-hidden />
           </div>
 
           {/* Sits under the baking fan, as it does in Figma: that fan's own

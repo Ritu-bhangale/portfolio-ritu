@@ -1,19 +1,8 @@
-import { Cache, TextureLoader } from 'three';
-import { DRACOLoader, GLTFLoader } from 'three-stdlib';
-
-// Enable caching for all loaders
-Cache.enabled = true;
-
-const dracoLoader = new DRACOLoader();
-const gltfLoader = new GLTFLoader();
-dracoLoader.setDecoderPath('/draco/');
-gltfLoader.setDRACOLoader(dracoLoader);
-
 /**
- * GLTF model loader configured with draco decoder
+ * Disposal helpers for the WebGL scene in `layouts/Home/HeroBackground`.
+ * Three.js does not garbage collect GPU resources, so geometry, materials and
+ * the renderer have to be released by hand when the component unmounts.
  */
-export const modelLoader = gltfLoader;
-export const textureLoader = new TextureLoader();
 
 /**
  * Clean up a scene's materials and geometry
@@ -44,9 +33,6 @@ export const cleanMaterial = material => {
     const value = material[key];
     if (value && typeof value === 'object' && 'minFilter' in value) {
       value.dispose();
-
-      // Close GLTF bitmap textures
-      value.source?.data?.close?.();
     }
   }
 };
@@ -57,28 +43,4 @@ export const cleanMaterial = material => {
 export const cleanRenderer = renderer => {
   renderer.dispose();
   renderer = null;
-};
-
-/**
- * Clean up lights by removing them from their parent
- */
-export const removeLights = lights => {
-  for (const light of lights) {
-    light.parent.remove(light);
-  }
-};
-
-/**
- * Get child by name
- */
-export const getChild = (name, object) => {
-  let node;
-
-  object.traverse(child => {
-    if (child.name === name) {
-      node = child;
-    }
-  });
-
-  return node;
 };

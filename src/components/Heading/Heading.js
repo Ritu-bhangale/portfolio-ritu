@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { classes } from 'utils/style';
 import styles from './Heading.module.css';
 

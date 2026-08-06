@@ -23,7 +23,7 @@ export const Uses = () => {
     <Fragment>
       <Meta
         title="Uses"
-        description="A list of hardware and software I use to do my thing"
+        description="The hardware, software, and design tools Ritu Bhangale works with day to day, from laptop and monitor to Figma, prototyping, and note taking apps."
       />
       <ProjectContainer className={styles.uses}>
         <ProjectBackground

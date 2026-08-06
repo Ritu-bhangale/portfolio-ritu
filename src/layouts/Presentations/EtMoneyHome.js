@@ -14,11 +14,6 @@ import WireframesSVG from 'assets/etmoney/WireframesSVG.svg';
 import FinalV1SVG from 'assets/etmoney/FinalV1SVG.svg';
 import CasesSVG from 'assets/etmoney/CasesSVG.svg';
 import GeniusSVG from 'assets/etmoney/GeniusSvg.svg';
-import ReviewSS1 from 'assets/etmoney/ReviewSS1.png';
-import ReviewSS2 from 'assets/etmoney/ReviewSS2.png';
-import ReviewSS3 from 'assets/etmoney/ReviewSS3.png';
-import ReviewSS4 from 'assets/etmoney/ReviewSS4.png';
-import ReviewSS5 from 'assets/etmoney/ReviewSS5.png';
 import FinalIA from 'assets/etmoney/FinalIA.svg';
 import BulbIcon from 'assets/etmoney/bulb.svg';
 import AnnotationIcon from 'assets/shared/annotationIcon.svg';
@@ -38,34 +33,6 @@ const caseStudyNavItems = [
   { id: 'solution', label: 'Solution' },
   { id: 'v2-cases', label: 'V2 & Cases' },
   { id: 'impact', label: 'Impact' },
-];
-
-const reviewScreenshotSlots = [
-  {
-    id: 'review-01',
-    src: ReviewSS1,
-    alt: 'ET Money review screenshot 1',
-  },
-  {
-    id: 'review-02',
-    src: ReviewSS2,
-    alt: 'ET Money review screenshot 2',
-  },
-  {
-    id: 'review-03',
-    src: ReviewSS3,
-    alt: 'ET Money review screenshot 3',
-  },
-  {
-    id: 'review-04',
-    src: ReviewSS4,
-    alt: 'ET Money review screenshot 4',
-  },
-  {
-    id: 'review-05',
-    src: ReviewSS5,
-    alt: 'ET Money review screenshot 5',
-  },
 ];
 
 const metricNotes = [
@@ -178,7 +145,9 @@ export default function EtMoneyHome() {
             <div className={styles.container}>
               <div className={styles.roleImpactGrid}>
                 <div className={styles.roleImpactCard}>
-                  <Heading level={5}>Impact</Heading>
+                  <Heading level={5} as="h2">
+                    Impact
+                  </Heading>
                   <div className={styles.metrics}>
                     <Text size="m" className={styles.metricItem}>
                       NPS Score: -10 to +73
@@ -192,7 +161,9 @@ export default function EtMoneyHome() {
                 </div>
 
                 <div className={styles.roleImpactCard}>
-                  <Heading level={5}>Stakeholders</Heading>
+                  <Heading level={5} as="h2">
+                    Stakeholders
+                  </Heading>
                   <ul className={styles.list}>
                     <li>
                       <Text as="span" size="m">
@@ -216,7 +187,9 @@ export default function EtMoneyHome() {
                 </div>
 
                 <div className={styles.roleImpactCard}>
-                  <Heading level={5}>Duration</Heading>
+                  <Heading level={5} as="h2">
+                    Duration
+                  </Heading>
                   <div className={styles.stepper}>
                     <div className={styles.step}>
                       <span className={styles.stepDot} aria-hidden="true" />
@@ -296,10 +269,7 @@ export default function EtMoneyHome() {
             <ImpactSvg />
           </CaseSection>
 
-          <CaseSection
-            title="Emerging challenges"
-            size="large"
-          >
+          <CaseSection title="Emerging challenges" size="large">
             <UsersentimentSvg />
           </CaseSection>
           <div id="problem-discover" className={styles.sectionAnchor} />
@@ -387,7 +357,7 @@ export default function EtMoneyHome() {
 
             <div className={`${styles.block} ${styles.whatDidntWorkBlock}`}>
               <Text className={styles.label}>What didn&apos;t work?</Text>
-              <Heading level={5} className={styles.redCallout}>
+              <Heading level={5} as="h3" className={styles.redCallout}>
                 Discovery for Insurance and Cash remained gated behind tab selection,
                 limiting passive exploration and cross-product visibility.
               </Heading>
@@ -419,7 +389,7 @@ export default function EtMoneyHome() {
           <CaseSection size="small" title="Reimagining the Explore Page">
             <div className={styles.exploreSection}>
               <div className={styles.exploreTextColumn}>
-                <Heading level={4} className={styles.exploreSubHeading}>
+                <Heading level={4} as="h3" className={styles.exploreSubHeading}>
                   Constraints
                 </Heading>
                 <ul className={styles.exploreList}>
@@ -427,7 +397,7 @@ export default function EtMoneyHome() {
                   <li>Risk: Visual & cognitive clutter</li>
                 </ul>
 
-                <Heading level={4} className={styles.exploreSubHeading}>
+                <Heading level={4} as="h3" className={styles.exploreSubHeading}>
                   User Expectation
                 </Heading>
                 <Text className={styles.exploreBodyText}>
@@ -514,7 +484,9 @@ export default function EtMoneyHome() {
 
           <CaseSection title="Handling Cases" size="small">
             <div className={styles.block}>
-              <Heading level={4}>Zero state</Heading>
+              <Heading level={4} as="h3">
+                Zero state
+              </Heading>
               <Text className={styles.textWide}>
                 For first-time visitors, users are typically looking for direction and
                 clarity on where to begin.
@@ -523,7 +495,9 @@ export default function EtMoneyHome() {
             </div>
 
             <div className={styles.block}>
-              <Heading level={4}>Drop - off</Heading>
+              <Heading level={4} as="h3">
+                Drop - off
+              </Heading>
               <Text className={styles.textWide}>
                 Many users explored products but dropped off mid-journey, leading to lost
                 opportunities, so we surfaced contextual reminders on the homescreen to
@@ -532,7 +506,9 @@ export default function EtMoneyHome() {
               <DropOffSVG />
             </div>
             <div className={styles.block}>
-              <Heading level={4}>New product</Heading>
+              <Heading level={4} as="h3">
+                New product
+              </Heading>
               <Text className={styles.textWide}>
                 A dedicate section introduce New launches/ Major products updates.
               </Text>

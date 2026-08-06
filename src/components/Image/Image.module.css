@@ -43,13 +43,6 @@
   }
 }
 
-.container {
-  position: relative;
-  transform: none;
-  display: grid;
-  grid-template-columns: 100%;
-}
-
 .elementWrapper {
   opacity: 0;
   transition: none;

@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 193.751 95.9656" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Crochet" filter="url(#crochetShadeFilter)">
+<path d="M9.23257 84.1633L1.06805 14.6602C0.21276 7.37932 5.90187 0.982794 13.2328 0.982794H92.9369C97.5525 0.982794 101.776 3.57747 103.863 7.69461L108.06 15.9778C110.146 20.0949 114.37 22.6896 118.986 22.6896H180.518C187.909 22.6896 193.617 29.1871 192.664 36.517L186.451 84.3133C185.657 90.4162 180.459 94.9828 174.304 94.9828H21.3974C15.1855 94.9828 9.95729 90.3328 9.23257 84.1633Z" fill="#545454" fill-opacity="0.5"/>
+</g>
+<defs>
+<filter id="crochetShadeFilter" x="0" y="0" width="193.751" height="95.9656" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="0.491397" result="crochetShadeBlur"/>
+</filter>
+</defs>
+</svg>

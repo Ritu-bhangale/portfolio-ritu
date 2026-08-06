@@ -6,7 +6,6 @@ module.exports = {
     // Run custom scripts
     if (isServer) {
       require('./scripts/generate-sitemap');
-      require('./scripts/draco');
     }
 
     // Use in-memory cache in dev to avoid ENOENT .pack race on rapid edits
@@ -21,9 +20,9 @@ module.exports = {
       use: [{ loader: '@svgr/webpack', options: { svgo: false } }],
     });
 
-    // Import videos, models, hdrs, and fonts
+    // Import videos and fonts
     config.module.rules.push({
-      test: /\.(mp4|hdr|glb|woff|woff2)$/i,
+      test: /\.(mp4|woff|woff2)$/i,
       type: 'asset/resource',
     });
 
@@ -31,12 +30,6 @@ module.exports = {
     config.module.rules.push({
       resourceQuery: /url/,
       type: 'asset/resource',
-    });
-
-    // Import `.glsl` shaders
-    config.module.rules.push({
-      test: /\.glsl$/,
-      type: 'asset/source',
     });
 
     return config;

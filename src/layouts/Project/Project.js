@@ -27,7 +27,10 @@ export function ProjectHeader({
         style={cssProps({ initDelay: numToMs(initDelay) })}
       >
         <div className={styles.details}>
-          <Heading className={styles.title} level={3} as="h2">
+          {/* `as="h1"` because this is the page title on /uses and the project
+              pages that use this layout. `level` still drives the visual size,
+              so nothing changes on screen. */}
+          <Heading className={styles.title} level={3} as="h1">
             {title}
           </Heading>
           <Text className={styles.description} size="l" as="p">

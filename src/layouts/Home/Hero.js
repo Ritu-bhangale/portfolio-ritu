@@ -1,16 +1,35 @@
-import heroPlant from 'assets/home/hero-plant-cover.png';
-import heroPlantDither from 'assets/home/hero-plant-cover-dither.png';
+/* Both plant layers are WebP rather than PNG. The photo is the page's Largest
+   Contentful Paint element and was a 320KB PNG; at WebP q95 it is 75KB with
+   the alpha cutout intact and no visible difference. The dithered twin is
+   lossless WebP, so its Bayer pattern is preserved pixel for pixel at half
+   the bytes. */
+import heroPlant from 'assets/home/hero-plant-cover.webp';
+import heroPlantDither from 'assets/home/hero-plant-cover-dither.webp';
 import etmoneyLogo from 'assets/home/logos_workplace/ETMoney.png';
 import jarLogo from 'assets/home/logos_workplace/Jar.png';
 import upstoxLogo from 'assets/home/logos_workplace/Upstox.png';
+import dynamic from 'next/dynamic';
 import styles from './Hero.module.css';
-import { HeroBackground } from './HeroBackground';
 import {
   trackContactInteraction,
   trackExternalLink,
   trackResumeDownload,
 } from 'utils/analytics';
 import { playHush, playTap } from 'utils/sound';
+
+/* The caustic background pulls in three.js, which is ~450KB of the home
+   page's JavaScript on its own. Imported statically it landed in the initial
+   bundle, so the browser had to finish downloading and parsing a WebGL engine
+   before it could hydrate and paint anything. Loading it dynamically with
+   ssr: false keeps it out of the critical path entirely: the hero text,
+   buttons and plant paint from the server-rendered HTML, and the shader
+   attaches afterwards. It is purely decorative and already fades itself in
+   over 1200ms (see HeroBackground.module.css), so arriving a beat later is
+   indistinguishable from the previous behaviour. */
+const HeroBackground = dynamic(
+  () => import('./HeroBackground').then(mod => mod.HeroBackground),
+  { ssr: false }
+);
 
 const logoSrc = img => img?.src || img;
 
@@ -69,16 +88,26 @@ export const Hero = ({ id, sectionRef }) => (
         section icons — and fades back on mouse-out. Pure CSS opacity
         transition, no JS/canvas involved. */}
     <div className={styles.plantImage}>
+      {/* This photo is the Largest Contentful Paint element on desktop, so it
+          gets an explicit high fetch priority. Without it the browser assigns
+          images a low initial priority and this one queued behind six web
+          fonts and the below-the-fold thumbnails, which pushed LCP out by
+          several seconds on a slow connection. */}
       <img
         className={styles.plantPhoto}
         src={logoSrc(heroPlant)}
         alt=""
+        fetchpriority="high"
+        decoding="async"
         draggable={false}
       />
+      {/* The dithered twin only ever shows on hover, so it can wait. */}
       <img
         className={styles.plantDither}
         src={logoSrc(heroPlantDither)}
         alt=""
+        fetchpriority="low"
+        decoding="async"
         draggable={false}
       />
     </div>

@@ -1,14 +1,18 @@
-<svg width="4724" height="4724" viewBox="0 0 4724 4724" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="2478.16" width="2245.84" height="645.355" fill="white"/>
-<rect x="2478.16" y="800.24" width="2245.84" height="645.355" fill="white"/>
-<rect x="2478.16" y="1600.48" width="2245.84" height="645.355" fill="white"/>
-<rect y="2478.16" width="2245.84" height="645.355" fill="white"/>
-<rect y="3278.4" width="2245.84" height="645.355" fill="white"/>
-<rect y="4078.64" width="2245.84" height="645.355" fill="white"/>
-<rect x="2478.16" y="4724" width="2245.84" height="645.355" transform="rotate(-90 2478.16 4724)" fill="white"/>
-<rect x="3278.4" y="4724" width="2245.84" height="645.355" transform="rotate(-90 3278.4 4724)" fill="white"/>
-<rect x="4078.64" y="4724" width="2245.84" height="645.355" transform="rotate(-90 4078.64 4724)" fill="white"/>
-<rect y="2245.84" width="2245.84" height="645.355" transform="rotate(-90 0 2245.84)" fill="white"/>
-<rect x="800.24" y="2245.84" width="2245.84" height="645.355" transform="rotate(-90 800.24 2245.84)" fill="white"/>
-<rect x="1600.48" y="2245.84" width="2245.84" height="645.355" transform="rotate(-90 1600.48 2245.84)" fill="white"/>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+<style>
+  rect { fill: #0F0F0F; }
+  @media (prefers-color-scheme: dark) { rect { fill: #FFFFFF; } }
+</style>
+<rect x="268.59" width="243.41" height="69.9454"/>
+<rect x="268.59" y="86.7324" width="243.41" height="69.9454"/>
+<rect x="268.59" y="173.464" width="243.41" height="69.9454"/>
+<rect y="268.59" width="243.41" height="69.9454"/>
+<rect y="355.322" width="243.41" height="69.9454"/>
+<rect y="442.055" width="243.41" height="69.9454"/>
+<rect x="268.59" y="512" width="243.41" height="69.9454" transform="rotate(-90 268.59 512)"/>
+<rect x="355.322" y="512" width="243.41" height="69.9454" transform="rotate(-90 355.322 512)"/>
+<rect x="442.055" y="512" width="243.41" height="69.9454" transform="rotate(-90 442.055 512)"/>
+<rect y="243.41" width="243.41" height="69.9454" transform="rotate(-90 0 243.41)"/>
+<rect x="86.7324" y="243.41" width="243.41" height="69.9454" transform="rotate(-90 86.7324 243.41)"/>
+<rect x="173.465" y="243.41" width="243.41" height="69.9454" transform="rotate(-90 173.465 243.41)"/>
 </svg>

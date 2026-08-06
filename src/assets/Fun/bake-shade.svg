@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 238.721 146.798" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Vector 2825" filter="url(#bakeShadeFilter)">
+<path d="M12.0053 131.938L1.2756 17.6756C0.446023 8.84129 7.39579 1.20833 16.269 1.20833H113.424C118.125 1.20833 122.557 3.40424 125.406 7.14505L141.75 28.6127C144.599 32.3535 149.03 34.5494 153.732 34.5494H222.452C231.384 34.5494 238.354 42.2803 237.43 51.1652L229.021 132.087C228.224 139.76 221.757 145.59 214.043 145.59H26.9987C19.2271 145.59 12.7319 139.676 12.0053 131.938Z" fill="#3F3F3F" fill-opacity="0.3"/>
+</g>
+<defs>
+<filter id="bakeShadeFilter" x="0" y="0" width="238.721" height="146.798" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="0.604167" result="bakeShadeBlur"/>
+</filter>
+</defs>
+</svg>

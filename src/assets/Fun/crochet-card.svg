@@ -1,0 +1,24 @@
+<svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 191.761 151.009" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rectangle 161124715" filter="url(#crochetCardFilter)">
+<path d="M0.529865 13.4847C0.21312 6.41883 5.85615 0.517153 12.9291 0.517153H178.832C185.905 0.517153 191.548 6.41882 191.231 13.4847L185.621 138.636C185.324 145.268 179.86 150.492 173.222 150.492H18.5393C11.9007 150.492 6.43738 145.268 6.14009 138.636L0.529865 13.4847Z" fill="#B6B6B6"/>
+</g>
+<defs>
+<filter id="crochetCardFilter" x="0" y="0" width="191.761" height="152.56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2.06861"/>
+<feGaussianBlur stdDeviation="25.8577"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.222713 0 0 0 0 0.222713 0 0 0 0 0.222713 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="crochetCardInner1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2.06861"/>
+<feGaussianBlur stdDeviation="8.27445"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.82281 0 0 0 0 0.82281 0 0 0 0 0.82281 0 0 0 1 0"/>
+<feBlend mode="normal" in2="crochetCardInner1" result="crochetCardInner2"/>
+<feGaussianBlur stdDeviation="0.258577" result="crochetCardBlur"/>
+</filter>
+</defs>
+</svg>

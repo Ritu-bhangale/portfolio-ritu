@@ -1,0 +1,24 @@
+<svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 232.667 183.222" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rectangle 161124715" filter="url(#bakeCardFilter)">
+<path d="M0.642895 16.3612C0.258583 7.78809 7.10538 0.627472 15.6871 0.627472H216.98C225.562 0.627472 232.409 7.78807 232.024 16.3612L225.217 168.209C224.857 176.256 218.228 182.594 210.173 182.594H22.4941C14.4393 182.594 7.8106 176.256 7.44988 168.209L0.642895 16.3612Z" fill="#404040"/>
+</g>
+<defs>
+<filter id="bakeCardFilter" x="0" y="0" width="232.667" height="185.104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2.50989"/>
+<feGaussianBlur stdDeviation="31.3736"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.118577 0 0 0 0 0.118577 0 0 0 0 0.118577 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="bakeCardInner1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2.50989"/>
+<feGaussianBlur stdDeviation="10.0395"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.517353 0 0 0 0 0.517353 0 0 0 0 0.517353 0 0 0 1 0"/>
+<feBlend mode="normal" in2="bakeCardInner1" result="bakeCardInner2"/>
+<feGaussianBlur stdDeviation="0.313736" result="bakeCardBlur"/>
+</filter>
+</defs>
+</svg>

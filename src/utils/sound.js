@@ -19,6 +19,9 @@ const TAP_GAIN = 0.5;
 const HUSH_SOUND_URL = '/sounds/hush.mp3';
 const HUSH_GAIN = 0.5;
 
+const POP_SOUND_URL = '/sounds/pop.mp3';
+const POP_GAIN = 0.5;
+
 let audioContext;
 let unlockListenerAttached = false;
 
@@ -27,6 +30,7 @@ let unlockListenerAttached = false;
 // without a dedicated module-level variable for each one.
 const tapBufferCache = { promise: null };
 const hushBufferCache = { promise: null };
+const popBufferCache = { promise: null };
 
 function isSoundEnabled() {
   if (typeof window === 'undefined') return true;
@@ -131,6 +135,13 @@ export function playTap() {
 // `playTap()`: no-ops on the server, without Web Audio, or while muted.
 export function playHush() {
   playBuffer(HUSH_SOUND_URL, hushBufferCache, HUSH_GAIN);
+}
+
+// Plays the "pop" sound for the Selected works project card hovers. Same
+// rules as `playTap()`: no-ops on the server, without Web Audio, or while
+// muted.
+export function playPop() {
+  playBuffer(POP_SOUND_URL, popBufferCache, POP_GAIN);
 }
 
 // React hook for UI that needs to read/toggle the mute flag reactively
